@@ -1,20 +1,7 @@
-<script setup></script>
-
 <template>
-  <div id="app">
-    <router-view />
+  <div id="app" class="w-[375px] h-[812px] mx-auto flex flex-col relative overflow-hidden">
+    <router-view class="flex-1 overflow-y-auto" />
   </div>
 </template>
 
-<style>
-html,
-body,
-#app {
-  width: 440px;
-  height: 956px;
-  margin: 0 auto;
-  padding: 0;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-</style>
+<script setup></script>
