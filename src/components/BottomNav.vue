@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const items = [
   { name: 'community', label: '커뮤니티', icon: ['fas', 'smile'] },
@@ -9,35 +11,34 @@ const items = [
   { name: 'profile', label: '내 정보', icon: ['fas', 'user'] },
 ]
 
-const active = ref('home')
-
-function setActive(name) {
-  active.value = name
-}
+const isActive = (n) => route.name === n
 </script>
 
 <template>
-  <nav class="absolute bottom-0 left-0 w-full bg-white border-t border-gray-200 z-10">
-    <div class="mx-auto max-w-[440px] flex justify-between px-3 py-2">
-      <button
+  <!-- 고정 크기: 376x80, 가운데 정렬, 화면 하단 고정 -->
+  <nav
+    class="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 w-[376px] h-[80px] shrink-0 bg-white border-t border-gray-200 rounded-t-xl"
+    style="padding-bottom: env(safe-area-inset-bottom)"
+  >
+    <div class="h-full flex items-center justify-between px-3">
+      <RouterLink
         v-for="it in items"
         :key="it.name"
-        type="button"
-        class="flex flex-col items-center gap-1 min-w-[72px]"
-        @click="setActive(it.name)"
+        :to="{ name: it.name }"
+        class="flex-1 h-full flex flex-col items-center justify-center gap-1"
       >
         <font-awesome-icon
           :icon="it.icon"
-          class="text-2xl"
-          :class="active === it.name ? 'text-green-500' : 'text-gray-400'"
+          class="text-xl"
+          :class="isActive(it.name) ? 'text-green-500' : 'text-gray-400'"
         />
         <span
-          class="text-[11px]"
-          :class="active === it.name ? 'text-green-500 font-semibold' : 'text-gray-400'"
+          class="text-[11px] leading-none"
+          :class="isActive(it.name) ? 'text-green-500 font-semibold' : 'text-gray-400'"
         >
           {{ it.label }}
         </span>
-      </button>
+      </RouterLink>
     </div>
   </nav>
 </template>
