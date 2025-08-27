@@ -22,12 +22,12 @@
         to="/survey"
         class="w-[295px] h-[50px] rounded-full flex items-center justify-center font-semibold no-underline transition-all duration-200 text-[20px] leading-none bg-[#03c473] text-white hover:bg-[#00b569]"
       >
-        검사 진행하기 <span class="text-[18px] leading-none ml-2">→</span>
+        테스트 진행하기 <span class="text-[18px] leading-none ml-2">→</span>
       </RouterLink>
 
       <RouterLink
         to="/home"
-        class="w-[295px] h-[50px] rounded-full flex items-center justify-center font-semibold no-underline transition-all duration-200 text-[20px] leading-none bg-[#e5e5e5] text-[#4b4b4b] hover:bg-[#d5d5d5]"
+        class="w-[295px] h-[50px] rounded-full border-2 border-[#E2E2E2] bg-white flex items-center justify-center font-semibold no-underline transition-all duration-200 text-[20px] leading-none text-[#4b4b4b] hover:bg-[#d5d5d5]"
       >
         건너뛰기 <span class="text-[18px] leading-none ml-2">→</span>
       </RouterLink>
