@@ -9,11 +9,13 @@ const router = createRouter({
       path: '/',
       name: 'Onboarding',
       component: OnboardingPage,
+      meta: { hideBottomNav: true },
     },
     {
       path: '/intro',
       name: 'OnboardingIntro',
       component: OnboardingIntro,
+      meta: { hideBottomNav: true },
     },
   ],
 })
