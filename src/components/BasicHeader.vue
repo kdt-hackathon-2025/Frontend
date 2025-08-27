@@ -5,7 +5,13 @@
       <RouterLink :to="iconTo">
         <img :src="iconSrc" alt="" class="w-[35px] ml-[20px] cursor-pointer" />
       </RouterLink>
-      <p class="text-[#1E1E1E] font-['Aggravo'] text-xl font-light ml-[14px]">{{ title }}</p>
+      <!-- 타이틀이 슬기로운 은퇴생활일 때만 Aggravo -->
+      <p
+        :class="[title === '슬기로운 은퇴생활' ? 'font-[Aggravo]' : 'font-[Pretendard]']"
+        class="text-[#1E1E1E] text-xl font-light ml-[14px]"
+      >
+        {{ title }}
+      </p>
     </template>
     <!-- 패턴 2 : 뒤로가기 + 타이틀 -->
     <template v-else-if="type === 'back'">
@@ -26,7 +32,7 @@
           />
         </svg>
       </button>
-      <p class="text-[#1E1E1E] font-['Aggravo'] text-xl font-light ml-[14px]">{{ title }}</p>
+      <p class="text-[#1E1E1E] text-xl font-light ml-[14px]">{{ title }}</p>
     </template>
   </header>
 </template>
