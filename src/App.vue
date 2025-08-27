@@ -17,7 +17,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fbfbfb; /* 외부 배경색 */
+  background: #fbfbfb;
 }
 
 #app {
