@@ -14,9 +14,11 @@ import {
   faMapPin,
   faUser,
   faLocationDot,
+  faArrowLeft,
+  faFilter,
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faSmile, faBriefcase, faHouse, faMapPin, faUser, faLocationDot)
+library.add(faSmile, faBriefcase, faHouse, faMapPin, faUser, faLocationDot, faArrowLeft, faFilter)
 
 const app = createApp(App)
 app.use(createPinia())

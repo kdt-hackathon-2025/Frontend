@@ -6,21 +6,38 @@ const total = 27
 const jobs = ref([
   {
     id: 1,
-    title: '스마트팜 생산관리 팀장 채용',
-    company: '농업회사 법인 플랜티팜 주식회사',
-    location: '전라남도 나주시 덕산길 172',
-    workHour: '주 5일 | 09:00 ~ 18:00',
-    career: '경력 7년 | 학력 무관',
-    salary: '연봉 4,000만원 이상',
+    title: '발달장애인 방과후 활동교사 전담인력',
+    company: '청소년 발달장애인 방과후활동센터 꿈드림',
+    location: '강원특별자치도 원주시 남원로 647',
+    workHour: '주 5일 | 14:00 ~ 18:00 (협의 가능)',
   },
   {
     id: 2,
-    title: '레미콘 영업관리 직원 구인(팀장급)',
-    company: '(주) 강동레미콘제이에스',
-    location: '전라남도 장성군 서삼면 봉암로',
-    workHour: '주 5일 | 08:00 ~ 18:00',
-    career: '경력 10년 | 학력 무관',
-    salary: '연봉 5,000만원 이상',
+    title: '청춘마당 주간보호센터 사회복지사 채용',
+    company: '청춘마당 노인주간보호센터',
+    location: '강원특별자치도 원주시 봉산로 162-2',
+    workHour: '주 5일 | 09:00 ~ 18:00',
+  },
+  {
+    id: 3,
+    title: '재가센터 사회복지사 채용',
+    company: '휴망문요양재가센터',
+    location: '강원특별자치도 원주시 봉산로 117',
+    workHour: '주 5일 | 09:00 ~ 18:00',
+  },
+  {
+    id: 4,
+    title: '귀래 요양원 사회복지사 모집',
+    company: '통나무집요양원',
+    location: '강원특별자치도 원주시 귀래면 부귀로 1575',
+    workHour: '주 5일 | 09:00 ~ 18:00',
+  },
+  {
+    id: 5,
+    title: '주간 요양보호사 채용',
+    company: '노블레스요양원',
+    location: '강원특별자치도 원주시 옥겹들길 55',
+    workHour: '주 5일 | 09:00 ~ 18:00',
   },
 ])
 
@@ -76,16 +93,71 @@ const cancelFilter = () => (showFilter.value = false)
 </script>
 
 <template>
-  <!-- ✅ 페이지 루트 컨테이너(오버레이 기준) -->
-  <div class="w-[440px] h-[956px] mx-auto bg-white overflow-hidden relative">
+  <!--  페이지 루트 컨테이너(오버레이 기준) -->
+  <div class="w-[375px] h-[812px] mx-auto bg-white overflow-hidden relative">
     <!-- 헤더 -->
-    <header class="flex items-center justify-between px-4 py-3">
-      <button>
-        <font-awesome-icon :icon="['fas', 'arrow-left']" class="text-xl text-gray-700" />
+    <header class="relative h-[70px] bg-white">
+      <!-- 뒤로가기 아이콘 (SVG)로 대체함 -->
+      <button
+        class="absolute left-4 top-1/2 -translate-y-1/2 w-[30px] h-[30px] flex items-center justify-center flex-shrink-0"
+        @click="$router.back()"
+        aria-label="뒤로가기"
+        type="button"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          viewBox="0 0 30 30"
+          fill="none"
+          class="w-[30px] h-[30px]"
+        >
+          <g clip-path="url(#clip0_677_1614)">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M10.3661 14.1162C10.1317 14.3506 10.0001 14.6685 10.0001 15C10.0001 15.3314 10.1317 15.6493 10.3661 15.8837L17.4373 22.955C17.5526 23.0744 17.6906 23.1696 17.8431 23.2351C17.9956 23.3006 18.1596 23.3351 18.3256 23.3365C18.4915 23.338 18.6561 23.3064 18.8098 23.2435C18.9634 23.1807 19.1029 23.0878 19.2203 22.9705C19.3377 22.8531 19.4305 22.7135 19.4933 22.5599C19.5562 22.4063 19.5878 22.2417 19.5864 22.0757C19.5849 21.9098 19.5505 21.7457 19.4849 21.5932C19.4194 21.4407 19.3242 21.3028 19.2048 21.1875L13.0173 15L19.2048 8.81248C19.4325 8.57673 19.5585 8.26098 19.5557 7.93323C19.5528 7.60548 19.4213 7.29197 19.1896 7.06021C18.9578 6.82845 18.6443 6.69699 18.3166 6.69414C17.9888 6.69129 17.6731 6.81728 17.4373 7.04498L10.3661 14.1162Z"
+              fill="#333333"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_677_1614">
+              <rect width="30" height="30" fill="white" transform="matrix(-1 0 0 1 30 0)" />
+            </clipPath>
+          </defs>
+        </svg>
       </button>
-      <h1 class="text-lg font-bold">추천 공고</h1>
-      <button @click="showFilter = true">
-        <font-awesome-icon :icon="['fas', 'filter']" class="text-xl text-gray-600" />
+
+      <!-- 제목 -->
+      <h1
+        class="absolute top-[23px] left-[58px] w-[92px] h-[24px] text-[20px] font-semibold leading-[1] text-[#1E1E1E] font-[Pretendard]"
+      >
+        일자리 조회
+      </h1>
+
+      <!-- 필터 아이콘 (SVG)코드로 대체함 -->
+      <button
+        class="absolute left-[318px] top-[30px] w-[25px] h-[25px] flex-shrink-0 flex items-center justify-center"
+        @click="showFilter = true"
+        aria-label="필터 열기"
+        type="button"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          viewBox="0 0 25 25"
+          fill="none"
+          class="w-[25px] h-[25px]"
+        >
+          <path
+            d="M22.9168 3.125H2.0835L10.4168 12.9792V19.7917L14.5835 21.875V12.9792L22.9168 3.125Z"
+            stroke="#1E1E1E"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
       </button>
     </header>
 
@@ -93,14 +165,16 @@ const cancelFilter = () => (showFilter.value = false)
     <div class="content-wrap relative">
       <!-- 지도 -->
       <section class="px-4">
-        <div class="h-40 w-full rounded-xl overflow-hidden border border-gray-200">
+        <div
+          class="w-[331px] h-[153px] aspect-[331/153] flex-shrink-0 rounded-[16px] border border-[#E2E2E2] bg-[url('/images/map-placeholder.png')] bg-cover bg-no-repeat bg-center overflow-hidden"
+        >
           <JobsMap :jobs="jobs" />
         </div>
       </section>
 
       <!-- 섹션 타이틀 -->
       <section class="px-4 mt-3 mb-2 flex items-baseline justify-between">
-        <h2 class="text-[15px] font-extrabold text-gray-900">추천 일자리</h2>
+        <h2 class="text-[15px] font-semibold text-[#1E1E1E] font-[Pretendard]">추천 일자리</h2>
         <span class="text-[13px] text-gray-500">{{ total }}개</span>
       </section>
 
@@ -109,38 +183,46 @@ const cancelFilter = () => (showFilter.value = false)
         <article
           v-for="job in jobs"
           :key="job.id"
-          class="rounded-2xl border border-gray-200 bg-white px-4 py-3 shadow-sm"
+          class="w-[335px] min-h-[136px] mx-auto px-5 py-4 flex flex-col rounded-2xl bg-white shadow-[1px_1px_4px_rgba(0,0,0,0.25)]"
         >
-          <!-- 상세로 이동 -->
-          <RouterLink :to="{ name: 'job-detail', params: { id: job.id } }" class="block">
-            <!-- ✅ 제목은 한 번만 -->
-            <h3 class="text-[17px] font-extrabold text-gray-900 leading-tight">
-              {{ job.title }}
-            </h3>
+          <!-- 제목 -->
+          <h3 class="w-full text-[18px] font-bold text-[#333] mb-[8px] leading-normal truncate">
+            {{ job.title }}
+          </h3>
 
-            <p class="text-[13px] text-gray-500 mt-1">
-              {{ job.company }}
-            </p>
+          <!-- 회사명 -->
+          <p class="text-[15px] font-medium text-[#3D4352] mb-[12px] leading-normal">
+            {{ job.company }}
+          </p>
 
-            <ul class="mt-2 space-y-1.5 text-[13px] text-gray-700">
-              <li class="flex items-center gap-2">
-                <font-awesome-icon :icon="['fas', 'location-dot']" class="text-gray-400" />
-                <span>{{ job.location }}</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <font-awesome-icon :icon="['fas', 'clock']" class="text-gray-400" />
-                <span>{{ job.workHour }}</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <font-awesome-icon :icon="['fas', 'briefcase']" class="text-gray-400" />
-                <span>{{ job.career }}</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <font-awesome-icon :icon="['fas', 'money-bill-wave']" class="text-gray-400" />
-                <span>{{ job.salary }}</span>
-              </li>
-            </ul>
-          </RouterLink>
+          <!-- 상세정보 -->
+          <ul class="space-y-[6px] text-[14px] text-[#333] font-normal">
+            <li class="flex items-center gap-2 leading-normal">
+              <!-- 주소 아이콘 -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none">
+                <path
+                  d="M7.5 8.75C8.87875 8.75 10 7.62875 10 6.25C10 4.87125 8.87875 3.75 7.5 3.75C6.12125 3.75 5 4.87125 5 6.25C5 7.62875 6.12125 8.75 7.5 8.75ZM7.5 5C8.18938 5 8.75 5.56063 8.75 6.25C8.75 6.93938 8.18938 7.5 7.5 7.5C6.81063 7.5 6.25 6.93938 6.25 6.25C6.25 5.56063 6.81063 5 7.5 5Z"
+                  fill="#333"
+                />
+                <path
+                  d="M7.13756 13.6338C7.24341 13.7091 7.37012 13.7496 7.50006 13.7496C7.63 13.7496 7.7567 13.7091 7.86256 13.6338C8.05256 13.4994 12.5182 10.275 12.5001 6.25C12.5001 3.49313 10.2569 1.25 7.50006 1.25C4.74318 1.25 2.50006 3.49312 2.50006 6.24688C2.48193 10.275 6.94756 13.4994 7.13756 13.6338ZM7.50006 2.5C9.56818 2.5 11.2501 4.18188 11.2501 6.25313C11.2632 9.02688 8.50756 11.5175 7.50006 12.3344C6.49318 11.5169 3.73693 9.02563 3.75006 6.25C3.75006 4.18188 5.43193 2.5 7.50006 2.5Z"
+                  fill="#333"
+                />
+              </svg>
+              <span>{{ job.location }}</span>
+            </li>
+
+            <li class="flex items-center gap-2 leading-normal">
+              <!-- 근무시간 아이콘 -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none">
+                <path
+                  d="M6.50016 10.8335C7.64943 10.8335 8.75163 10.3769 9.56429 9.56429C10.3769 8.75163 10.8335 7.64943 10.8335 6.50016C10.8335 5.35089 10.3769 4.24869 9.56429 3.43603C8.75163 2.62338 7.64943 2.16683 6.50016 2.16683C5.35089 2.16683 4.24869 2.62338 3.43603 3.43603C2.62338 4.24869 2.16683 5.35089 2.16683 6.50016C2.16683 7.64943 2.62338 8.75163 3.43603 9.56429C4.24869 10.3769 5.35089 10.8335 6.50016 10.8335ZM6.50016 1.0835C7.21149 1.0835 7.91585 1.2236 8.57303 1.49582C9.23021 1.76803 9.82734 2.16702 10.3303 2.67C10.8333 3.17298 11.2323 3.77011 11.5045 4.42729C11.7767 5.08447 11.9168 5.78884 11.9168 6.50016C11.9168 7.93675 11.3461 9.3145 10.3303 10.3303C9.3145 11.3461 7.93675 11.9168 6.50016 11.9168C3.50475 11.9168 1.0835 9.47933 1.0835 6.50016C1.0835 5.06357 1.65418 3.68582 2.67 2.67C3.68582 1.65418 5.06357 1.0835 6.50016 1.0835ZM6.771 3.79183V6.63558L9.2085 8.08183L8.80225 8.74808L5.9585 7.04183V3.79183H6.771Z"
+                  fill="#333"
+                />
+              </svg>
+              <span>{{ job.workHour }}</span>
+            </li>
+          </ul>
         </article>
       </main>
 
@@ -148,7 +230,7 @@ const cancelFilter = () => (showFilter.value = false)
       <footer class="px-4 pb-5 flex items-center justify-between"></footer>
     </div>
 
-    <!-- ✅ 오버레이/필터 패널: content-wrap 바깥(루트 바로 아래) -->
+    <!--  오버레이/필터 패널 -->
     <Transition
       enter-active-class="duration-200 ease-out"
       enter-from-class="opacity-0"
@@ -158,7 +240,7 @@ const cancelFilter = () => (showFilter.value = false)
       leave-to-class="opacity-0"
     >
       <div v-if="showFilter" class="absolute inset-0 z-[2000]">
-        <!-- 앱 박스(440x956) 전체 딤: 하단 네비도 함께 흐려짐 -->
+        <!-- 앱 박스 흐려짐 -->
         <div class="absolute inset-0 bg-black/35" @click="cancelFilter"></div>
 
         <Transition
@@ -171,7 +253,7 @@ const cancelFilter = () => (showFilter.value = false)
         >
           <div
             v-if="showFilter"
-            class="absolute top-0 left-0 right-0 mx-auto max-w-[440px] w-full bg-white rounded-b-2xl shadow-[0_6px_20px_rgba(0,0,0,0.12)] p-4"
+            class="absolute top-0 left-0 right-0 mx-auto max-w-[375px] w-full bg-white rounded-b-2xl shadow-[0_6px_20px_rgba(0,0,0,0.12)] p-4"
           >
             <!-- 필터 내용 (그대로) -->
             <!-- 근무 시간 -->
