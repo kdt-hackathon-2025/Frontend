@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import OnboardingPage from '@/pages/OnboardingPage.vue'
 import OnboardingIntro from '@/pages/OnboardingIntro.vue'
+import Home from '@/pages/Home.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +18,11 @@ const router = createRouter({
       component: OnboardingIntro,
       meta: { hideBottomNav: true },
     },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home
+    }
   ],
 })
 
