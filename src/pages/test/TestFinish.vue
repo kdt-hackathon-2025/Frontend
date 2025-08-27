@@ -7,7 +7,6 @@
       </div>
 
       <div class="w-full max-w-[327px] mx-auto">
-        <!-- 3단계 모두 완료 -->
         <div class="grid grid-cols-[auto_1fr_auto_1fr_auto] items-center px-2">
           <span
             class="grid place-items-center w-5 h-5 rounded-full border-2 border-[#20C27F] bg-[#20C27F]"
@@ -15,12 +14,14 @@
             <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
           </span>
           <div class="h-[2px] bg-[#20C27F]"></div>
+
           <span
             class="grid place-items-center w-5 h-5 rounded-full border-2 border-[#20C27F] bg-[#20C27F]"
           >
             <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
           </span>
           <div class="h-[2px] bg-[#20C27F]"></div>
+
           <span
             class="grid place-items-center w-5 h-5 rounded-full border-2 border-[#20C27F] bg-[#20C27F]"
           >
@@ -33,7 +34,7 @@
         >
           <span class="justify-self-center">생활 환경</span><span></span>
           <span class="justify-self-center ml-8">일자리</span><span></span>
-          <span class="justify-self-center">경력 정보</span>
+          <span class="justify-self-center">시작하기</span>
         </div>
       </div>
     </header>
@@ -78,7 +79,6 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const start = () => {
-  // 시작하기 눌렀을 때 이동할 경로로 변경해도 됩니다.
   router.push('/')
 }
 </script>
