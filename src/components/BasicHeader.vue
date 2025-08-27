@@ -1,13 +1,13 @@
 <template>
   <header class="text-[#FBFBFB] flex w-[375px] h-[76px] items-center">
-    <!-- 패턴 1 : 아이콘+타이틀 -->
+    <!-- 패턴 1 : 아이콘 + 타이틀 -->
     <template v-if="type === 'icon'">
       <RouterLink :to="iconTo">
         <img :src="iconSrc" alt="" class="w-[35px] ml-[20px] cursor-pointer" />
       </RouterLink>
       <p class="text-[#1E1E1E] font-['Aggravo'] text-xl font-light ml-[14px]">{{ title }}</p>
     </template>
-    <!-- 패턴 2 : 뒤로가기+타이틀 -->
+    <!-- 패턴 2 : 뒤로가기 + 타이틀 -->
     <template v-else-if="type === 'back'">
       <button @click="handleBack" class="mr-2">
         <svg
