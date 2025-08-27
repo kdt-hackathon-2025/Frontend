@@ -5,6 +5,12 @@
   font-weight: 400;
   font-style: normal;
 }
+@font-face {
+  font-family: 'SB 어그로OTF L';
+  src: url('@/assets/fonts/SB 어그로OTF L.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
 
 html,
 body,
