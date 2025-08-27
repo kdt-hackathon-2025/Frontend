@@ -31,10 +31,28 @@
   </header>
 </template>
 
+<script setup>
+import { RouterLink, useRouter } from 'vue-router'
+
+defineProps({
+  type: { type: String, default: 'icon' },
+  title: { type: String, required: true },
+  iconSrc: { type: String, default: '/src/assets/image/logo.png' },
+  iconTo: { type: [String, Object], default: '/home' },
+})
+
+const router = useRouter()
+
+function handleBack() {
+  router.back()
+}
+</script>
+
 <style scoped>
 @font-face {
   font-family: 'Aggravo';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroL.woff') format('woff');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroL.woff')
+    format('woff');
   font-weight: 300;
   font-display: swap;
 }
