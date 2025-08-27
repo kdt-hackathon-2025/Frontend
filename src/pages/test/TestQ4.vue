@@ -50,14 +50,13 @@
         <button
           v-if="view === 'idle'"
           type="button"
-          class="w-full h-[50px] rounded-[12px] border border-[#E7E9EE] bg-white grid grid-cols-[24px_1fr] items-center gap-2 px-4 text-left"
+          class="w-full h-[56px] rounded-[12px] border border-[#E7E9EE] bg-white flex items-center justify-center gap-2 px-4 text-[#8A92A6]"
           @click="view = 'category'"
         >
-          <span
-            class="grid place-items-center w-6 h-6 rounded-full border border-[#C8CDD7] text-[#8A92A6]"
-            >＋</span
-          >
-          <span class="text-[#8A92A6] text-[16px] font-medium">희망 직무 추가하기</span>
+          <span class="grid place-items-center w-6 h-6 rounded-full border border-[#C8CDD7]">
+            ＋
+          </span>
+          <span class="text-[16px] font-medium">희망 직무 추가하기</span>
         </button>
 
         <!-- 대분류 리스트 -->
