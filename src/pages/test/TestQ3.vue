@@ -4,7 +4,6 @@
       <div class="w-[55px] h-[54px] shrink-0 [aspect-ratio:55/54]">
         <img :src="logo" alt="logo" class="w-full h-full object-contain" />
       </div>
-
       <div class="w-full max-w-[327px] mx-auto">
         <div class="grid grid-cols-[auto_1fr_auto_1fr_auto] items-center px-2">
           <span
@@ -25,7 +24,6 @@
             <span class="w-1.5 h-1.5 rounded-full bg-[#20C27F]"></span>
           </span>
         </div>
-
         <div
           class="mt-1 grid grid-cols-[auto_1fr_auto_1fr_auto] items-start px-1 text-[16px] font-medium leading-[16px] tracking-[0.5px] text-[#6F6F6F] font-[Lato]"
         >
@@ -46,7 +44,7 @@
 
       <section class="mt-6 space-y-4">
         <div
-          class="flex items-center justify-between gap-3 rounded-[12px] border border-[#E7E9EE] bg-white p-4 shadow-[0_1px_0_rgba(0,0,0,0.02)]"
+          class="flex items-center justify-between gap-3 rounded-[12px] border border-[#E2E2E2] bg-white p-4 shadow-[0_1px_0_rgba(0,0,0,0.02)]"
         >
           <div class="flex items-center gap-3 min-w-0">
             <img :src="q31" alt="대형 마트" class="w-8 h-8 object-contain shrink-0" />
@@ -71,7 +69,7 @@
         </div>
 
         <div
-          class="flex items-center justify-between gap-3 rounded-[12px] border border-[#E7E9EE] bg-white p-4 shadow-[0_1px_0_rgba(0,0,0,0.02)]"
+          class="flex items-center justify-between gap-3 rounded-[12px] border border-[#E2E2E2] bg-white p-4 shadow-[0_1px_0_rgba(0,0,0,0.02)]"
         >
           <div class="flex items-center gap-3 min-w-0">
             <img :src="q32" alt="문화시설" class="w-8 h-8 object-contain shrink-0" />
@@ -96,7 +94,7 @@
         </div>
 
         <div
-          class="flex items-center justify-between gap-3 rounded-[12px] border border-[#E7E9EE] bg-white p-4 shadow-[0_1px_0_rgba(0,0,0,0.02)]"
+          class="flex items-center justify-between gap-3 rounded-[12px] border border-[#E2E2E2] bg-white p-4 shadow-[0_1px_0_rgba(0,0,0,0.02)]"
         >
           <div class="flex items-center gap-3 min-w-0">
             <img :src="q33" alt="병원" class="w-8 h-8 object-contain shrink-0" />
@@ -121,7 +119,7 @@
         </div>
 
         <div
-          class="flex items-center justify-between gap-3 rounded-[12px] border border-[#E7E9EE] bg-white p-4 shadow-[0_1px_0_rgba(0,0,0,0.02)]"
+          class="flex items-center justify-between gap-3 rounded-[12px] border border-[#E2E2E2] bg-white p-4 shadow-[0_1px_0_rgba(0,0,0,0.02)]"
         >
           <div class="flex items-center gap-3 min-w-0">
             <img :src="q34" alt="대중교통" class="w-8 h-8 object-contain shrink-0" />
@@ -146,7 +144,6 @@
         </div>
       </section>
 
-      <!-- 푸터 -->
       <footer class="absolute bottom-10 inset-x-6 flex items-center justify-between gap-3">
         <RouterLink
           to="/q2"
@@ -173,7 +170,6 @@ import q31 from '@/assets/image/q31.png'
 import q32 from '@/assets/image/q32.png'
 import q33 from '@/assets/image/q33.png'
 import q34 from '@/assets/image/q34.png'
-
 import { computed, reactive, defineComponent, h } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -206,36 +202,34 @@ const InfraSeg3 = defineComponent({
       { key: 'mid', label: '중' },
       { key: 'high', label: '상' },
     ]
-
-    const wrapperBase =
-      'flex items-center rounded-full h-[34px] w-[97px] overflow-hidden border ' +
-      (props.modelValue ? 'border-[#20C27F]' : 'border-[#E2E2E2]')
-
-    const segBase =
-      'flex-1 h-full grid place-items-center text-[14px] font-[Inter] font-medium leading-none select-none'
-
-    const active = 'bg-[#03C473] text-white'
-    const inactive = 'bg-transparent text-[#3D4352]'
-
+    const wrapperClass =
+      'flex items-center rounded-full h-[34px] w-[97px] overflow-hidden border border-[#E2E2E2] bg-white'
+    const baseSeg =
+      'relative flex-1 h-full grid place-items-center text-[14px] font-[Inter] font-medium leading-none select-none'
+    const activeBase = 'bg-[#E5FEF4] text-[#116C4A] border border-[#4AA982] z-10'
+    const activeRadius = (i) =>
+      i === 0
+        ? 'rounded-tl-[20px] rounded-bl-[20px] rounded-tr-[0] rounded-br-[0]'
+        : i === 1
+          ? 'rounded-none rounded-tl-[0] rounded-tr-[0] rounded-br-[0] rounded-bl-[0]'
+          : 'rounded-tr-[20px] rounded-br-[20px] rounded-tl-[0] rounded-bl-[0]'
     return () =>
       h(
         'div',
-        { class: [wrapperBase, attrs.class].filter(Boolean).join(' ') },
-        opts.map((o, i) =>
-          h(
+        { class: [wrapperClass, attrs.class].filter(Boolean).join(' ') },
+        opts.map((o, i) => {
+          const isActive = props.modelValue === o.key
+          const segCls = [
+            baseSeg,
+            isActive ? [activeBase, activeRadius(i)].join(' ') : 'bg-transparent text-[#3D4352]',
+            !isActive && i !== 0 ? 'border-l border-[#E2E2E2]' : '',
+          ].join(' ')
+          return h(
             'button',
-            {
-              type: 'button',
-              class: [
-                segBase,
-                props.modelValue === o.key ? active : inactive,
-                i !== 0 ? 'border-l border-[#E2E2E2]' : '',
-              ].join(' '),
-              onClick: () => emit('update:modelValue', o.key),
-            },
+            { type: 'button', class: segCls, onClick: () => emit('update:modelValue', o.key) },
             o.label,
-          ),
-        ),
+          )
+        }),
       )
   },
 })
