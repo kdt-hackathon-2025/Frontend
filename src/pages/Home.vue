@@ -1,71 +1,87 @@
 <template>
-  <div class="full-container">
+  <div class="bg-[#FBFBFB] min-h-screen">
     <BasicHeader />
     
     <!-- 메인 컨텐츠 -->
-    <div class="main-content">
+    <div class="flex flex-col items-center pb-4">
       <!-- 추천/인기 탭과 지역 정보 카드 -->
       <div class="relative">
         <!-- 추천/인기 탭 -->
-        <div class="tab-buttons">
-          <button :class="['recommend-btn', { active: activeTab === 'recommend' }]" @click="setActiveTab('recommend')">추천</button>
-          <button :class="['popular-btn', { active: activeTab === 'popular' }]" @click="setActiveTab('popular')">인기</button>
+        <div class="absolute top-0 left-0 flex z-10">
+          <button 
+            :class="[
+              'h-[30px] flex-shrink-0 border border-black/10 cursor-pointer font-semibold text-sm w-[52px] rounded-tl-[10px] rounded-tr-0 rounded-br-0 rounded-bl-0',
+              activeTab === 'recommend' ? 'bg-[#03C473] text-white' : 'bg-[#FBFBFB] text-black'
+            ]" 
+            @click="setActiveTab('recommend')"
+          >
+            추천
+          </button>
+          <button 
+            :class="[
+              'h-[30px] flex-shrink-0 border border-black/10 cursor-pointer font-semibold text-sm w-[54px] rounded-tl-0 rounded-tr-[10px] rounded-br-0 rounded-bl-0',
+              activeTab === 'popular' ? 'bg-[#03C473] text-white' : 'bg-[#FBFBFB] text-black'
+            ]" 
+            @click="setActiveTab('popular')"
+          >
+            인기
+          </button>
         </div>
 
         <!-- 지역 정보 카드 -->
-      <div class="region-card p-4 mb-6">
-        <transition :name="enableAnimation ? 'slide' : ''" mode="out-in">
-          <div class="region-card-content" :key="contentKey">
-            <!-- TOP 배지 -->
-            <div class="top1-badge">
-              <span class="top1-text">TOP {{ currentRegion.rank }}</span>
-            </div>
-            <img :src="currentRegion.image" :alt="currentRegion.regionName" class="region-image">
-            <h2 class="region-title">{{ currentRegion.regionName }}</h2>
-            
-            <div v-if="activeTab === 'recommend'" class="flex items-center justify-end space-x-1 text-green-600 text-sm cursor-pointer" style="position: absolute; top: 65px; right: 16px;" @click="goToReport">
-              <span>추천 리포트</span>
-              <span>→</span>
-            </div>
+        <div class="w-[335px] h-[400px] flex-shrink-0 rounded-[0_15px_15px_15px] border-0 border-[#E2E2E2] bg-white relative shadow-[1px_1px_4px_rgba(0,0,0,0.25)] mt-[30px] overflow-hidden p-4">
+          <transition :name="enableAnimation ? 'slide' : ''" mode="out-in">
+            <div class="absolute w-full h-full top-0 left-0" :key="contentKey">
+              <!-- TOP 배지 -->
+              <div class="absolute top-[18px] left-[16px] w-[55px] h-[23px] rounded-[10px] border border-[#4AA982] bg-[#E5FEF4] flex items-center justify-center">
+                <span class="text-[#4AA982] text-xs font-bold">TOP {{ currentRegion.rank }}</span>
+              </div>
+              <img :src="currentRegion.image" :alt="currentRegion.regionName" class="absolute top-[57px] left-[16px] w-[34px] h-[26px]">
+              <h2 class="absolute top-[59px] left-[58px] text-[#333] text-xl font-bold">{{ currentRegion.regionName }}</h2>
+              
+              <div v-if="activeTab === 'recommend'" class="flex items-center justify-end space-x-1 text-green-600 text-sm cursor-pointer absolute top-[65px] right-[16px]" @click="goToReport">
+                <span>추천 리포트</span>
+                <span>→</span>
+              </div>
 
-            <!-- 채용 정보 리스트 -->
-            <div class="job-list">
-              <div class="job-item" v-for="job in currentRegion.jobs" :key="job.title">
-                <p class="company-name">{{ job.company }}</p>
-                <p class="job-title">{{ job.title }}</p>
-                <span class="job-deadline">{{ job.deadline }}</span>
+              <!-- 채용 정보 리스트 -->
+              <div class="absolute top-[107px] left-1/2 transform -translate-x-1/2 flex flex-col gap-3">
+                <div class="w-[303px] h-[74px] rounded-[10px] bg-white relative shadow-[1px_1px_4px_rgba(0,0,0,0.25)]" v-for="job in currentRegion.jobs" :key="job.title">
+                  <p class="absolute top-[16px] left-[20px] text-black text-xs font-medium">{{ job.company }}</p>
+                  <p class="absolute top-[38px] left-[20px] text-[#333] text-base font-semibold">{{ job.title }}</p>
+                  <span class="absolute top-[39px] right-[16px] text-[#475067] text-sm font-normal">{{ job.deadline }}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </transition>
+          </transition>
 
-        <!-- 페이지 인디케이터 -->
-        <div class="page-indicator">
-          <div 
-            v-for="(region, index) in regionData" 
-            :key="region.id"
-            :class="['w-2 h-2 rounded-full cursor-pointer', currentSlide === index ? 'bg-gray-800' : 'bg-gray-300']"
-            @click="goToSlide(index)"
-          ></div>
+          <!-- 페이지 인디케이터 -->
+          <div class="absolute bottom-[16px] left-1/2 transform -translate-x-1/2 flex gap-2">
+            <div 
+              v-for="(region, index) in regionData" 
+              :key="region.id"
+              :class="['w-2 h-2 rounded-full cursor-pointer', currentSlide === index ? 'bg-gray-800' : 'bg-gray-300']"
+              @click="goToSlide(index)"
+            ></div>
+          </div>
         </div>
       </div>
 
       <!-- 지역 행사 소식 -->
-      <div class="event-news-box">
-        <h3 class="event-title">지역 행사 소식</h3>
-        <div class="festival-grid">
-          <div class="festival-item" @click="goToFestival('nonsan')">
-            <img src="../assets/image/fes1.png" alt="" class="festival-image">
-            <p class="festival-title">논산 딸기 축제</p>
+      <div class="w-[335px] h-[209px] rounded-[15px] bg-white shadow-[1px_1px_4px_rgba(0,0,0,0.25)] relative mt-[30px]">
+        <h3 class="absolute top-[16px] left-[20px] text-[#333] text-base font-semibold">지역 행사 소식</h3>
+        <div class="absolute top-[56px] left-[20px] flex gap-3">
+          <div class="w-[142px] h-[128px] rounded-[10px] border border-[#E2E2E2] bg-white relative cursor-pointer" @click="goToFestival('nonsan')">
+            <img src="../assets/image/fes1.png" alt="" class="w-[142px] h-[89px] rounded-t-[10px] absolute top-0 left-0">
+            <p class="absolute bottom-3 left-3 text-[#333] text-xs font-normal">논산 딸기 축제</p>
           </div>
-          <div class="festival-item" @click="goToFestival('ulsan')">
-            <img src="../assets/image/fes2.png" alt="" class="festival-image">
-            <p class="festival-title">울산 고래 축제</p>
+          <div class="w-[142px] h-[128px] rounded-[10px] border border-[#E2E2E2] bg-white relative cursor-pointer" @click="goToFestival('ulsan')">
+            <img src="../assets/image/fes2.png" alt="" class="w-[142px] h-[89px] rounded-t-[10px] absolute top-0 left-0">
+            <p class="absolute bottom-3 left-3 text-[#333] text-xs font-normal">울산 고래 축제</p>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -211,34 +227,8 @@ export default {
   font-family: Pretendard;
 }
 
-.full-container {
-  background-color: #FBFBFB;
-  min-height: 100vh;
-}
-
-.region-card {
-  width: 335px;
-  height: 400px;
-  flex-shrink: 0;
-  border-radius: 0 15px 15px 15px;
-  border: 0 solid #E2E2E2;
-  background: #FFF;
-  position: relative;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
-  margin-top: 30px;
-  overflow: hidden;
-}
-
-.region-card-content {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-
 .slide-enter-active, .slide-leave-active {
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.15s ease-out;
 }
 
 .slide-enter-from {
@@ -252,208 +242,4 @@ export default {
 .slide-enter-to, .slide-leave-from {
   transform: translateX(0);
 }
-
-.tab-buttons {
-  position: absolute;
-  top: 0px;
-  left: 0;
-  display: flex;
-  z-index: 10;
-}
-
-.recommend-btn, .popular-btn {
-  height: 30px;
-  flex-shrink: 0;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  cursor: pointer;
-  background: #FBFBFB;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.recommend-btn {
-  width: 52px;
-  border-radius: 10px 0 0 0;
-}
-
-.popular-btn {
-  width: 54px;
-  border-radius: 0 10px 0 0;
-}
-
-.recommend-btn.active, .popular-btn.active {
-  background: #03C473;
-  color: white;
-}
-
-.top1-badge {
-  position: absolute;
-  top: 18px;
-  left: 16px;
-  width: 55px;
-  height: 23px;
-  border-radius: 10px;
-  border: 1px solid #4AA982;
-  background: #E5FEF4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.top1-text {
-  color: #4AA982;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-
-.region-image {
-  position: absolute;
-  top: 57px;
-  left: 16px;
-  width: 34px;
-  height: 26px;
-}
-
-.region-title {
-  position: absolute;
-  top: 59px;
-  left: 58px;
-  color: #333;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.job-list {
-  position: absolute;
-  top: 107px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.job-item {
-  width: 303px;
-  height: 74px;
-  border-radius: 10px;
-  background: #FFF;
-  position: relative;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
-}
-
-.company-name {
-  position: absolute;
-  top: 16px;
-  left: 20px;
-  color: #000;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-}
-
-.job-title {
-  position: absolute;
-  top: 38px;
-  left: 20px;
-  color: #333;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-}
-
-.job-deadline {
-  position: absolute;
-  top: 39px;
-  right: 16px;
-  color: #475067;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.event-news-box {
-  width: 335px;
-  height: 209px;
-  border-radius: 15px;
-  background: #FFF;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
-  position: relative;
-}
-
-.event-title {
-  position: absolute;
-  top: 16px;
-  left: 20px;
-  color: #333;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-}
-
-.page-indicator {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-}
-
-.festival-grid {
-  position: absolute;
-  top: 56px;
-  left: 20px;
-  display: flex;
-  gap: 12px;
-}
-
-.festival-item {
-  width: 142px;
-  height: 128px;
-  border-radius: 10px;
-  border: 1px solid #E2E2E2;
-  background: #FFF;
-  position: relative;
-  cursor: pointer;
-}
-
-.festival-image {
-  width: 142px;
-  height: 89px;
-  border-radius: 10px 10px 0 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.festival-title {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  color: #333;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 1rem;
-  gap: 30px;
-}
-
-
 </style>
