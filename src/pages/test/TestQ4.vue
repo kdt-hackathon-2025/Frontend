@@ -69,10 +69,15 @@
             <li v-for="name in categories" :key="name">
               <button
                 type="button"
-                class="w-full font-[Pretendard] text-[15px] font-normal leading-[30px] text-[#333] text-center py-1"
+                class="w-full flex items-center justify-between py-1 px-2"
                 @click="name === '전문·특수직' ? (view = 'special') : null"
               >
-                {{ name }}
+                <span
+                  class="font-[Pretendard] text-[15px] font-normal leading-[30px] text-[#333] text-left"
+                >
+                  {{ name }}
+                </span>
+                <img :src="arrowDown" alt="" class="w-4 h-4 shrink-0 opacity-80" />
               </button>
             </li>
           </ul>
@@ -87,7 +92,7 @@
             <li v-for="name in specialities" :key="name">
               <button
                 type="button"
-                class="w-full font-[Pretendard] text-[15px] font-normal leading-[30px] text-[#333] py-1 text-center"
+                class="w-full text-left py-1 px-2 font-[Pretendard] text-[15px] font-normal leading-[30px] text-[#333]"
                 @click="onSelectSpecial(name)"
               >
                 {{ name }}
@@ -121,6 +126,7 @@
 
 <script setup>
 import logo from '@/assets/image/logo.png'
+import arrowDown from '@/assets/image/arrow_down.png'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
