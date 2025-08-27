@@ -1,6 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue'
 import JobsMap from '@/components/JobsMap.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goDetail = (id) => {
+  router.push({ name: 'job-detail', params: { id } })
+}
 const total = 27
 
 const jobs = ref([
@@ -94,7 +101,7 @@ const cancelFilter = () => (showFilter.value = false)
 
 <template>
   <!--  페이지 루트 컨테이너(오버레이 기준) -->
-  <div class="w-[375px] h-[812px] mx-auto bg-white overflow-hidden relative">
+  <div class="w-[375px] h-[812px] mx-auto bg-white relative">
     <!-- 헤더 -->
     <header class="relative h-[70px] bg-white">
       <!-- 뒤로가기 아이콘 (SVG)로 대체함 -->
@@ -137,7 +144,7 @@ const cancelFilter = () => (showFilter.value = false)
 
       <!-- 필터 아이콘 (SVG)코드로 대체함 -->
       <button
-        class="absolute left-[318px] top-[30px] w-[25px] h-[25px] flex-shrink-0 flex items-center justify-center"
+        class="absolute left-[318px] top-[30px] w-[25px] h-[5px] flex-shrink-0 flex items-center justify-center"
         @click="showFilter = true"
         aria-label="필터 열기"
         type="button"
@@ -164,16 +171,16 @@ const cancelFilter = () => (showFilter.value = false)
     <!-- 본문 -->
     <div class="content-wrap relative">
       <!-- 지도 -->
-      <section class="px-4">
+      <section class="px-5">
         <div
-          class="w-[331px] h-[153px] aspect-[331/153] flex-shrink-0 rounded-[16px] border border-[#E2E2E2] bg-[url('/images/map-placeholder.png')] bg-cover bg-no-repeat bg-center overflow-hidden"
+          class="w-[335px] h-[153px] aspect-[331/153] flex-shrink-0 rounded-[16px] border border-[#E2E2E2] bg-[url('/images/map-placeholder.png')] bg-cover bg-no-repeat bg-center overflow-hidden"
         >
           <JobsMap :jobs="jobs" />
         </div>
       </section>
 
       <!-- 섹션 타이틀 -->
-      <section class="px-4 mt-3 mb-2 flex items-baseline justify-between">
+      <section class="px-6 mt-5 mb-2 flex items-baseline justify-between">
         <h2 class="text-[15px] font-semibold text-[#1E1E1E] font-[Pretendard]">추천 일자리</h2>
         <span class="text-[13px] text-gray-500">{{ total }}개</span>
       </section>
@@ -183,15 +190,18 @@ const cancelFilter = () => (showFilter.value = false)
         <article
           v-for="job in jobs"
           :key="job.id"
-          class="w-[335px] min-h-[136px] mx-auto px-5 py-4 flex flex-col rounded-2xl bg-white shadow-[1px_1px_4px_rgba(0,0,0,0.25)]"
+          class="rounded-2xl border border-gray-200 bg-white px-4 py-3 shadow-sm cursor-pointer hover:shadow-md transition"
+          @click="goDetail(job.id)"
         >
           <!-- 제목 -->
-          <h3 class="w-full text-[18px] font-bold text-[#333] mb-[8px] leading-normal truncate">
+          <h3
+            class="text-[18px] font-bold text-gray-900 leading-tight truncate whitespace-nowrap overflow-hidden"
+          >
             {{ job.title }}
           </h3>
 
           <!-- 회사명 -->
-          <p class="text-[15px] font-medium text-[#3D4352] mb-[12px] leading-normal">
+          <p class="text-[15px] font-normal text-[#3D4352] mb-[12px] leading-normal">
             {{ job.company }}
           </p>
 
@@ -380,18 +390,18 @@ const cancelFilter = () => (showFilter.value = false)
 .range-dual {
   -webkit-appearance: none;
   appearance: none;
-  pointer-events: none; /* 트랙 클릭 방지, 핸들만 잡히게 */
+  pointer-events: none;
   background: transparent;
   height: 28px; /* 클릭 영역 */
 }
 .range-dual::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  pointer-events: auto; /* 엄지는 드래그 가능 */
+  pointer-events: auto;
   width: 18px;
   height: 18px;
   border-radius: 9999px;
-  background: #22c55e; /* green-500 */
+  background: #22c55e;
   border: 2px solid #fff;
   box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.5);
   cursor: pointer;

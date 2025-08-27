@@ -8,7 +8,7 @@ const items = [
   { name: 'community', label: '커뮤니티', icon: ['fas', 'smile'], path: '/community' },
   { name: 'jobs', label: '일자리', icon: ['fas', 'briefcase'], path: '/jobs' },
   { name: 'home', label: '홈', icon: ['fas', 'house'], path: '/home' },
-  { name: 'info', label: '종합정보', icon: ['fas', 'location-dot'], path: '/infra' },
+  { name: 'info', label: '인프라', icon: ['fas', 'location-dot'], path: '/infra' },
   { name: 'profile', label: '내 정보', icon: ['fas', 'user'], path: '/profile' },
 ]
 
