@@ -1,6 +1,6 @@
 <template>
   <div class="bg-[#FBFBFB] min-h-screen">
-    <BasicHeader type="icon" title="슬기로운 은퇴생활" />
+    <BasicHeader type="icon" title="슬기로운 은퇴생" />
 
     <!-- 메인 컨텐츠 -->
     <div class="flex flex-col items-center pb-4">
