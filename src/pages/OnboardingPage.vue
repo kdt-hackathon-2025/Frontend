@@ -7,7 +7,9 @@
       <div class="w-[93px] h-[98px] rounded-full grid place-items-center">
         <img :src="logo" alt="슬기로운 은퇴생활 로고" class="w-full h-full object-contain" />
       </div>
-      <h1 class="text-center text-[#1e1e1e] font-bold text-[24px] leading-[2]">
+      <h1
+        class="text-[#1E975A] text-center font-[SB_AggroOTF] text-[24px] font-normal leading-[48px]"
+      >
         슬기로운 은퇴생활
       </h1>
     </div>

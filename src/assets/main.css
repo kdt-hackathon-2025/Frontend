@@ -1,4 +1,10 @@
 @import 'tailwindcss';
+@font-face {
+  font-family: 'SB AggroOTF';
+  src: url('@/assets/fonts/SBAggroOTF.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
 
 html,
 body,
