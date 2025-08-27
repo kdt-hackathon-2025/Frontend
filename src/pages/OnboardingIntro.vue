@@ -19,7 +19,7 @@
 
     <div class="flex flex-col items-center gap-3 mx-auto mb-[60px]">
       <RouterLink
-        to="/survey"
+        to="/q1"
         class="w-[295px] h-[50px] rounded-full flex items-center justify-center font-semibold no-underline transition-all duration-200 text-[20px] leading-none bg-[#03c473] text-white hover:bg-[#00b569]"
       >
         테스트 진행하기 <span class="text-[18px] leading-none ml-2">→</span>
