@@ -8,9 +8,9 @@
       <div class="w-full max-w-[327px] mx-auto">
         <div class="grid grid-cols-[auto_1fr_auto_1fr_auto] items-center px-2">
           <span
-            class="grid place-items-center w-5 h-5 p-0.5 rounded-full border-2 border-[#20C27F] bg-white"
+            class="grid place-items-center w-5 h-5 p-0.5 rounded-full border-2 border-[#20C27F] bg-[#20C27F]"
           >
-            <span class="w-1.5 h-1.5 rounded-full bg-[#20C27F]"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
           </span>
           <div class="h-[2px] bg-[#20C27F]/30"></div>
           <span
@@ -18,7 +18,7 @@
           >
             <span class="w-1.5 h-1.5 rounded-full bg-[#20C27F]"></span>
           </span>
-          <div class="h-[2px] bg-[#D1D5DB]"></div>
+          <div class="h-[2px] bg-[#20C27F]/30"></div>
           <span
             class="grid place-items-center w-5 h-5 p-0.5 rounded-full border-2 border-[#20C27F] bg-white"
           >
@@ -31,9 +31,9 @@
         >
           <span class="justify-self-center">지역</span>
           <span></span>
-          <span class="justify-self-center ml-8">일자리</span>
+          <span class="justify-self-center">일자리</span>
           <span></span>
-          <span class="justify-self-center">시작하기</span>
+          <span class="justify-self-center">완료</span>
         </div>
       </div>
     </header>

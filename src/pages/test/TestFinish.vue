@@ -33,8 +33,8 @@
           class="mt-1 grid grid-cols-[auto_1fr_auto_1fr_auto] items-start px-1 text-[16px] font-medium leading-[16px] tracking-[0.5px] text-[#6F6F6F] font-[Lato]"
         >
           <span class="justify-self-center">지역</span><span></span>
-          <span class="justify-self-center ml-8">일자리</span><span></span>
-          <span class="justify-self-center">시작하기</span>
+          <span class="justify-self-center">일자리</span><span></span>
+          <span class="justify-self-center">완료</span>
         </div>
       </div>
     </header>
