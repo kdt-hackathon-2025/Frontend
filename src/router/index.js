@@ -81,7 +81,9 @@ const router = createRouter({
       path: '/stores/:id',
       name: 'StoreDetail',
       component: () => import('../pages/StoreDetail.vue'),
-    {      path: '/profile',
+    },
+    {
+      path: '/profile',
       name: 'MyPage',
       component: MyPage,
     },
