@@ -65,8 +65,8 @@ const jobCategory = ref('')
 const SAL_MIN = 0
 const SAL_MAX = 5000
 const SAL_STEP = 50
-const salaryMin = ref(0) // 최소 연봉(만원)
-const salaryMax = ref(2500) // 최대 연봉(만원)
+const salaryMin = ref(0)
+const salaryMax = ref(2500)
 
 const onMinChange = () => {
   if (salaryMin.value > salaryMax.value - SAL_STEP) {
@@ -83,7 +83,6 @@ const minPercent = computed(() => ((salaryMin.value - SAL_MIN) / (SAL_MAX - SAL_
 const maxPercent = computed(() => ((salaryMax.value - SAL_MIN) / (SAL_MAX - SAL_MIN)) * 100)
 const fmtPay = (n) => `${n.toLocaleString()}만원`
 
-/* 초기화 / 적용 / 취소 */
 const resetFilter = () => {
   startTime.value = '09:00'
   endTime.value = '16:00'
@@ -93,7 +92,6 @@ const resetFilter = () => {
   salaryMax.value = 2500
 }
 const applyFilter = () => {
-  // TODO: 실제 필터링 로직 연결
   showFilter.value = false
 }
 const cancelFilter = () => (showFilter.value = false)
@@ -265,7 +263,6 @@ const cancelFilter = () => (showFilter.value = false)
             v-if="showFilter"
             class="absolute top-0 left-0 right-0 mx-auto max-w-[375px] w-full bg-white rounded-b-2xl shadow-[0_6px_20px_rgba(0,0,0,0.12)] p-4"
           >
-            <!-- 필터 내용 (그대로) -->
             <!-- 근무 시간 -->
             <div class="mb-3">
               <div class="text-[13px] font-semibold mb-1">근무 시간</div>
@@ -320,7 +317,7 @@ const cancelFilter = () => (showFilter.value = false)
               </select>
             </div>
 
-            <!-- 희망 연봉 (듀얼 슬라이더) -->
+            <!-- 희망 연봉 -->
             <div class="mb-1">
               <div class="text-[13px] font-semibold mb-2">희망 연봉</div>
 
@@ -392,7 +389,7 @@ const cancelFilter = () => (showFilter.value = false)
   appearance: none;
   pointer-events: none;
   background: transparent;
-  height: 28px; /* 클릭 영역 */
+  height: 28px;
 }
 .range-dual::-webkit-slider-thumb {
   -webkit-appearance: none;
