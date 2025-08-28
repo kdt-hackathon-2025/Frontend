@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue'
 import JobsMap from '@/components/JobsMap.vue'
 import { useRouter } from 'vue-router'
@@ -9,6 +9,9 @@ const goDetail = (id) => {
   router.push({ name: 'job-detail', params: { id } })
 }
 const total = 27
+
+const minLabel = computed(() => `${salaryMin.value.toLocaleString()}만원`)
+const maxLabel = computed(() => `${salaryMax.value.toLocaleString()}만원`)
 
 const jobs = ref([
   {
@@ -51,9 +54,11 @@ const jobs = ref([
 /* ---------- 필터 모달 상태/모델 ---------- */
 const showFilter = ref(false)
 
+// 시간
 const startTime = ref('09:00')
 const endTime = ref('16:00')
 
+// 요일
 const days = ['월', '화', '수', '목', '금', '토', '일']
 const pickedDays = ref(['월'])
 const toggleDay = (d) =>
@@ -61,12 +66,18 @@ const toggleDay = (d) =>
     ? pickedDays.value.filter((x) => x !== d)
     : [...pickedDays.value, d])
 
+// 직무
 const jobCategory = ref('')
+
 const SAL_MIN = 0
 const SAL_MAX = 5000
 const SAL_STEP = 50
-const salaryMin = ref(0)
-const salaryMax = ref(2500)
+
+const salaryMin = ref<number>(0)
+const salaryMax = ref<number>(2500)
+
+const minPercent = computed(() => ((salaryMin.value - SAL_MIN) / (SAL_MAX - SAL_MIN)) * 100)
+const maxPercent = computed(() => ((salaryMax.value - SAL_MIN) / (SAL_MAX - SAL_MIN)) * 100)
 
 const onMinChange = () => {
   if (salaryMin.value > salaryMax.value - SAL_STEP) {
@@ -79,10 +90,7 @@ const onMaxChange = () => {
   }
 }
 
-const minPercent = computed(() => ((salaryMin.value - SAL_MIN) / (SAL_MAX - SAL_MIN)) * 100)
-const maxPercent = computed(() => ((salaryMax.value - SAL_MIN) / (SAL_MAX - SAL_MIN)) * 100)
-const fmtPay = (n) => `${n.toLocaleString()}만원`
-
+// resetFilter 안의 salary 관련도 함께 교체
 const resetFilter = () => {
   startTime.value = '09:00'
   endTime.value = '16:00'
@@ -91,8 +99,9 @@ const resetFilter = () => {
   salaryMin.value = 0
   salaryMax.value = 2500
 }
+
 const applyFilter = () => {
-  showFilter.value = false
+  /* TODO: 필터 로직 */ showFilter.value = false
 }
 const cancelFilter = () => (showFilter.value = false)
 </script>
@@ -248,9 +257,10 @@ const cancelFilter = () => (showFilter.value = false)
       leave-to-class="opacity-0"
     >
       <div v-if="showFilter" class="absolute inset-0 z-[2000]">
-        <!-- 앱 박스 흐려짐 -->
+        <!-- 배경 딤 -->
         <div class="absolute inset-0 bg-black/35" @click="cancelFilter"></div>
 
+        <!-- 위에서 내려오는 시트 -->
         <Transition
           enter-active-class="duration-250 ease-out"
           enter-from-class="-translate-y-full"
@@ -261,35 +271,39 @@ const cancelFilter = () => (showFilter.value = false)
         >
           <div
             v-if="showFilter"
-            class="absolute top-0 left-0 right-0 mx-auto max-w-[375px] w-full bg-white rounded-b-2xl shadow-[0_6px_20px_rgba(0,0,0,0.12)] p-4"
+            class="absolute top-0 left-0 right-0 mx-auto max-w-[375px] w-full bg-white rounded-b-2xl shadow-[0_6px_20px_rgba(0,0,0,0.12)] p-4 pt-5"
+            style="padding-top: calc(env(safe-area-inset-top, 0px) + 16px)"
           >
+            <h2 class="text-[20px] font-semibold text-[#111] mb-3">근무 조건 설정</h2>
+
+            <!-- ⬇️ 기존 폼(근무 시간/요일/직무/연봉/버튼) 그대로 유지 -->
             <!-- 근무 시간 -->
-            <div class="mb-3">
-              <div class="text-[13px] font-semibold mb-1">근무 시간</div>
-              <div class="flex items-center gap-2">
+            <div class="mb-4">
+              <div class="text-[13px] font-semibold mb-2">근무 시간</div>
+              <div class="flex items-center justify-between gap-3">
                 <input
                   v-model="startTime"
                   type="time"
-                  class="h-9 w-32 rounded-md border border-gray-300 px-2 text-[13px]"
+                  class="h-10 w-full rounded-lg border border-gray-300 px-3 text-[14px] font-medium text-[#111]"
                 />
                 <span class="text-gray-500">~</span>
                 <input
                   v-model="endTime"
                   type="time"
-                  class="h-9 w-32 rounded-md border border-gray-300 px-2 text-[13px]"
+                  class="h-10 w-full rounded-lg border border-gray-300 px-3 text-[14px] font-medium text-[#111]"
                 />
               </div>
             </div>
 
             <!-- 근무 요일 -->
-            <div class="mb-3">
-              <div class="text-[13px] font-semibold mb-1">근무 요일</div>
-              <div class="flex items-center gap-2">
+            <div class="mb-4">
+              <div class="text-[13px] font-semibold mb-2">근무 요일</div>
+              <div class="flex flex-wrap items-center gap-2">
                 <button
                   v-for="d in days"
                   :key="d"
                   type="button"
-                  class="h-8 px-3 rounded-full border text-[13px]"
+                  class="h-9 px-3 rounded-full border text-[13px] transition"
                   :class="
                     pickedDays.includes(d)
                       ? 'bg-green-500 text-white border-green-500'
@@ -303,68 +317,116 @@ const cancelFilter = () => (showFilter.value = false)
             </div>
 
             <!-- 희망 직무 -->
-            <div class="mb-3">
-              <div class="text-[13px] font-semibold mb-1">희망 직무</div>
-              <select
-                v-model="jobCategory"
-                class="h-9 w-full rounded-md border border-gray-300 px-3 text-[13px]"
-              >
-                <option value="">희망 직무 선택</option>
-                <option>생산관리</option>
-                <option>영업관리</option>
-                <option>설비관리</option>
-                <option>품질관리</option>
-              </select>
+            <div class="mb-4">
+              <div class="relative">
+                <select
+                  v-model="jobCategory"
+                  class="centered-select text-gray-400 h-10 w-full rounded-lg border border-gray-300 px-9 text-[14px] appearance-none text-center"
+                >
+                  <option value="">--------- 희망 직무 선택 ---------</option>
+                  <option>제조업</option>
+                  <option>교육업</option>
+                  <option>서비스업</option>
+                  <option>품질관리</option>
+                  <option>기타</option>
+                </select>
+
+                <!-- 드롭다운 아이콘 -->
+                <svg
+                  class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="#555"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
             </div>
 
             <!-- 희망 연봉 -->
-            <div class="mb-1">
-              <div class="text-[13px] font-semibold mb-2">희망 연봉</div>
+            <!-- 희망 연봉 (듀얼 슬라이더) -->
+            <div class="mb-2">
+              <div class="text-[13px] font-semibold mb-3">희망 연봉</div>
 
-              <div class="relative h-8 select-none">
+              <!-- 바탕 트랙 + 선택 구간 -->
+              <div class="relative h-2 rounded-full bg-gray-200">
                 <div
-                  class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 rounded bg-gray-300"
-                />
-                <div
-                  class="absolute top-1/2 -translate-y-1/2 h-1 bg-green-500 rounded"
+                  class="absolute top-0 h-2 bg-green-500 rounded-full"
                   :style="{ left: `${minPercent}%`, right: `${100 - maxPercent}%` }"
                 />
+                <!-- 최소 핸들 -->
                 <input
                   type="range"
+                  class="range-dual absolute inset-0 w-full bg-transparent"
                   :min="SAL_MIN"
                   :max="SAL_MAX"
                   :step="SAL_STEP"
                   v-model.number="salaryMin"
                   @input="onMinChange"
-                  class="range-dual absolute inset-0 w-full bg-transparent"
+                  aria-label="최소 연봉"
                 />
+                <!-- 최대 핸들 -->
                 <input
                   type="range"
+                  class="range-dual absolute inset-0 w-full bg-transparent"
                   :min="SAL_MIN"
                   :max="SAL_MAX"
                   :step="SAL_STEP"
                   v-model.number="salaryMax"
                   @input="onMaxChange"
-                  class="range-dual absolute inset-0 w-full bg-transparent"
+                  aria-label="최대 연봉"
                 />
               </div>
 
-              <div class="flex justify-between text-[12px] text-gray-600 mt-2">
-                <span>{{ fmtPay(salaryMin) }}</span>
-                <span>{{ fmtPay(salaryMax) }}</span>
+              <!-- 🔽 토글(thumb) 아래에 따라다니는 금액 배지 -->
+              <div class="relative mt-2 h-6">
+                <div
+                  class="absolute -translate-x-1/2 text-[12px] text-gray-800 bg-white px-2 py-0.5 rounded-full border border-gray-200 shadow-sm whitespace-nowrap"
+                  :style="{ left: `${minPercent}%` }"
+                >
+                  {{ minLabel }}
+                </div>
+                <div
+                  class="absolute -translate-x-1/2 text-[12px] text-gray-800 bg-white px-2 py-0.5 rounded-full border border-gray-200 shadow-sm whitespace-nowrap"
+                  :style="{ left: `${maxPercent}%` }"
+                >
+                  {{ maxLabel }}
+                </div>
               </div>
             </div>
-
             <!-- 버튼 -->
-            <div class="mt-4 mb-1 flex items-center justify-between gap-2">
+            <div class="mt-4 mb-1 flex items-center gap-2">
               <button
-                class="h-10 px-4 rounded-md border border-gray-300 text-gray-700 text-[14px]"
+                class="h-10 px-4 rounded-md border border-gray-300 text-gray-700 text-[14px] flex items-center gap-2"
                 @click="resetFilter"
               >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M3 12a9 9 0 1 0 3-6.708"
+                    stroke="#555"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M3 3v6h6"
+                    stroke="#555"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
                 초기화
               </button>
               <button
-                class="h-10 px-5 rounded-md bg-green-500 text-white font-semibold text-[14px]"
+                class="flex-1 h-10 rounded-md bg-green-500 text-white font-semibold text-[14px]"
                 @click="applyFilter"
               >
                 적용
@@ -387,10 +449,23 @@ const cancelFilter = () => (showFilter.value = false)
 .range-dual {
   -webkit-appearance: none;
   appearance: none;
-  pointer-events: none;
   background: transparent;
-  height: 28px;
+  pointer-events: none;
+  outline: none;
 }
+.range-dual::-webkit-slider-runnable-track {
+  height: 8px;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+}
+.range-dual::-moz-range-track {
+  height: 8px;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+}
+
 .range-dual::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -402,6 +477,7 @@ const cancelFilter = () => (showFilter.value = false)
   border: 2px solid #fff;
   box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.5);
   cursor: pointer;
+  margin-top: -5px;
 }
 .range-dual::-moz-range-thumb {
   pointer-events: auto;
@@ -413,7 +489,19 @@ const cancelFilter = () => (showFilter.value = false)
   box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.5);
   cursor: pointer;
 }
-.range-dual::-moz-range-track {
-  background: transparent;
+
+.range-dual:active::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.45);
+}
+.range-dual:active::-moz-range-thumb {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.45);
+}
+
+.centered-select {
+  text-align: center;
+  text-align-last: center;
+}
+.centered-select option {
+  text-align: center;
 }
 </style>

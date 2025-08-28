@@ -4,7 +4,7 @@
     <!-- 화면 사이즈 고정 -->
     <div
       id="app"
-      class="w-[375px] h-[812px] flex flex-col relative overflow-hidden bg-white rounded-2xl shadow-lg"
+      class="w-[375px] h-[812px] flex flex-col relative bg-white rounded-none shadow-none overflow-visible"
     >
       <router-view class="flex-1 overflow-y-auto" />
       <BottomNav v-if="!route.meta.hideBottomNav" />

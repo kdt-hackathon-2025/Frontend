@@ -10,6 +10,7 @@ import TestFinish from '@/pages/test/TestFinish.vue'
 import JobsPage from '@/pages/Jobs/JobsPage.vue'
 import JobDetailPage from '@/pages/Jobs/JobDetailPage.vue'
 import Home from '@/pages/Home.vue'
+import RegionJobsPage from '@/pages/Jobs/RegionJobsPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -77,6 +78,11 @@ const router = createRouter({
       path: '/home',
       name: 'Home',
       component: Home,
+    },
+    {
+      path: '/region-jobs',
+      name: 'RegionJobs',
+      component: RegionJobsPage,
     },
   ],
 })
