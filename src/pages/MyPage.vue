@@ -95,7 +95,7 @@
               </p>
               <p class="text-xs text-[#96A0B5] mt-0.5">사용 가능 기간: 2025-08-20</p>
               <button
-                class="mt-2 ml-10 w-32 h-8 px-3 py-1 bg-[#03C473] text-[#FBFBFB] text-sm rounded-xl font-semibold cursor-pointer"
+                class="mt-2 ml-16 h-8 px-4 py-1 bg-[#03C473] text-[#FBFBFB] text-sm rounded-xl font-semibold cursor-pointer"
                 @click="isQrOpen = true"
               >
                 쿠폰 사용하기
@@ -121,7 +121,7 @@
               </p>
               <p class="text-xs text-[#96A0B5] mt-0.5">사용 가능 기간: 2025-08-20</p>
               <button
-                class="mt-2 ml-10 w-32 h-8 px-3 py-1 bg-[#03C473] text-[#FBFBFB] text-sm rounded-xl font-semibold cursor-pointer"
+                class="mt-2 ml-16 h-8 px-4 py-1 bg-[#03C473] text-[#FBFBFB] text-sm rounded-xl font-semibold cursor-pointer"
                 @click="isQrOpen = true"
               >
                 쿠폰 사용하기
@@ -147,7 +147,7 @@
               </p>
               <p class="text-xs text-[#96A0B5] mt-0.5">사용 가능 기간: 2025-08-20</p>
               <button
-                class="mt-2 ml-10 w-32 h-8 px-3 py-1 bg-[#03C473] text-[#FBFBFB] text-sm rounded-xl font-semibold"
+                class="mt-2 ml-16 h-8 px-4 py-1 bg-[#03C473] text-[#FBFBFB] text-sm rounded-xl font-semibold"
                 @click="isQrOpen = true"
               >
                 쿠폰 사용하기
@@ -199,3 +199,9 @@ import { ref } from 'vue'
 
 const isQrOpen = ref(false)
 </script>
+
+<style scoped>
+* {
+  font-family: Pretendard;
+}
+</style>
