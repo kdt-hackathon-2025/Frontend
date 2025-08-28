@@ -54,7 +54,10 @@
         <span class="px-1">|</span>
         <span class="font-semibold text-[#7D7D7D]">사용 완료</span>
       </div>
-      <button class="text-sm text-[#7D7D7D] flex gap-[0.7rem] items-center cursor-pointer">
+      <button
+        class="text-sm text-[#7D7D7D] flex gap-[0.7rem] items-center cursor-pointer"
+        @click="$router.push('/reviews')"
+      >
         리뷰 전체보기
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -10,6 +10,7 @@ import TestFinish from '@/pages/test/TestFinish.vue'
 import Home from '@/pages/Home.vue'
 import MyPage from '@/pages/MyPage.vue'
 import Report from '@/pages/Report.vue'
+import ReviewList from '@/pages/ReviewList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -76,6 +77,11 @@ const router = createRouter({
       path: '/report',
       name: 'Report',
       component: Report,
+    },
+    {
+      path: '/reviews',
+      name: ReviewList,
+      component: ReviewList,
     },
   ],
 })
