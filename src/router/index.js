@@ -13,6 +13,7 @@ import Home from '@/pages/Home.vue'
 import MyPage from '@/pages/MyPage.vue'
 import Report from '@/pages/Report.vue'
 import RegionJobsPage from '@/pages/Jobs/RegionJobsPage.vue'
+import CommunityPage from '@/pages/CommunityPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +81,26 @@ const router = createRouter({
       path: '/home',
       name: 'Home',
       component: Home,
+    },
+    {
+      path: '/mypage',
+      name: 'MyPage',
+      component: MyPage,
+    },
+    {
+      path: '/report',
+      name: 'Report',
+      component: Report,
+    },
+    {
+      path: '/region-jobs',
+      name: 'RegionJobs',
+      component: RegionJobsPage,
+    },
+    {
+      path: '/community',
+      name: 'Community',
+      component: CommunityPage,
     },
   ],
 })

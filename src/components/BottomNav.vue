@@ -9,7 +9,7 @@ const items = [
   { name: 'jobs', label: '일자리', icon: ['fas', 'briefcase'], path: '/region-jobs' },
   { name: 'home', label: '홈', icon: ['fas', 'house'], path: '/home' },
   { name: 'info', label: '인프라', icon: ['fas', 'location-dot'], path: '/infra' },
-  { name: 'profile', label: '내 정보', icon: ['fas', 'user'], path: '/profile' },
+  { name: 'profile', label: '내 정보', icon: ['fas', 'user'], path: '/mypage' },
 ]
 
 const active = ref('home')
