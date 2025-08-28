@@ -1,18 +1,24 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const items = [
-  { name: 'community', label: '커뮤니티', icon: ['fas', 'smile'] },
-  { name: 'jobs', label: '일자리', icon: ['fas', 'briefcase'] },
-  { name: 'home', label: '홈', icon: ['fas', 'house'] },
-  { name: 'info', label: '종합정보', icon: ['fas', 'location-dot'] },
-  { name: 'profile', label: '내 정보', icon: ['fas', 'user'] },
+  { name: 'community', label: '커뮤니티', icon: ['fas', 'smile'], path: '/community' },
+  { name: 'jobs', label: '일자리', icon: ['fas', 'briefcase'], path: '/jobs' },
+  { name: 'home', label: '홈', icon: ['fas', 'house'], path: '/home' },
+  { name: 'info', label: '인프라', icon: ['fas', 'location-dot'], path: '/infra' },
+  { name: 'profile', label: '내 정보', icon: ['fas', 'user'], path: '/profile' },
 ]
 
 const active = ref('home')
 
-function setActive(name) {
-  active.value = name
+function setActive(it) {
+  active.value = it.name
+  if (it.path) {
+    router.push(it.path)
+  }
 }
 </script>
 
@@ -24,7 +30,7 @@ function setActive(name) {
         :key="it.name"
         type="button"
         class="flex flex-col items-center gap-1 min-w-[72px]"
-        @click="setActive(it.name)"
+        @click="setActive(it)"
       >
         <font-awesome-icon
           :icon="it.icon"

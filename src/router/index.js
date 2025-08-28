@@ -7,6 +7,8 @@ import TestQ3 from '@/pages/test/TestQ3.vue'
 import TestQ4 from '@/pages/test/TestQ4.vue'
 import TestQ5 from '@/pages/test/TestQ5.vue'
 import TestFinish from '@/pages/test/TestFinish.vue'
+import JobsPage from '@/pages/Jobs/JobsPage.vue'
+import JobDetailPage from '@/pages/Jobs/JobDetailPage.vue'
 import Home from '@/pages/Home.vue'
 
 const router = createRouter({
@@ -59,6 +61,17 @@ const router = createRouter({
       name: 'TestFinish',
       component: TestFinish,
       meta: { hideBottomNav: true },
+    },
+    {
+      path: '/jobs',
+      name: 'Jobs',
+      component: JobsPage,
+    },
+    {
+      path: '/jobs/:id',
+      name: 'job-detail',
+      component: JobDetailPage,
+      meta: { hideNav: true },
     },
     {
       path: '/home',
