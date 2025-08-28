@@ -8,7 +8,7 @@
           <button
             v-for="c in categories"
             :key="c.value"
-            class="px-4 py-2 rounded-full border transition select-none text-[14px] font-medium leading-[1] snap-start focus:outline-none focus:ring-2 focus:ring-[#03C473]/30"
+            class="px-4 py-2 rounded-full border transition select-none text-[14px] font-medium leading-[1] snap-start cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#03C473]/30"
             :class="
               selected === c.value
                 ? 'bg-[#03C473] text-[#FBFBFB] border-transparent'
@@ -36,19 +36,26 @@
         <li v-for="(s, i) in filtered" :key="s.id" class="pt-4">
           <div class="flex gap-4">
             <!-- 이미지 100x100 -->
-            <img
-              :src="s.img"
-              alt=""
-              class="w-[100px] h-[100px] rounded-[10px] object-cover shrink-0"
-            />
+            <RouterLink :to="{ name: 'StoreDetail', params: { id: 1 } }">
+              <img
+                :src="s.img"
+                alt=""
+                class="w-[100px] h-[100px] rounded-[10px] object-cover shrink-0"
+              />
+            </RouterLink>
 
             <!-- 오른쪽 내용 -->
             <div class="min-w-0 flex-1">
               <div class="flex items-start justify-between gap-2">
                 <!-- 이름 -->
-                <h3 class="text-[16px] font-bold text-[#333] leading-normal break-words">
-                  {{ s.name }}
-                </h3>
+                <RouterLink :to="{ name: 'StoreDetail', params: { id: 1 } }">
+                  <h3
+                    class="text-[16px] font-bold hover:underline text-[#333] leading-normal break-words"
+                  >
+                    {{ s.name }}
+                  </h3>
+                </RouterLink>
+
                 <!-- 북마크 -->
                 <img
                   :src="s.bookmarked ? bookmarkFill : bookmarkOutline"
@@ -58,24 +65,30 @@
                 />
               </div>
 
-              <!-- 평점 (별 + 4.6 (34)) -->
-              <div class="mt-1 flex items-center gap-1">
-                <img :src="star14" class="w-[14px] h-[14px] aspect-square shrink-0" alt="" />
-                <span class="text-[12px] font-medium text-[#333]">{{ s.rating }}</span>
-                <span class="text-[12px] text-[#7D7D7D]">({{ s.reviewCount }})</span>
-              </div>
+              <RouterLink :to="{ name: 'StoreDetail', params: { id: 1 } }">
+                <!-- 평점 (별 + 4.6 (34)) -->
+                <div class="mt-1 flex items-center gap-1">
+                  <img :src="star14" class="w-[14px] h-[14px] aspect-square shrink-0" alt="" />
+                  <span class="text-[12px] font-medium text-[#333]">{{ s.rating }}</span>
+                  <span class="text-[12px] text-[#7D7D7D]">({{ s.reviewCount }})</span>
+                </div>
 
-              <!-- 주소 -->
-              <p class="mt-1 text-[12px] text-[#7D7D7D] leading-normal">
-                {{ s.addr }}
-              </p>
+                <!-- 주소 -->
+                <p class="mt-1 text-[12px] text-[#7D7D7D] leading-normal">
+                  {{ s.addr }}
+                </p>
 
-              <!-- 소개 (한 줄 말줄임, 너비 190px 요구사항) -->
-              <p class="mt-1 text-[12px] text-[#454545] leading-normal w-[190px] line-clamp-1">
-                {{ s.desc }}
-              </p>
+                <!-- 소개 (한 줄 말줄임, 너비 190px 요구사항) -->
+
+                <p
+                  class="mt-1 text-[12px] text-[#454545] leading-normal w-[190px] line-clamp-1 hover:underline"
+                >
+                  {{ s.desc }}
+                </p>
+              </RouterLink>
             </div>
           </div>
+
           <div v-if="i < filtered.length - 1" class="mt-4 h-[1.5px] bg-[#F2F4F6] -mx-5"></div>
         </li>
       </ul>
