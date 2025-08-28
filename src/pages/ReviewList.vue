@@ -21,7 +21,7 @@
           <!-- 가게명, 버튼 -->
           <div class="flex gap-[7px] items-center">
             <p class="font-semibold text-[#333333] text-lg">{{ review.store }}</p>
-            <button @click="$router.push(`/store/${review.id}`)" class="cursor-pointer">
+            <button @click="$router.push(`/stores/1`)" class="cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="6"
