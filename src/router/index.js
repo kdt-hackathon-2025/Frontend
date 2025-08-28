@@ -68,6 +68,21 @@ const router = createRouter({
       component: Home,
     },
     {
+      path: '/community',
+      name: 'community',
+      component: () => import('../pages/CommunityPage.vue'),
+    },
+    {
+      path: '/stores',
+      name: 'StoreList',
+      component: () => import('../pages/StoreList.vue'),
+    },
+    {
+      path: '/stores/:id',
+      name: 'StoreDetail',
+      component: () => import('../pages/StoreDetail.vue'),
+    },
+    {
       path: '/profile',
       name: 'MyPage',
       component: MyPage,
