@@ -355,58 +355,61 @@ const cancelFilter = () => (showFilter.value = false)
             <div class="mb-2">
               <div class="text-[13px] font-semibold mb-3">희망 연봉</div>
 
-              <!-- 바탕 트랙 + 선택 구간 -->
-              <div class="relative h-2 rounded-full bg-gray-200">
-                <div
-                  class="absolute top-0 h-2 bg-green-500 rounded-full"
-                  :style="{ left: `${minPercent}%`, right: `${100 - maxPercent}%` }"
-                />
-                <!-- 최소 핸들 -->
-                <input
-                  type="range"
-                  class="range-dual absolute inset-0 w-full bg-transparent"
-                  :min="SAL_MIN"
-                  :max="SAL_MAX"
-                  :step="SAL_STEP"
-                  v-model.number="salaryMin"
-                  @input="onMinChange"
-                  aria-label="최소 연봉"
-                />
-                <!-- 최대 핸들 -->
-                <input
-                  type="range"
-                  class="range-dual absolute inset-0 w-full bg-transparent"
-                  :min="SAL_MIN"
-                  :max="SAL_MAX"
-                  :step="SAL_STEP"
-                  v-model.number="salaryMax"
-                  @input="onMaxChange"
-                  aria-label="최대 연봉"
-                />
-              </div>
-
-              <!-- 🔽 토글(thumb) 아래에 따라다니는 금액 배지 -->
-              <div class="relative mt-2 h-6">
-                <div
-                  class="absolute -translate-x-1/2 text-[12px] text-gray-800 bg-white px-2 py-0.5 rounded-full border border-gray-200 shadow-sm whitespace-nowrap"
-                  :style="{ left: `${minPercent}%` }"
-                >
-                  {{ minLabel }}
+              <div class="mx-5">
+                <!-- 바탕 트랙 + 선택 구간 -->
+                <div class="relative h-2 rounded-full bg-gray-200 overflow-visible">
+                  <div
+                    class="absolute top-0 h-2 bg-green-500 rounded-full"
+                    :style="{ left: `${minPercent}%`, right: `${100 - maxPercent}%` }"
+                  />
+                  <!-- 최소 핸들 -->
+                  <input
+                    type="range"
+                    class="range-dual absolute inset-0 w-full bg-transparent"
+                    :min="SAL_MIN"
+                    :max="SAL_MAX"
+                    :step="SAL_STEP"
+                    v-model.number="salaryMin"
+                    @input="onMinChange"
+                    aria-label="최소 연봉"
+                  />
+                  <!-- 최대 핸들 -->
+                  <input
+                    type="range"
+                    class="range-dual absolute inset-0 w-full bg-transparent"
+                    :min="SAL_MIN"
+                    :max="SAL_MAX"
+                    :step="SAL_STEP"
+                    v-model.number="salaryMax"
+                    @input="onMaxChange"
+                    aria-label="최대 연봉"
+                  />
                 </div>
-                <div
-                  class="absolute -translate-x-1/2 text-[12px] text-gray-800 bg-white px-2 py-0.5 rounded-full border border-gray-200 shadow-sm whitespace-nowrap"
-                  :style="{ left: `${maxPercent}%` }"
-                >
-                  {{ maxLabel }}
+
+                <div class="relative mt-2 h-6 overflow-visible">
+                  <div
+                    class="absolute -translate-x-1/2 text-[12px] text-gray-800 bg-white px-2 py-0.5 rounded-full border border-gray-200 shadow-sm whitespace-nowrap"
+                    :style="{ left: `${minPercent}%` }"
+                  >
+                    {{ minLabel }}
+                  </div>
+                  <div
+                    class="absolute -translate-x-1/2 text-[12px] text-gray-800 bg-white px-2 py-0.5 rounded-full border border-gray-200 shadow-sm whitespace-nowrap"
+                    :style="{ left: `${maxPercent}%` }"
+                  >
+                    {{ maxLabel }}
+                  </div>
                 </div>
               </div>
             </div>
+
             <!-- 버튼 -->
             <div class="mt-4 mb-1 flex items-center gap-2">
               <button
-                class="h-10 px-4 rounded-md border border-gray-300 text-gray-700 text-[14px] flex items-center gap-2"
+                class="h-10 px-4 rounded-md text-gray-700 text-[14px] flex items-center gap-2 bg-transparent border-0"
                 @click="resetFilter"
               >
+                <!-- 아이콘 -->
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M3 12a9 9 0 1 0 3-6.708"
@@ -425,14 +428,17 @@ const cancelFilter = () => (showFilter.value = false)
                 </svg>
                 초기화
               </button>
+
+              <!-- 적용/취소를 오른쪽으로 밀기 -->
               <button
-                class="flex-1 h-10 rounded-md bg-green-500 text-white font-semibold text-[14px]"
+                class="ms-auto w-[90px] h-[35px] shrink-0 rounded-[10px] bg-[#03C473] text-white text-[14px] font-semibold"
                 @click="applyFilter"
               >
                 적용
               </button>
+
               <button
-                class="h-10 px-4 rounded-md bg-gray-200 text-gray-700 text-[14px]"
+                class="w-[90px] h-[35px] rounded-md bg-gray-200 text-gray-700 text-[14px] font-semibold"
                 @click="cancelFilter"
               >
                 취소
