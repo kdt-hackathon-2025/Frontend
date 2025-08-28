@@ -1,18 +1,13 @@
 <template>
-  <BasicHeader class="sticky top-0 z-50" />
   <div class="min-h-screen bg-[#FBFBFB] overflow-y-auto">
-    <section class="px-5 mt-4 pb-16">
+    <BasicHeader type="icon" title="강원도 게시판" />
+    <section class="px-5 mt-1 pb-16">
       <!-- 가맹점 헤더 라인 -->
       <div class="flex items-center justify-between mb-3">
-        <h2
-          class="text-[16px] font-semibold text-[#333] leading-normal"
-          style="font-family: Inter, Pretendard, system-ui"
-        >
-          지역 혜택 매장
-        </h2>
+        <h2 class="text-[16px] font-bold text-[#333] leading-normal">지역 혜택 매장</h2>
         <button
           type="button"
-          class="flex items-center gap-1 text-[12px] font-medium text-[#7D7D7D] leading-normal"
+          class="flex items-center text-[12px] font-medium cursor-pointer hover:underline text-[#7D7D7D] leading-normal"
           @click="onSeeAll"
         >
           전체보기
@@ -29,7 +24,7 @@
             class="w-[195px] h-[117px] object-cover rounded-2xl"
           />
           <div class="mt-2 flex items-start justify-between">
-            <div class="min-w-0">
+            <div class="min-w-0 mx-1">
               <h3 class="text-[12px] font-semibold text-[#333] leading-normal truncate">
                 {{ item.title }}
               </h3>
@@ -80,7 +75,7 @@
             </div>
 
             <!-- 제목 / 본문 -->
-            <h3 class="mt-3 text-[16px] font-semibold leading-tight text-black line-clamp-2">
+            <h3 class="mt-3 text-[16px] font-semibold leading-tight text-[#333] line-clamp-2">
               {{ p.title }}
             </h3>
             <p class="mt-1 text-[14px] text-[#454545] leading-normal line-clamp-2">
@@ -111,9 +106,12 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
 import BasicHeader from '@/components/BasicHeader.vue'
-import cafe1 from '@/assets/image/community_image1.png'
-import cafe2 from '@/assets/image/community_image2.png'
+import cafe1 from '@/assets/image/community_image2.png'
+import cafe2 from '@/assets/image/community_image1.png'
+
 import icRight from '@/assets/image/right-line.svg'
 import star from '@/assets/image/star12.svg'
 import bookmarkIcon from '@/assets/image/bookmark-rounded.svg'
@@ -145,6 +143,7 @@ const shops = [
 
 function onSeeAll() {
   // TODO: 라우팅하거나 이벤트 처리
+  router.push({ name: 'StoreList' })
   console.log('전체보기 클릭')
 }
 
@@ -187,5 +186,8 @@ const posts = [
 <style>
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+* {
+  font-family: Pretendard;
 }
 </style>

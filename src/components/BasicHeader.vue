@@ -1,5 +1,5 @@
 <template>
-  <header class="text-[#FBFBFB] flex w-[375px] h-[76px] items-center">
+  <header class="text-[#FBFBFB] flex w-full h-[76px] items-center">
     <!-- 패턴 1 : 아이콘 + 타이틀 -->
     <template v-if="type === 'icon'">
       <RouterLink :to="iconTo">
@@ -7,8 +7,13 @@
       </RouterLink>
       <!-- 타이틀이 슬기로운 은퇴생활일 때만 Aggravo -->
       <p
-        :class="[title === '슬기로운 은퇴생활' ? 'font-[Aggravo]' : 'font-[Pretendard]']"
-        class="text-[#1E1E1E] text-xl font-light ml-[14px]"
+        :class="[
+          title === '슬기로운 은퇴생활'
+            ? 'font-[Aggravo] font-light'
+            : 'font-[Pretendard] font-semibold',
+          'text-[#1E1E1E] text-xl ml-[14px]',
+        ]"
+        class=""
       >
         {{ title }}
       </p>
@@ -32,7 +37,7 @@
           />
         </svg>
       </button>
-      <p class="text-[#1E1E1E] text-xl font-light ml-[14px]">{{ title }}</p>
+      <p class="text-[#1E1E1E] text-xl font-semibold ml-[14px]">{{ title }}</p>
     </template>
   </header>
 </template>

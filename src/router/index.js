@@ -70,6 +70,11 @@ const router = createRouter({
       name: 'community',
       component: () => import('../pages/CommunityPage.vue'),
     },
+    {
+      path: '/stores',
+      name: 'StoreList',
+      component: () => import('../pages/storeList.vue'),
+    },
   ],
 })
 
