@@ -3,7 +3,7 @@
     <BasicHeader type="icon" title="슬기로운 은퇴생활" />
     
     <!-- 메인 컨텐츠 -->
-    <div class="flex flex-col items-center pb-4">
+    <div class="flex flex-col items-center pb-4 mb-12">
       <!-- 추천/인기 탭과 지역 정보 카드 -->
       <div class="relative">
         <!-- 추천/인기 탭 -->
