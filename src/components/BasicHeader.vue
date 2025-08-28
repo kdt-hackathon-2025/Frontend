@@ -37,7 +37,9 @@
           />
         </svg>
       </button>
-      <p class="text-[#1E1E1E] text-xl font-semibold ml-[14px]">{{ title }}</p>
+      <p class="font-[Pretendard] font-semibold text-[20px] text-[#1E1E1E] ml-[14px]">
+        {{ title }}
+      </p>
     </template>
   </header>
 </template>
