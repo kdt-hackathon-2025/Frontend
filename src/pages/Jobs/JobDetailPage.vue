@@ -1,10 +1,10 @@
 <!-- src/pages/Jobs/JobDetailPage.vue -->
 <script setup>
 import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
+import JobsMap from '@/components/JobsMap.vue'
 
 const route = useRoute()
-const router = useRouter()
 
 const id = computed(() => Number(route.params.id))
 
@@ -36,8 +36,6 @@ const JOBS = [
 // 라우트 id에 맞는 공고 (없으면 첫 번째)
 const job = computed(() => JOBS.find((j) => j.id === id.value) || JOBS[0])
 
-const goBack = () => router.back()
-
 const onApply = () => {
   // TODO: 지원 로직 연결
   alert('지원하기 클릭!')
@@ -48,8 +46,8 @@ const onApply = () => {
   <!-- 앱 프레임 (375x812 기준) -->
   <div class="w-[375px] min-h-[812px] mx-auto bg-white relative">
     <!-- 헤더 -->
-    <header class="relative h-[60px]">
-      <!-- 뒤로가기 -->
+    <header class="relative h-[70px] bg-white">
+      <!-- 뒤로가기 아이콘 (SVG)로 대체함 -->
       <button
         class="absolute left-4 top-1/2 -translate-y-1/2 w-[30px] h-[30px] flex items-center justify-center flex-shrink-0"
         @click="$router.back()"
@@ -80,24 +78,32 @@ const onApply = () => {
         </svg>
       </button>
 
-      <!-- 타이틀 -->
+      <!-- 제목 -->
       <h1
         class="absolute top-[23px] left-[58px] w-[92px] h-[24px] text-[20px] font-semibold leading-[1] text-[#1E1E1E] font-[Pretendard]"
       >
         일자리 상세
       </h1>
+
+      <!-- 필터 아이콘 (SVG)코드로 대체함 -->
     </header>
 
     <!-- 스크롤 영역 -->
     <main class="px-4 pb-24 space-y-3">
       <!-- 상단 카드 -->
-      <section class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <section
+        class="w-[335px] h-[153px] flex-shrink-0 rounded-[16px] bg-white shadow-[1px_1px_4px_rgba(0,0,0,0.25)] mx-auto p-4"
+      >
+        <!-- 제목 -->
         <h2 class="text-[16px] font-extrabold text-[#333] leading-snug">
           {{ job.title }}
         </h2>
+
+        <!-- 회사명 -->
         <p class="text-[12px] text-[#3D4352] mt-1">{{ job.company }}</p>
+
+        <!-- 주소 -->
         <div class="flex items-center gap-2 mt-2 text-[12px] text-[#555]">
-          <!-- 위치 아이콘 -->
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none">
             <path
               d="M7.5 8.75C8.87875 8.75 10 7.62875 10 6.25C10 4.87125 8.87875 3.75 7.5 3.75C6.12125 3.75 5 4.87125 5 6.25C5 7.62875 6.12125 8.75 7.5 8.75ZM7.5 5C8.18938 5 8.75 5.56063 8.75 6.25C8.75 6.93938 8.18938 7.5 7.5 7.5C6.81063 7.5 6.25 6.93938 6.25 6.25C6.25 5.56063 6.81063 5 7.5 5Z"
@@ -129,47 +135,134 @@ const onApply = () => {
       </section>
 
       <!-- 근무 조건 -->
-      <section class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-        <h3 class="text-[14px] font-bold text-[#111]">근무 조건</h3>
+      <section
+        class="w-[335px] h-auto flex-shrink-0 rounded-[12px] bg-white shadow-[1px_1px_4px_rgba(0,0,0,0.25)] mx-auto p-3"
+      >
+        <!-- 근무 조건 라벨 -->
+        <h3 class="text-[16px] font-bold text-[#333] font-[Inter] leading-normal mb-2">
+          근무 조건
+        </h3>
 
-        <div class="grid grid-cols-2 gap-3 mt-3 text-[13px]">
-          <div class="rounded-xl bg-gray-50 p-3">
-            <div class="text-gray-500">급여</div>
-            <div class="mt-1 font-semibold text-gray-800">{{ job.wage }}</div>
-
-            <div class="h-px bg-gray-200 my-3"></div>
-
-            <div class="text-gray-500">근무일</div>
-            <div class="mt-1 font-semibold text-gray-800">{{ job.days }}</div>
+        <!-- 위쪽 : 급여 + 근무시간 -->
+        <div class="grid grid-cols-2 ms-2 gap-2">
+          <!-- 급여 -->
+          <div class="flex items-start gap-1 text-gray-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 16 16"
+              fill="none"
+              class="w-[14px] h-[14px] flex-shrink-0 fill-[#333]"
+            >
+              <path
+                d="M8 0C12.4182 0 16 2.686 16 6V10C16 13.314 12.4182 16 8 16C3.66036 16 0.128 13.409 0.00363636 10.177L0 10V6C0 2.686 3.58182 0 8 0ZM8 12C5.29455 12 2.90182 10.992 1.45455 9.45V10C1.45455 11.882 4.27855 14 8 14C11.6436 14 14.4276 11.97 14.5418 10.118L14.5455 10L14.5462 9.45C13.0989 10.992 10.7062 12 8 12ZM8 2C4.27855 2 1.45455 4.118 1.45455 6C1.45455 7.882 4.27855 10 8 10C11.7215 10 14.5455 7.882 14.5455 6C14.5455 4.118 11.7215 2 8 2Z"
+              />
+            </svg>
+            <div>
+              <div class="text-[12px]">급여</div>
+              <div class="mt-0.5 font-semibold text-[13px] text-gray-800">{{ job.wage }}</div>
+            </div>
           </div>
 
-          <div class="rounded-xl bg-gray-50 p-3">
-            <div class="text-gray-500">근무시간</div>
-            <div class="mt-1 font-semibold text-gray-800">{{ job.time }}</div>
+          <!-- 근무시간 -->
+          <div class="flex items-start gap-1 text-gray-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 16 16"
+              fill="none"
+              class="w-[14px] h-[14px] flex-shrink-0 fill-[#333]"
+            >
+              <path
+                d="M8 14.4C9.69739 14.4 11.3253 13.7257 12.5255 12.5255C13.7257 11.3253 14.4 9.69739 14.4 8C14.4 6.30261 13.7257 4.67475 12.5255 3.47452C11.3253 2.27428 9.69739 1.6 8 1.6C6.30261 1.6 4.67475 2.27428 3.47452 3.47452C2.27428 4.67475 1.6 6.30261 1.6 8C1.6 9.69739 2.27428 11.3253 3.47452 12.5255C4.67475 13.7257 6.30261 14.4 8 14.4ZM8 0C9.05058 0 10.0909 0.206926 11.0615 0.608964C12.0321 1.011 12.914 1.60028 13.6569 2.34315C14.3997 3.08601 14.989 3.96793 15.391 4.93853C15.7931 5.90914 16 6.94943 16 8C16 10.1217 15.1571 12.1566 13.6569 13.6569C12.1566 15.1571 10.1217 16 8 16C3.576 16 0 12.4 0 8C0 5.87827 0.842855 3.84344 2.34315 2.34315C3.84344 0.842855 5.87827 0 8 0ZM8.4 4V8.2L12 10.336L11.4 11.32L7.2 8.8V4H8.4Z"
+              />
+            </svg>
+            <div>
+              <div class="text-[12px]">근무시간</div>
+              <div class="mt-0.5 font-semibold text-[13px] text-gray-800">{{ job.time }}</div>
+            </div>
+          </div>
+        </div>
 
-            <div class="h-px bg-gray-200 my-3"></div>
+        <!-- 구분선 -->
+        <div class="h-px bg-gray-200 my-2"></div>
 
-            <div class="text-gray-500">모집인원</div>
-            <div class="mt-1 font-semibold text-gray-800">{{ job.personnel }}</div>
+        <!-- 아래쪽 : 근무일 + 모집인원 -->
+        <div class="grid grid-cols-2 ms-2 gap-2">
+          <!-- 근무일 -->
+          <div class="flex items-start gap-1 text-gray-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 18 18"
+              fill="none"
+              class="w-[14px] h-[14px] flex-shrink-0"
+            >
+              <path
+                d="M1 6.62162H17M4.75863 2.72973V1M13.2158 2.72973V1M13.8 2.72973H4.2C3.35131 2.72973 2.53737 3.04865 1.93726 3.61633C1.33714 4.184 1 4.95394 1 5.75676V13.973C1 14.7758 1.33714 15.5457 1.93726 16.1134C2.53737 16.6811 3.35131 17 4.2 17H13.8C14.6487 17 15.4626 16.6811 16.0627 16.1134C16.6629 15.5457 17 14.7758 17 13.973V5.75676C17 4.95394 16.6629 4.184 16.0627 3.61633C15.4626 3.04865 14.6487 2.72973 13.8 2.72973Z"
+                stroke="#333333"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <div>
+              <div class="text-[12px]">근무일</div>
+              <div class="mt-0.5 font-semibold text-[13px] text-gray-800">{{ job.days }}</div>
+            </div>
+          </div>
+
+          <!-- 모집인원 -->
+          <div class="flex items-start gap-1 text-gray-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="15"
+              viewBox="0 0 14 15"
+              fill="none"
+              class="w-[14px] h-[14.5px] flex-shrink-0 fill-[#333]"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M7 7.98666C8.86356 7.98666 10.5583 8.49055 11.8051 9.20064C12.4273 9.55495 12.9593 9.97316 13.3436 10.4277C13.7216 10.8742 14 11.4086 14 11.98C14 12.5935 13.6803 13.0771 13.2199 13.422C12.7843 13.7487 12.2096 13.965 11.599 14.1161C10.3717 14.4188 8.73367 14.5212 7 14.5212C5.26633 14.5212 3.62833 14.4196 2.401 14.1161C1.79044 13.965 1.21567 13.7487 0.780111 13.422C0.318889 13.0763 0 12.5935 0 11.98C0 11.4086 0.278444 10.8742 0.656444 10.427C1.04067 9.97316 1.57189 9.55568 2.19489 9.19991C3.44167 8.49127 5.13722 7.98666 7 7.98666ZM7 9.43878C5.42656 9.43878 4.011 9.86716 3.00533 10.44C2.50211 10.7261 2.12256 11.0368 1.87756 11.3273C1.62556 11.625 1.55556 11.85 1.55556 11.98C1.55556 12.0686 1.58433 12.1622 1.75389 12.2893C1.94756 12.4345 2.28433 12.5848 2.79922 12.7119C3.82433 12.966 5.29744 13.0691 7 13.0691C8.70333 13.0691 10.1757 12.9653 11.2 12.7119C11.7157 12.5848 12.0524 12.4345 12.2461 12.2893C12.4157 12.1622 12.4444 12.0686 12.4444 11.98C12.4444 11.8493 12.3744 11.625 12.1232 11.3273C11.8774 11.0368 11.4979 10.7261 10.9947 10.44C9.989 9.86643 8.57344 9.43878 7 9.43878ZM7 0C8.0314 0 9.02055 0.382477 9.74986 1.06329C10.4792 1.7441 10.8889 2.66749 10.8889 3.6303C10.8889 4.59312 10.4792 5.5165 9.74986 6.19731C9.02055 6.87813 8.0314 7.2606 7 7.2606C5.9686 7.2606 4.97945 6.87813 4.25014 6.19731C3.52083 5.5165 3.11111 4.59312 3.11111 3.6303C3.11111 2.66749 3.52083 1.7441 4.25014 1.06329C4.97945 0.382477 5.9686 0 7 0Z"
+              />
+            </svg>
+            <div>
+              <div class="text-[12px]">모집인원</div>
+              <div class="mt-0.5 font-semibold text-[13px] text-gray-800">{{ job.personnel }}</div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- 업무 내용 -->
-      <section class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-        <h3 class="text-[14px] font-bold text-[#111] mb-2">업무 내용</h3>
+      <section
+        class="w-[335px] h-[242px] flex-shrink-0 rounded-[16px] bg-white shadow-[1px_1px_4px_rgba(0,0,0,0.25)] mx-auto p-4"
+      >
+        <!-- 라벨 -->
+        <h3 class="text-[18px] font-bold text-[#333] font-[Inter] leading-normal mb-2">
+          업무 내용
+        </h3>
 
-        <div class="text-[12px] text-gray-700">
-          <div class="font-semibold text-gray-800 mb-1">주요 업무</div>
-          <ul class="list-disc pl-5 space-y-1">
-            <li v-for="(d, i) in job.duties" :key="i">{{ d }}</li>
+        <!-- 주요 업무 -->
+        <div class="text-[13px] text-gray-700 mb-3">
+          <div class="font-semibold text-[#333] mb-1 ms-1">주요 업무</div>
+          <ul class="list-disc pl-5 space-y-1 ms-1">
+            <li v-for="(duty, i) in job.duties" :key="i">{{ duty }}</li>
           </ul>
+        </div>
 
-          <div class="h-px bg-gray-200 my-3"></div>
+        <div class="h-px bg-gray-200 my-2"></div>
 
-          <div class="font-semibold text-gray-800 mb-1">우대 사항</div>
-          <ul class="list-disc pl-5 space-y-1">
-            <li v-for="(p, i) in job.plus" :key="i">{{ p }}</li>
+        <!-- 우대 사항 -->
+        <div class="text-[13px] text-gray-700">
+          <div class="font-semibold text-[#333] mb-1 ms-1">우대 사항</div>
+          <ul class="list-disc pl-5 space-y-1 ms-1">
+            <li v-for="(plus, i) in job.plus" :key="i">{{ plus }}</li>
           </ul>
         </div>
       </section>
@@ -179,12 +272,17 @@ const onApply = () => {
         <h3 class="text-[14px] font-bold text-[#111] mb-2">근무 위치</h3>
 
         <div class="rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
-          <div class="h-24 flex items-center justify-center text-gray-400 text-[12px]">
-            지도 영역
-          </div>
-          <div class="px-3 py-2 text-[12px] text-gray-700 border-t">
-            {{ job.address }}
-          </div>
+          <section class="px-5">
+            <div class="relative w-[335px] h-[163px] flex-shrink-0 rounded-[14px]">
+              <JobsMap
+                :jobs="[{ title: job.title, company: job.company, location: job.address }]"
+                :center="job.address"
+              />
+            </div>
+          </section>
+        </div>
+        <div class="px-3 py-2 text-[12px] text-gray-700">
+          {{ job.address }}
         </div>
 
         <div class="mt-3 text-[12px] text-gray-600 space-y-1">
@@ -247,8 +345,9 @@ const onApply = () => {
       </section>
     </main>
 
-    <!-- 하단 지원 버튼 (고정) -->
-    <div class="fixed left-1/2 -translate-x-1/2 bottom-4 w-[343px]">
+    <div
+      class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[375px] z-50 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-t border-gray-200 px-4 pt-2 pb-[calc(16px+env(safe-area-inset-bottom))]"
+    >
       <button
         class="w-full h-12 rounded-xl bg-green-500 text-white font-semibold shadow-md"
         @click="onApply"
