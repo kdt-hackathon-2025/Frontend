@@ -12,12 +12,9 @@ import JobDetailPage from '@/pages/Jobs/JobDetailPage.vue'
 import Home from '@/pages/Home.vue'
 import MyPage from '@/pages/MyPage.vue'
 import Report from '@/pages/Report.vue'
-<<<<<<< HEAD
 import RegionJobsPage from '@/pages/Jobs/RegionJobsPage.vue'
 import CommunityPage from '@/pages/CommunityPage.vue'
-=======
 import ReviewList from '@/pages/ReviewList.vue'
->>>>>>> bea49068cb50666f9db9457979e31a89dd2c1842
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -97,7 +94,6 @@ const router = createRouter({
       component: Report,
     },
     {
-<<<<<<< HEAD
       path: '/region-jobs',
       name: 'RegionJobs',
       component: RegionJobsPage,
@@ -106,11 +102,9 @@ const router = createRouter({
       path: '/community',
       name: 'Community',
       component: CommunityPage,
-=======
       path: '/reviews',
       name: ReviewList,
       component: ReviewList,
->>>>>>> bea49068cb50666f9db9457979e31a89dd2c1842
     },
   ],
 })
