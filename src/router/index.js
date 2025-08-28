@@ -9,6 +9,7 @@ import TestQ5 from '@/pages/test/TestQ5.vue'
 import TestFinish from '@/pages/test/TestFinish.vue'
 import Home from '@/pages/Home.vue'
 import MyPage from '@/pages/MyPage.vue'
+import Report from '@/pages/Report.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -70,6 +71,11 @@ const router = createRouter({
       path: '/profile',
       name: 'MyPage',
       component: MyPage,
+    },
+    {
+      path: '/report',
+      name: 'Report',
+      component: Report,
     },
   ],
 })
