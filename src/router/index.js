@@ -8,6 +8,7 @@ import TestQ4 from '@/pages/test/TestQ4.vue'
 import TestQ5 from '@/pages/test/TestQ5.vue'
 import TestFinish from '@/pages/test/TestFinish.vue'
 import Home from '@/pages/Home.vue'
+import MyPage from '@/pages/MyPage.vue'
 import Report from '@/pages/Report.vue'
 
 const router = createRouter({
@@ -65,6 +66,11 @@ const router = createRouter({
       path: '/home',
       name: 'Home',
       component: Home,
+    },
+    {
+      path: '/profile',
+      name: 'MyPage',
+      component: MyPage,
     },
     {
       path: '/report',
