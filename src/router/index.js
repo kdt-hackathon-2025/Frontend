@@ -1,7 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import OnboardingPage from '@/pages/OnboardingPage.vue'
 import OnboardingIntro from '@/pages/OnboardingIntro.vue'
+import TestQ1 from '@/pages/test/TestQ1.vue'
+import TestQ2 from '@/pages/test/TestQ2.vue'
+import TestQ3 from '@/pages/test/TestQ3.vue'
+import TestQ4 from '@/pages/test/TestQ4.vue'
+import TestQ5 from '@/pages/test/TestQ5.vue'
+import TestFinish from '@/pages/test/TestFinish.vue'
 import Home from '@/pages/Home.vue'
+import MyPage from '@/pages/MyPage.vue'
+import Report from '@/pages/Report.vue'
 import InfraPage from '@/pages/Infra/InfraPage.vue'
 
 const router = createRouter({
@@ -20,11 +28,57 @@ const router = createRouter({
       meta: { hideBottomNav: true },
     },
     {
+      path: '/q1',
+      name: 'TestQ1',
+      component: TestQ1,
+      meta: { hideBottomNav: true },
+    },
+    {
+      path: '/q2',
+      name: 'TestQ2',
+      component: TestQ2,
+      meta: { hideBottomNav: true },
+    },
+    {
+      path: '/q3',
+      name: 'TestQ3',
+      component: TestQ3,
+      meta: { hideBottomNav: true },
+    },
+    {
+      path: '/q4',
+      name: 'TestQ4',
+      component: TestQ4,
+      meta: { hideBottomNav: true },
+    },
+    {
+      path: '/q5',
+      name: 'TestQ5',
+      component: TestQ5,
+      meta: { hideBottomNav: true },
+    },
+    {
+      path: '/finish',
+      name: 'TestFinish',
+      component: TestFinish,
+      meta: { hideBottomNav: true },
+    },
+    {
       path: '/home',
       name: 'Home',
       component: Home
     },
     {
+      path: '/profile',
+      name: 'MyPage',
+      component: MyPage,
+    },
+    {
+      path: '/report',
+      name: 'Report',
+      component: Report,
+    },
+        {
       path: '/infra',
       name: 'InfraPage',
       component: InfraPage,

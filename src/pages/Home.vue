@@ -1,9 +1,9 @@
 <template>
   <div class="bg-[#FBFBFB] min-h-screen">
-    <BasicHeader />
+    <BasicHeader type="icon" title="슬기로운 은퇴생활" />
     
     <!-- 메인 컨텐츠 -->
-    <div class="flex flex-col items-center pb-4">
+    <div class="flex flex-col items-center pb-4 mb-12">
       <!-- 추천/인기 탭과 지역 정보 카드 -->
       <div class="relative">
         <!-- 추천/인기 탭 -->
@@ -29,8 +29,19 @@
         </div>
 
         <!-- 지역 정보 카드 -->
-        <div class="w-[335px] h-[400px] flex-shrink-0 rounded-[0_15px_15px_15px] border-0 border-[#E2E2E2] bg-white relative shadow-[1px_1px_4px_rgba(0,0,0,0.25)] mt-[30px] overflow-hidden p-4">
-          <transition :name="enableAnimation ? 'slide' : ''" mode="out-in">
+        <div 
+          class="w-[335px] h-[400px] flex-shrink-0 rounded-[0_15px_15px_15px] border-0 border-[#E2E2E2] bg-white relative shadow-[1px_1px_2px_rgba(0,0,0,0.25)] mt-[30px] overflow-hidden p-4"
+          @mousedown="startDrag"
+          @mousemove="handleDrag"
+          @mouseup="endDrag"
+          @mouseleave="endDrag"
+          @touchstart="startDrag"
+          @touchmove="handleDrag"
+          @touchend="endDrag"
+        >
+          <!-- 드래그 가능한 영역 -->
+          <div class="absolute inset-0 cursor-grab active:cursor-grabbing" style="pointer-events: none;"></div>
+          <transition :name="enableAnimation ? (slideDirection === 'next' ? 'slide-next' : 'slide-prev') : ''" mode="out-in">
             <div class="absolute w-full h-full top-0 left-0" :key="contentKey">
               <!-- TOP 배지 -->
               <div class="absolute top-[18px] left-[16px] w-[55px] h-[23px] rounded-[10px] border border-[#4AA982] bg-[#E5FEF4] flex items-center justify-center">
@@ -46,7 +57,7 @@
 
               <!-- 채용 정보 리스트 -->
               <div class="absolute top-[107px] left-1/2 transform -translate-x-1/2 flex flex-col gap-3">
-                <div class="w-[303px] h-[74px] rounded-[10px] bg-white relative shadow-[1px_1px_4px_rgba(0,0,0,0.25)]" v-for="job in currentRegion.jobs" :key="job.title">
+                <div class="w-[303px] h-[74px] rounded-[10px] bg-white relative shadow-[1px_1px_2px_rgba(0,0,0,0.25)]" v-for="job in currentRegion.jobs" :key="job.title">
                   <p class="absolute top-[16px] left-[20px] text-black text-xs font-medium">{{ job.company }}</p>
                   <p class="absolute top-[38px] left-[20px] text-[#333] text-base font-semibold">{{ job.title }}</p>
                   <span class="absolute top-[39px] right-[16px] text-[#475067] text-sm font-normal">{{ job.deadline }}</span>
@@ -56,7 +67,12 @@
           </transition>
 
           <!-- 페이지 인디케이터 -->
-          <div class="absolute bottom-[16px] left-1/2 transform -translate-x-1/2 flex gap-2">
+          <div 
+            class="absolute bottom-[16px] left-1/2 transform -translate-x-1/2 flex gap-2 z-10"
+            @mousedown.stop
+            @touchstart.stop
+            style="pointer-events: auto;"
+          >
             <div 
               v-for="(region, index) in regionData" 
               :key="region.id"
@@ -68,7 +84,7 @@
       </div>
 
       <!-- 지역 행사 소식 -->
-      <div class="w-[335px] h-[209px] rounded-[15px] bg-white shadow-[1px_1px_4px_rgba(0,0,0,0.25)] relative mt-[30px]">
+      <div class="w-[335px] h-[209px] rounded-[15px] bg-white shadow-[1px_1px_2px_rgba(0,0,0,0.25)] relative mt-[30px]">
         <h3 class="absolute top-[16px] left-[20px] text-[#333] text-base font-semibold">지역 행사 소식</h3>
         <div class="absolute top-[56px] left-[20px] flex gap-3">
           <div class="w-[142px] h-[128px] rounded-[10px] border border-[#E2E2E2] bg-white relative cursor-pointer" @click="goToFestival('nonsan')">
@@ -97,6 +113,11 @@ export default {
       activeTab: 'recommend',
       currentSlide: 0,
       enableAnimation: true,
+      isDragging: false,
+      startX: 0,
+      currentX: 0,
+      dragThreshold: 50,
+      slideDirection: 'next',
       regionData: [
         {
           id: 0,
@@ -173,13 +194,79 @@ export default {
   computed: {
     currentRegion() {
       if (this.activeTab === 'popular') {
-        // 인기 탭일 때는 정읍시가 1위
-        const popularOrder = [2, 0, 1]; // 정읍시, 원주시, 안동시 순서
-        const reorderedData = popularOrder.map(index => ({
-          ...this.regionData[index],
-          rank: popularOrder.indexOf(index) + 1
-        }));
-        return reorderedData[this.currentSlide];
+        // 인기 탭일 때는 새로운 지역들
+        const popularData = [
+          {
+            id: 0,
+            image: '/src/assets/image/jeungpyeong.svg',
+            regionName: '충청북도 증평군',
+            rank: 1,
+            jobs: [
+              {
+                company: '증평군청',
+                title: '사회복지 전담공무원',
+                deadline: 'D-15'
+              },
+              {
+                company: '증평종합사회복지관',
+                title: '아동복지 프로그램 강사',
+                deadline: 'D-8'
+              },
+              {
+                company: '증평군립요양원',
+                title: '간호조무사',
+                deadline: 'D-22'
+              }
+            ]
+          },
+          {
+            id: 1,
+            image: '/src/assets/image/sunchang.svg',
+            regionName: '전라북도 순창군',
+            rank: 2,
+            jobs: [
+              {
+                company: '순창군청',
+                title: '보건소 방문간호사',
+                deadline: 'D-10'
+              },
+              {
+                company: '순창군종합사회복지관',
+                title: '노인돌봄 전담인력',
+                deadline: 'D-18'
+              },
+              {
+                company: '순창군립병원',
+                title: '물리치료사',
+                deadline: 'D-5'
+              }
+            ]
+          },
+          {
+            id: 2,
+            image: '/src/assets/image/gangjin.svg',
+            regionName: '전라남도 강진군',
+            rank: 3,
+            jobs: [
+              {
+                company: '강진군청',
+                title: '정신건강복지센터 사회복지사',
+                deadline: 'D-12'
+              },
+              {
+                company: '강진군종합사회복지관',
+                title: '장애인 활동지원사',
+                deadline: 'D-20'
+              },
+              {
+                company: '강진군 건강가정지원센터',
+                title: '가족상담사',
+                deadline: 'D-7'
+              }
+            ]
+          }
+        ];
+        return popularData[this.currentSlide];
       } else {
         // 추천 탭일 때는 기본 순서
         return this.regionData[this.currentSlide];
@@ -200,6 +287,7 @@ export default {
     },
     goToSlide(index) {
       if (index !== this.currentSlide) {
+        this.slideDirection = index > this.currentSlide ? 'next' : 'prev';
         this.currentSlide = index;
       }
     },
@@ -217,6 +305,39 @@ export default {
           rank: this.currentRegion.rank
         }
       });
+    },
+    startDrag(e) {
+      this.isDragging = true;
+      this.startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+      this.currentX = this.startX;
+      e.preventDefault();
+    },
+    handleDrag(e) {
+      if (!this.isDragging) return;
+      this.currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+      e.preventDefault();
+    },
+    endDrag() {
+      if (!this.isDragging) return;
+      
+      const deltaX = this.currentX - this.startX;
+      const totalSlides = this.regionData.length;
+      
+      if (Math.abs(deltaX) > this.dragThreshold) {
+        if (deltaX > 0) {
+          // 왼쪽에서 오른쪽으로 드래그 - 이전 슬라이드
+          this.slideDirection = 'prev';
+          this.currentSlide = this.currentSlide > 0 ? this.currentSlide - 1 : totalSlides - 1;
+        } else {
+          // 오른쪽에서 왼쪽으로 드래그 - 다음 슬라이드
+          this.slideDirection = 'next';
+          this.currentSlide = this.currentSlide < totalSlides - 1 ? this.currentSlide + 1 : 0;
+        }
+      }
+      
+      this.isDragging = false;
+      this.startX = 0;
+      this.currentX = 0;
     }
   }
 }
@@ -227,19 +348,37 @@ export default {
   font-family: Pretendard;
 }
 
-.slide-enter-active, .slide-leave-active {
+/* 다음 슬라이드 애니메이션 */
+.slide-next-enter-active, .slide-next-leave-active {
   transition: transform 0.15s ease-out;
 }
 
-.slide-enter-from {
+.slide-next-enter-from {
   transform: translateX(100%);
 }
 
-.slide-leave-to {
+.slide-next-leave-to {
   transform: translateX(-100%);
 }
 
-.slide-enter-to, .slide-leave-from {
+.slide-next-enter-to, .slide-next-leave-from {
+  transform: translateX(0);
+}
+
+/* 이전 슬라이드 애니메이션 */
+.slide-prev-enter-active, .slide-prev-leave-active {
+  transition: transform 0.15s ease-out;
+}
+
+.slide-prev-enter-from {
+  transform: translateX(-100%);
+}
+
+.slide-prev-leave-to {
+  transform: translateX(100%);
+}
+
+.slide-prev-enter-to, .slide-prev-leave-from {
   transform: translateX(0);
 }
 </style>
