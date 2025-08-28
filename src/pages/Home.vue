@@ -1,6 +1,6 @@
 <template>
   <div class="bg-[#FBFBFB] min-h-screen">
-    <BasicHeader />
+    <BasicHeader type="icon" title="슬기로운 은퇴생활" />
     
     <!-- 메인 컨텐츠 -->
     <div class="flex flex-col items-center pb-4">
@@ -198,7 +198,7 @@ export default {
         const popularData = [
           {
             id: 0,
-            image: '/src/assets/image/jeungpyeong.svg', // 임시 이미지
+            image: '/src/assets/image/jeungpyeong.svg',
             regionName: '충청북도 증평군',
             rank: 1,
             jobs: [
@@ -221,7 +221,7 @@ export default {
           },
           {
             id: 1,
-            image: '/src/assets/image/sunchang.svg', // 임시 이미지
+            image: '/src/assets/image/sunchang.svg',
             regionName: '전라북도 순창군',
             rank: 2,
             jobs: [
@@ -244,7 +244,7 @@ export default {
           },
           {
             id: 2,
-            image: '/src/assets/image/gangjin.svg', // 임시 이미지
+            image: '/src/assets/image/gangjin.svg',
             regionName: '전라남도 강진군',
             rank: 3,
             jobs: [
