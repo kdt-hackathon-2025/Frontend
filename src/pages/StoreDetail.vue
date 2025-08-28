@@ -102,9 +102,9 @@
                 <p class="text-[14px] text-[#454545] font-medium">
                   {{ c.desc1 }}<br />{{ c.desc2 }}
                 </p>
-                <p class="text-[13px] text-[#96A0B5] font-medium">사용 가능 기간: {{ c.until }}</p>
+                <p class="text-[12px] text-[#96A0B5] font-medium">사용 가능 기간: {{ c.until }}</p>
 
-                <div class="mt-1 flex">
+                <div class="mt-2 flex justify-end">
                   <button
                     class="h-[32px] px-3 rounded-[10px] bg-[#03C473] text-white text-[13px] font-semibold cursor-pointer"
                   >
