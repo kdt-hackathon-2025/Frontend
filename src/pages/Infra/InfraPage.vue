@@ -18,10 +18,10 @@ const places = [
 const pages = [1, 2, 3, 4, 5]
 const currentPage = ref(1)
 
-function prev() {
+const prev = () => {
   if (currentPage.value > 1) currentPage.value--
 }
-function next() {
+const next = () => {
   if (currentPage.value < pages[pages.length - 1]) currentPage.value++
 }
 function goDetail() {

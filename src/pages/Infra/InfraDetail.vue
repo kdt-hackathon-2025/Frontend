@@ -1,6 +1,95 @@
 <script setup>
-import BasicHeader from '../../components/BasicHeader.vue';
+import { onMounted, ref } from 'vue'
+import BasicHeader from '../../components/BasicHeader.vue'
 
+const mapEl = ref(null)
+const lat = 37.3399
+const lng = 127.9332
+
+function loadKakaoSdk(appKey) {
+  return new Promise((resolve, reject) => {
+    // 이미 로드
+    if (window.kakao && window.kakao.maps) {
+      console.log('[Kakao] maps already loaded')
+      window.kakao.maps.load(() => resolve(window.kakao))
+      return
+    }
+
+    // 기존 스크립트가 있다면 상태 체크
+    const existing = document.getElementById('kakao-sdk')
+    if (existing) {
+      console.log('[Kakao] script exists, waiting...')
+      existing.addEventListener('load', () => {
+        if (window.kakao && window.kakao.maps) {
+          resolve(window.kakao)
+        } else {
+          reject(new Error('kakao.maps not available after load'))
+        }
+      }, { once: true })
+      existing.addEventListener('error', (e) => reject(e), { once: true })
+      return
+    }
+
+    // SDK URL (필요 시 libraries 추가)
+    const params = new URLSearchParams({
+      appkey: appKey,
+      autoload: 'false',
+      libraries: 'services'   // 지오코더/장소검색 쓰면 유용, 불필요하면 빼도 됨
+    })
+    const src = `https://dapi.kakao.com/v2/maps/sdk.js?${params.toString()}`
+    console.log('[Kakao] injecting script:', src.replace(appKey, '***' + appKey.slice(-6)))
+
+    const script = document.createElement('script')
+    script.id = 'kakao-sdk'
+    script.src = src
+    script.async = true
+    script.onload = () => {
+      console.log('[Kakao] script loaded')
+      if (!(window.kakao && window.kakao.maps)) {
+        reject(new Error('kakao.maps missing after script load'))
+        return
+      }
+      window.kakao.maps.load(() => resolve(window.kakao))
+    }
+    script.onerror = (e) => {
+      console.error('[Kakao] script onerror:', e)
+      reject(e)
+    }
+    document.head.appendChild(script)
+  })
+}
+
+onMounted(async () => {
+  const origin = window.location.origin
+  console.log('[Kakao] origin:', origin)
+
+  const appKey = import.meta.env.VITE_KAKAO_JS_KEY
+  console.log('[Kakao] env key tail:', appKey ? appKey.slice(-6) : appKey)
+
+  if (!appKey) {
+    console.error('VITE_KAKAO_JS_KEY 미설정: .env.local 확인 + dev 서버 재시작 필요')
+    return
+  }
+
+  try {
+    const kakao = await loadKakaoSdk(appKey)
+    if (!mapEl.value) return
+
+    const center = new kakao.maps.LatLng(lat, lng)
+    const map = new kakao.maps.Map(mapEl.value, { center, level: 3 })
+    new kakao.maps.Marker({ position: center, map })
+  } catch (err) {
+    console.error(
+      'Kakao SDK 로드 실패. 점검 리스트:\n' +
+      '1) JavaScript 키인지 (REST 키 X)\n' +
+      '2) 플랫폼 Web 도메인에 현재 origin(포트 포함) 등록\n' +
+      '3) index.html CSP로 외부 스크립트 차단 여부\n' +
+      '4) AdBlock/네트워크 차단\n' +
+      '5) .env.local 위치/접두사(VITE_)/서버 재시작',
+      err
+    )
+  }
+})
 </script>
 
 <template>
@@ -9,7 +98,8 @@ import BasicHeader from '../../components/BasicHeader.vue';
 
     <div class="title">원주세브란스기독병원</div>
     <div class="location">
-      <img src="/src/assets/image/infra_location_img.png" alt="지도">
+      <div ref="mapEl" class="map-box"></div>
+      <!-- <img src="/src/assets/image/infra_location_img.png" alt="지도"> -->
     </div>
 
     <div class="description">
@@ -76,7 +166,12 @@ import BasicHeader from '../../components/BasicHeader.vue';
   margin-left: 2rem;
   border-radius: 0.9375rem;
   background-color: grey;
+  overflow: hidden;
+  background: #eee; /* 로딩 전 빈 배경 */
 }
+/* ✅ 지도 엘리먼트가 꽉 차도록 */
+.location .map-box { width: 100%; height: 100%; }
+
 .description {
   width: 20.9375rem;
   margin: 1rem auto 0;
