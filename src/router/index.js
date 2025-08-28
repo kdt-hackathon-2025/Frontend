@@ -10,6 +10,8 @@ import TestFinish from '@/pages/test/TestFinish.vue'
 import JobsPage from '@/pages/Jobs/JobsPage.vue'
 import JobDetailPage from '@/pages/Jobs/JobDetailPage.vue'
 import Home from '@/pages/Home.vue'
+import MyPage from '@/pages/MyPage.vue'
+import Report from '@/pages/Report.vue'
 import RegionJobsPage from '@/pages/Jobs/RegionJobsPage.vue'
 
 const router = createRouter({
@@ -78,11 +80,6 @@ const router = createRouter({
       path: '/home',
       name: 'Home',
       component: Home,
-    },
-    {
-      path: '/region-jobs',
-      name: 'RegionJobs',
-      component: RegionJobsPage,
     },
   ],
 })
