@@ -9,37 +9,43 @@
     >
       <img class="w-16 h-16" src="../assets/image/user-icon.png" />
       <div class="ml-3">
-        <div class="flex gap-[9rem]">
-          <p class="font-semibold text-[#333333] text-lg">김은퇴</p>
-          <button class="cursor-pointer">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="8"
-              height="12"
-              viewBox="0 0 8 12"
-              fill="none"
-            >
-              <path
-                d="M1.5 11L6.5 6L1.5 1"
-                stroke="#898989"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
+        <div class="">
+          <div class="flex gap-[9rem]">
+            <p class="font-bold text-[#333333] text-xl">김은퇴</p>
+            <button class="cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8"
+                height="12"
+                viewBox="0 0 8 12"
+                fill="none"
+              >
+                <path
+                  d="M1.5 11L6.5 6L1.5 1"
+                  stroke="#898989"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+          <p class="font-medium text-[#7D7D7D] text-sm m-0">서울 거주 중</p>
         </div>
-        <p class="font-medium text-[#7D7D7D] text-sm">서울 거주 중</p>
-        <div class="flex gap-[16px]">
-          <p class="font-medium text-[#333333]">보유 포인트</p>
-          <p class="font-bold text-[#03C473]">300p</p>
+        <div class="flex gap-[16px] items-center">
+          <p class="text-base text-[#333333] mt-1">보유 포인트</p>
+          <p class="font-bold text-[#03C473] mt-1">300p</p>
         </div>
       </div>
     </div>
 
     <!-- 탭 -->
-    <div class="flex mt-4 w-[20.5rem] mx-6 bg-white rounded-full p-1 text-sm font-medium">
-      <button class="flex-1 py-2 text-center font-bold text-[#898989]">적립금</button>
+    <div
+      class="flex mt-4 w-[20.5rem] mx-6 bg-white rounded-full p-1 text-sm font-medium border border-[#E2E2E2]"
+    >
+      <button class="flex-1 py-2 text-center font-bold text-[#898989] cursor-pointer">
+        적립금
+      </button>
       <button
         class="flex-1 py-2 text-center rounded-full bg-[#E9F9F3] text-[#4AA982] font-bold cursor-pointer"
       >
