@@ -12,6 +12,8 @@ import JobDetailPage from '@/pages/Jobs/JobDetailPage.vue'
 import Home from '@/pages/Home.vue'
 import MyPage from '@/pages/MyPage.vue'
 import Report from '@/pages/Report.vue'
+import InfraPage from '@/pages/Infra/InfraPage.vue'
+import InfraDetail from '@/pages/Infra/InfraDetail.vue'
 import RegionJobsPage from '@/pages/Jobs/RegionJobsPage.vue'
 import CommunityPage from '@/pages/CommunityPage.vue'
 import ReviewList from '@/pages/ReviewList.vue'
@@ -83,7 +85,7 @@ const router = createRouter({
     {
       path: '/home',
       name: 'Home',
-      component: Home,
+      component: Home
     },
     {
       path: '/mypage',
@@ -94,6 +96,16 @@ const router = createRouter({
       path: '/report',
       name: 'Report',
       component: Report,
+    },
+    {
+      path: '/infra',
+      name: 'InfraPage',
+      component: InfraPage,
+    },
+    {
+      path: '/infraDetail',
+      name: 'InfraDetail',
+      component: InfraDetail,
     },
     {
       path: '/region-jobs',
