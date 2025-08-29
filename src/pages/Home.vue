@@ -3,7 +3,7 @@
     <BasicHeader type="icon" title="슬기로운 은퇴생활" />
     
     <!-- 메인 컨텐츠 -->
-    <div class="flex flex-col items-center pb-4 mb-12">
+    <div class="flex flex-col items-center pb-20">
       <!-- 추천/인기 탭과 지역 정보 카드 -->
       <div class="relative">
         <!-- 추천/인기 탭 -->
@@ -25,6 +25,9 @@
             @click="setActiveTab('popular')"
           >
             인기
+          </button>
+          <button class="ml-[105px] h-[30px] px-4 bg-[#03C473] text-white text-sm rounded-full cursor-pointer border-0 whitespace-nowrap" style="position: relative; top: -8px;" @click="goToIntro">
+            테스트 다시하기
           </button>
         </div>
 
@@ -57,7 +60,7 @@
 
               <!-- 채용 정보 리스트 -->
               <div class="absolute top-[107px] left-1/2 transform -translate-x-1/2 flex flex-col gap-3">
-                <div class="w-[303px] h-[74px] rounded-[10px] bg-white relative shadow-[1px_1px_2px_rgba(0,0,0,0.25)]" v-for="job in currentRegion.jobs" :key="job.title">
+                <div class="w-[303px] h-[74px] rounded-[10px] bg-white relative shadow-[1px_1px_2px_rgba(0,0,0,0.25)] cursor-pointer" v-for="job in currentRegion.jobs" :key="job.title" @click="goToJobDetail">
                   <p class="absolute top-[16px] left-[20px] text-black text-xs font-medium">{{ job.company }}</p>
                   <p class="absolute top-[38px] left-[20px] text-[#333] text-base font-semibold">{{ job.title }}</p>
                   <span class="absolute top-[39px] right-[16px] text-[#475067] text-sm font-normal">{{ job.deadline }}</span>
@@ -84,16 +87,15 @@
       </div>
 
       <!-- 지역 행사 소식 -->
-      <div class="w-[335px] h-[209px] rounded-[15px] bg-white shadow-[1px_1px_2px_rgba(0,0,0,0.25)] relative mt-[30px]">
+      <div class="w-[335px] h-[209px] rounded-[15px] bg-white shadow-[1px_1px_2px_rgba(0,0,0,0.25)] relative mt-[20px]">
         <h3 class="absolute top-[16px] left-[20px] text-[#333] text-base font-semibold">지역 행사 소식</h3>
-        <div class="absolute top-[56px] left-[20px] flex gap-3">
-          <div class="w-[142px] h-[128px] rounded-[10px] border border-[#E2E2E2] bg-white relative cursor-pointer" @click="goToFestival('nonsan')">
-            <img src="../assets/image/fes1.png" alt="" class="w-[142px] h-[89px] rounded-t-[10px] absolute top-0 left-0">
-            <p class="absolute bottom-3 left-3 text-[#333] text-xs font-normal">논산 딸기 축제</p>
-          </div>
-          <div class="w-[142px] h-[128px] rounded-[10px] border border-[#E2E2E2] bg-white relative cursor-pointer" @click="goToFestival('ulsan')">
-            <img src="../assets/image/fes2.png" alt="" class="w-[142px] h-[89px] rounded-t-[10px] absolute top-0 left-0">
-            <p class="absolute bottom-3 left-3 text-[#333] text-xs font-normal">울산 고래 축제</p>
+        <!-- 가로 스크롤 영역 -->
+        <div class="absolute top-[56px] left-[20px] right-[20px] flex gap-3 overflow-x-auto no-scrollbar pr-[20px]">
+          <div v-for="festival in festivalData" :key="festival.id" class="w-[142px] shrink-0">
+            <div class="w-[142px] h-[128px] rounded-[10px] border border-[#E2E2E2] bg-white relative cursor-pointer" @click="goToFestival(festival.link)">
+              <img :src="festival.image" alt="" class="w-[142px] h-[89px] rounded-t-[10px] absolute top-0 left-0 object-cover">
+              <p class="absolute bottom-3 left-3 text-[#333] text-xs font-normal">{{ festival.title }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -103,6 +105,10 @@
 
 <script>
 import BasicHeader from '../components/BasicHeader.vue';
+import fes1 from '../assets/image/fes1.png';
+import fes2 from '../assets/image/fes2.png';
+import fes3 from '../assets/image/fes3.jpg';
+import fes4 from '../assets/image/fes4.png';
 
 export default {
   components: {
@@ -118,6 +124,33 @@ export default {
       currentX: 0,
       dragThreshold: 50,
       slideDirection: 'next',
+      hasDragged: false,
+      festivalData: [
+        {
+          id: 1,
+          image: fes1,
+          title: '논산 딸기 축제',
+          link: 'nonsan'
+        },
+        {
+          id: 2,
+          image: fes2,
+          title: '울산 고래 축제',
+          link: 'ulsan'
+        },
+        {
+          id: 3,
+          image: fes3,
+          title: '대전 빵 축제',
+          link: 'daejeon'
+        },
+        {
+          id: 4,
+          image: fes4,
+          title: '김천 김밥 축제',
+          link: 'gimcheon'
+        }
+      ],
       regionData: [
         {
           id: 0,
@@ -296,18 +329,36 @@ export default {
         window.open('http://nonsancntf.or.kr/cntf/html/sub03/030101.html?mode=V&mng_no=2361&search_type=__intro__&sval=', '_blank');
       } else if (festival === 'ulsan') {
         window.open('https://www.ulsanwhale.com/', '_blank');
+      } else if (festival === 'daejeon') {
+        window.open('https://www.djto.kr/kor/index.do', '_blank');
+      } else if (festival === 'gimcheon') {
+        window.open('https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=54ffde37-3298-4de1-8f42-fccc2e79cb15', '_blank');
       }
     },
     goToReport() {
       this.$router.push({
-        path: '/report',
-        query: {
-          rank: this.currentRegion.rank
-        }
+        path: '/report'
+      });
+    },
+    goToJobDetail(e) {
+      // 드래그가 발생했으면 클릭 이벤트 무시
+      if (this.hasDragged) {
+        e.stopPropagation();
+        return;
+      }
+      
+      this.$router.push({
+        path: '/jobs/1'
+      });
+    },
+    goToIntro() {
+      this.$router.push({
+        path: '/intro'
       });
     },
     startDrag(e) {
       this.isDragging = true;
+      this.hasDragged = false;
       this.startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
       this.currentX = this.startX;
       e.preventDefault();
@@ -315,6 +366,12 @@ export default {
     handleDrag(e) {
       if (!this.isDragging) return;
       this.currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+      
+      // 10px 이상 움직이면 드래그로 간주
+      if (Math.abs(this.currentX - this.startX) > 10) {
+        this.hasDragged = true;
+      }
+      
       e.preventDefault();
     },
     endDrag() {
@@ -338,6 +395,11 @@ export default {
       this.isDragging = false;
       this.startX = 0;
       this.currentX = 0;
+      
+      // 드래그 플래그를 약간의 지연 후에 리셋하여 클릭 이벤트가 먼저 처리되도록
+      setTimeout(() => {
+        this.hasDragged = false;
+      }, 100);
     }
   }
 }
@@ -380,5 +442,10 @@ export default {
 
 .slide-prev-enter-to, .slide-prev-leave-from {
   transform: translateX(0);
+}
+
+/* 스크롤바 숨기기 */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 </style>
