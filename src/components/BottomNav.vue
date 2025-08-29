@@ -27,7 +27,7 @@ function setActive(it) {
         v-for="it in items"
         :key="it.name"
         type="button"
-        class="flex flex-col items-center gap-1 min-w-[72px]"
+        class="flex flex-col items-center gap-1 min-w-[72px] cursor-pointer"
         @click="setActive(it)"
       >
         <span
