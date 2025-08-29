@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-[#FBFBFB] overflow-y-auto">
-    <div class="flex items-center justify-between sticky top-0 z-50">
+    <div class="flex items-center justify-between">
       <BasicHeader type="icon" title="강원도 게시판" />
       <button @click="openMenu" class="mr-4 cursor-pointer">
         <img :src="menuIcon" alt="menu" class="w-6 h-6" />
