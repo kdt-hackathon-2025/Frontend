@@ -99,7 +99,6 @@ onMounted(async () => {
     <div class="title">원주세브란스기독병원</div>
     <div class="location">
       <div ref="mapEl" class="map-box"></div>
-      <!-- <img src="/src/assets/image/infra_location_img.png" alt="지도"> -->
     </div>
 
     <div class="description">
