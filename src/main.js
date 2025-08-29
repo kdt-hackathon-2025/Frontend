@@ -14,15 +14,14 @@ import {
   faMapPin,
   faUser,
   faLocationDot,
-  faCheck,
+  faArrowLeft,
+  faFilter,
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faSmile, faBriefcase, faHouse, faMapPin, faUser, faLocationDot, faCheck)
+library.add(faSmile, faBriefcase, faHouse, faMapPin, faUser, faLocationDot, faArrowLeft, faFilter)
 
 const app = createApp(App)
-
 app.use(createPinia())
 app.use(router)
 app.component('font-awesome-icon', FontAwesomeIcon)
-
 app.mount('#app')

@@ -7,9 +7,14 @@ import TestQ3 from '@/pages/test/TestQ3.vue'
 import TestQ4 from '@/pages/test/TestQ4.vue'
 import TestQ5 from '@/pages/test/TestQ5.vue'
 import TestFinish from '@/pages/test/TestFinish.vue'
+import JobsPage from '@/pages/Jobs/JobsPage.vue'
+import JobDetailPage from '@/pages/Jobs/JobDetailPage.vue'
 import Home from '@/pages/Home.vue'
 import MyPage from '@/pages/MyPage.vue'
 import Report from '@/pages/Report.vue'
+import RegionJobsPage from '@/pages/Jobs/RegionJobsPage.vue'
+import CommunityPage from '@/pages/CommunityPage.vue'
+import ReviewList from '@/pages/ReviewList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,27 +68,23 @@ const router = createRouter({
       meta: { hideBottomNav: true },
     },
     {
+      path: '/jobs',
+      name: 'Jobs',
+      component: JobsPage,
+    },
+    {
+      path: '/jobs/:id',
+      name: 'job-detail',
+      component: JobDetailPage,
+      meta: { hideNav: true },
+    },
+    {
       path: '/home',
       name: 'Home',
       component: Home,
     },
     {
-      path: '/community',
-      name: 'community',
-      component: () => import('../pages/CommunityPage.vue'),
-    },
-    {
-      path: '/stores',
-      name: 'StoreList',
-      component: () => import('../pages/StoreList.vue'),
-    },
-    {
-      path: '/stores/:id',
-      name: 'StoreDetail',
-      component: () => import('../pages/StoreDetail.vue'),
-    },
-    {
-      path: '/profile',
+      path: '/mypage',
       name: 'MyPage',
       component: MyPage,
     },
@@ -91,6 +92,19 @@ const router = createRouter({
       path: '/report',
       name: 'Report',
       component: Report,
+    },
+    {
+      path: '/region-jobs',
+      name: 'RegionJobs',
+      component: RegionJobsPage,
+    },
+    {
+      path: '/community',
+      name: 'Community',
+      component: CommunityPage,
+      path: '/reviews',
+      name: ReviewList,
+      component: ReviewList,
     },
   ],
 })
