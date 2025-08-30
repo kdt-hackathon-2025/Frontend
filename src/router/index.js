@@ -12,9 +12,13 @@ import JobDetailPage from '@/pages/Jobs/JobDetailPage.vue'
 import Home from '@/pages/Home.vue'
 import MyPage from '@/pages/MyPage.vue'
 import Report from '@/pages/Report.vue'
+import InfraPage from '@/pages/Infra/InfraPage.vue'
+import InfraDetail from '@/pages/Infra/InfraDetail.vue'
 import RegionJobsPage from '@/pages/Jobs/RegionJobsPage.vue'
 import CommunityPage from '@/pages/CommunityPage.vue'
 import ReviewList from '@/pages/ReviewList.vue'
+import StoreDetail from '@/pages/StoreDetail.vue'
+import StoreList from '@/pages/StoreList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -94,6 +98,16 @@ const router = createRouter({
       component: Report,
     },
     {
+      path: '/infra',
+      name: 'InfraPage',
+      component: InfraPage,
+    },
+    {
+      path: '/infraDetail',
+      name: 'InfraDetail',
+      component: InfraDetail,
+    },
+    {
       path: '/region-jobs',
       name: 'RegionJobs',
       component: RegionJobsPage,
@@ -102,9 +116,21 @@ const router = createRouter({
       path: '/community',
       name: 'Community',
       component: CommunityPage,
+    },
+    {
       path: '/reviews',
       name: ReviewList,
       component: ReviewList,
+    },
+    {
+      path: '/stores',
+      name: 'StoreList',
+      component: StoreList,
+    },
+    {
+      path: '/stores/:id',
+      name: 'StoreDetail',
+      component: StoreDetail,
     },
   ],
 })

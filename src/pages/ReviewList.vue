@@ -7,14 +7,18 @@
       <!-- 작성한 리뷰 개수 -->
       <div class="flex gap-[6px]">
         <p class="text-[#333333]">내가 작성한 리뷰</p>
-        <p class="text-[#03C473]">총 {{ reviews.length }}개</p>
+        <div class="flex">
+          <p class="text-[#03C473]">총</p>
+          <p class="text-[#03C473] ml-1 font-semibold">{{ reviews.length }}</p>
+          <p class="text-[#03C473]">개</p>
+        </div>
       </div>
 
       <!-- 리뷰 카드 -->
       <div
         v-for="(review, index) in reviews"
         :key="index"
-        class="w-80 h-60 bg-white rounded-lg shadow-[1px_1px_2px_0px_rgba(0,0,0,0.25)] mt-[18px] py-[15px] px-[19px]"
+        class="w-80 h-60 bg-white rounded-lg shadow-[1px_1px_2px_0px_rgba(0,0,0,0.25)] mt-[18px] py-[15px] px-[24px]"
       >
         <!-- 상단(가게명, 날짜, 평점) -->
         <div>
@@ -77,12 +81,12 @@
           <p class="text-[#333333] mt-1">{{ review.content }}</p>
 
           <!-- 사진 -->
-          <div class="mt-2 overflow-x-auto flex gap-2">
+          <div class="mt-2 flex gap-2">
             <img
               v-for="(img, index) in review.images"
               :key="index"
               :src="img"
-              class="w-24 h-24 rounded-[3px]"
+              class="w-22 h-24 rounded-[3px] object-cover"
             />
           </div>
 
