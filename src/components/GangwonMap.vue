@@ -5,8 +5,8 @@ import mapSvg from '@/assets/10_전국지도_나눔.svg?raw'
 const props = defineProps({
   height: { type: Number, default: 360 },
   selected: { type: String, default: '' },
-  defaultFill: { type: String, default: '#DBFFD5' },
-  hoverFill: { type: String, default: '#E6FBEF' },
+  defaultFill: { type: String, default: '#E0FFD9' },
+  hoverFill: { type: String, default: '#CEFFC7' },
   highlight: { type: String, default: '#10B981' },
   stroke: { type: String, default: '#A2A2A2' },
 })
@@ -40,7 +40,7 @@ function highlightRegionText(el: SVGGraphicsElement, color: string) {
     const cx = tb.x + tb.width / 2
     const cy = tb.y + tb.height / 2
     if (cx >= rb.x && cx <= rb.x + rb.width && cy >= rb.y && cy <= rb.y + rb.height) {
-      (t as SVGTextElement).style.fill = color
+      ;(t as SVGTextElement).style.fill = color
     }
   }
 }
@@ -95,10 +95,8 @@ onMounted(async () => {
   svg.style.height = '100%'
   svg.style.display = 'block'
 
-
   const all = Array.from(svg.querySelectorAll('path, polygon')) as SVGGraphicsElement[]
   regions = all.filter((el) => el.id !== 'path20')
-
 
   regions.forEach((el) => {
     el.dataset.key = keyOf(el)
@@ -138,6 +136,15 @@ onMounted(async () => {
       emit('update:selected', key)
       emit('select', { key, name })
     })
+    if (props.selected) {
+      const el = regions.find((r) => r.dataset.key === props.selected)
+      if (el) {
+        el.style.fill = props.highlight
+        el.style.stroke = SELECTED_STROKE
+        el.style.strokeWidth = String(SELECTED_STROKE_WIDTH)
+        el.style.filter = SELECTED_GLOW
+      }
+    }
   })
 })
 
@@ -156,8 +163,10 @@ watch(
 </script>
 
 <template>
-  <div class="w-full flex items-center justify-center overflow-hidden"
-       :style="{ height: `${height}px` }">
+  <div
+    class="w-full flex items-center justify-center overflow-hidden"
+    :style="{ height: `${height}px` }"
+  >
     <div ref="wrap" class="w-full h-full"></div>
   </div>
 </template>
@@ -187,5 +196,8 @@ watch(
 .gw-pulse {
   animation: gw-pulse 0.45s ease;
 }
-:deep(svg rect) { fill: transparent !important; stroke: none !important; }
+:deep(svg rect) {
+  fill: transparent !important;
+  stroke: none !important;
+}
 </style>

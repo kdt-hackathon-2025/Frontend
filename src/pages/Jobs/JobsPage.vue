@@ -107,9 +107,7 @@ const cancelFilter = () => (showFilter.value = false)
 </script>
 
 <template>
-  <!--  페이지 루트 컨테이너(오버레이 기준) -->
   <div class="w-[375px] h-[812px] mx-auto bg-white relative">
-    <!-- 헤더 -->
     <header class="relative h-[70px] bg-white">
       <!-- 뒤로가기 아이콘 (SVG)로 대체함 -->
       <button
@@ -271,7 +269,7 @@ const cancelFilter = () => (showFilter.value = false)
         >
           <div
             v-if="showFilter"
-            class="absolute top-0 left-0 right-0 mx-auto max-w-[375px] w-full bg-white  shadow-[0_6px_20px_rgba(0,0,0,0.12)] p-4 pt-5"
+            class="absolute top-0 left-0 right-0 mx-auto max-w-[375px] w-full bg-white shadow-[0_6px_20px_rgba(0,0,0,0.12)] p-4 pt-5"
             style="padding-top: calc(env(safe-area-inset-top, 0px) + 16px)"
           >
             <h2 class="text-[20px] font-semibold text-[#111] mb-3">근무 조건 설정</h2>
@@ -318,6 +316,7 @@ const cancelFilter = () => (showFilter.value = false)
 
             <!-- 희망 직무 -->
             <div class="mb-4">
+              <div class="text-[13px] font-semibold mb-2">희망 직무</div>
               <div class="relative">
                 <select
                   v-model="jobCategory"

@@ -2,13 +2,14 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import GangwonMap from '@/components/GangwonMap.vue'
+import BasicHeader from '@/components/BasicHeader.vue'
 import jobThumb1 from '@/assets/image/일자리1.png'
 import jobThumb2 from '@/assets/image/일자리2.png'
 
 const router = useRouter()
 
 // 지도에서 선택된 시/군 이름
-const selectedRegion = ref<string | null>(null)
+const selectedRegion = ref<string | null>('path48')
 
 const regionNameMap: Record<string, string> = {
   path24: '철원',
@@ -85,40 +86,41 @@ const openRegionJobs = () => {
 <template>
   <div class="w-[375px] min-h-[812px] mx-auto bg-white">
     <header class="text-[#FBFBFB] flex w-[375px] h-[76px] items-center">
-      <img src="/src/assets/image/logo.png" alt="" class="w-[35px] ml-[20px]" />
-      <p class="text-[#1E1E1E] font-['Aggravo'] text-xl font-light ml-[14px]">지역 · 일자리</p>
-
-      <!-- 필터 아이콘 (SVG)코드로 대체함 -->
-      <button
-        class="absolute left-[318px] top-[30px] w-[25px] h-[5px] flex-shrink-0 flex items-center justify-center"
-        aria-label="필터 열기"
-        type="button"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="25"
-          viewBox="0 0 25 25"
-          fill="none"
-          class="w-[25px] h-[25px]"
+      <div class="flex items-center justify-between sticky top-0 z-50">
+        <BasicHeader type="icon" title="지역 · 일자리" />
+        <button
+          class="absolute left-[318px] top-[30px] w-[25px] h-[5px] flex-shrink-0 flex items-center justify-center"
+          aria-label="필터 열기"
+          type="button"
         >
-          <path
-            d="M22.9168 3.125H2.0835L10.4168 12.9792V19.7917L14.5835 21.875V12.9792L22.9168 3.125Z"
-            stroke="#1E1E1E"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
+            fill="none"
+            class="w-[25px] h-[25px]"
+          >
+            <path
+              d="M22.9168 3.125H2.0835L10.4168 12.9792V19.7917L14.5835 21.875V12.9792L22.9168 3.125Z"
+              stroke="#1E1E1E"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
     </header>
 
     <main class="px-4 pb-8">
       <section class="px-1 mt-3 map-naked">
-       <GangwonMap v-model:selected="selectedRegion" :height="260" :offset-x="-10" />
+        <GangwonMap v-model:selected="selectedRegion" :height="260" :offset-x="-10" />
       </section>
 
-      <section class="mt-5 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+      <section
+        class="mt-5 rounded-2xl bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12),0_2px_6px_rgba(0,0,0,0.06)] ring-1 ring-black/5 overflow-hidden"
+      >
         <div class="flex items-center justify-between px-4 pt-4">
           <div class="flex items-center gap-2">
             <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
@@ -275,5 +277,8 @@ const openRegionJobs = () => {
   fill: transparent !important;
 }
 
-:deep(svg rect) { fill: transparent !important; stroke: none !important; }
+:deep(svg rect) {
+  fill: transparent !important;
+  stroke: none !important;
+}
 </style>
