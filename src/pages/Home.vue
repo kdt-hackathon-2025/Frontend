@@ -42,8 +42,6 @@
           @touchmove="handleDrag"
           @touchend="endDrag"
         >
-          <!-- 드래그 가능한 영역 -->
-          <div class="absolute inset-0 cursor-grab active:cursor-grabbing" style="pointer-events: none;"></div>
           <transition :name="enableAnimation ? (slideDirection === 'next' ? 'slide-next' : 'slide-prev') : ''" mode="out-in">
             <div class="absolute w-full h-full top-0 left-0" :key="contentKey">
               <!-- TOP 배지 -->
@@ -52,15 +50,15 @@
               </div>
               <img :src="currentRegion.image" :alt="currentRegion.regionName" class="absolute top-[57px] left-[16px] w-[34px] h-[26px]">
               <h2 class="absolute top-[59px] left-[58px] text-[#333] text-xl font-bold">{{ currentRegion.regionName }}</h2>
-
-              <div v-if="activeTab === 'recommend'" class="flex items-center justify-end space-x-1 text-green-600 text-sm cursor-pointer absolute top-[65px] right-[16px]" @click="goToReport">
+              
+              <div v-if="activeTab === 'recommend'" class="flex items-center justify-end space-x-1 text-green-600 text-sm cursor-pointer absolute top-[65px] right-[16px] z-20" @click="handleReportClick" @touchstart="handleReportTouchStart" @touchend="handleReportTouchEnd">
                 <span>추천 리포트</span>
                 <span>→</span>
               </div>
 
               <!-- 채용 정보 리스트 -->
               <div class="absolute top-[107px] left-1/2 transform -translate-x-1/2 flex flex-col gap-3">
-                <div class="w-[303px] h-[74px] rounded-[10px] bg-white relative shadow-[1px_1px_2px_rgba(0,0,0,0.25)] cursor-pointer" v-for="job in currentRegion.jobs" :key="job.title" @click="goToJobDetail">
+                <div class="w-[303px] h-[74px] rounded-[10px] bg-white relative shadow-[1px_1px_2px_rgba(0,0,0,0.25)] cursor-pointer z-20" v-for="job in currentRegion.jobs" :key="job.title" @click="handleJobClick" @touchstart="handleJobTouchStart" @touchend="handleJobTouchEnd">
                   <p class="absolute top-[16px] left-[20px] text-black text-xs font-medium">{{ job.company }}</p>
                   <p class="absolute top-[38px] left-[20px] text-[#333] text-base font-semibold">{{ job.title }}</p>
                   <span class="absolute top-[39px] right-[16px] text-[#475067] text-sm font-normal">{{ job.deadline }}</span>
@@ -126,6 +124,8 @@ export default {
       dragThreshold: 50,
       slideDirection: 'next',
       hasDragged: false,
+      touchStartTime: 0,
+      touchStartPos: { x: 0, y: 0 },
       festivalData: [
         {
           id: 1,
@@ -341,13 +341,7 @@ export default {
         path: '/report'
       });
     },
-    goToJobDetail(e) {
-      // 드래그가 발생했으면 클릭 이벤트 무시
-      if (this.hasDragged) {
-        e.stopPropagation();
-        return;
-      }
-      
+    goToJobDetail() {
       this.$router.push({
         path: '/jobs/1'
       });
@@ -362,7 +356,10 @@ export default {
       this.hasDragged = false;
       this.startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
       this.currentX = this.startX;
-      e.preventDefault();
+      // 마우스 드래그에서만 preventDefault 호출
+      if (e.type === 'mousedown') {
+        e.preventDefault();
+      }
     },
     handleDrag(e) {
       if (!this.isDragging) return;
@@ -371,9 +368,9 @@ export default {
       // 10px 이상 움직이면 드래그로 간주
       if (Math.abs(this.currentX - this.startX) > 10) {
         this.hasDragged = true;
+        // 드래그가 시작된 후에만 preventDefault 호출
+        e.preventDefault();
       }
-      
-      e.preventDefault();
     },
     endDrag() {
       if (!this.isDragging) return;
@@ -401,6 +398,70 @@ export default {
       setTimeout(() => {
         this.hasDragged = false;
       }, 100);
+    },
+    // 추천 리포트 터치 핸들러
+    handleReportTouchStart(e) {
+      this.touchStartTime = Date.now();
+      this.touchStartPos = { 
+        x: e.touches[0].clientX, 
+        y: e.touches[0].clientY 
+      };
+    },
+    handleReportTouchEnd(e) {
+      const touchEndTime = Date.now();
+      const touchDuration = touchEndTime - this.touchStartTime;
+      const touchEndPos = { 
+        x: e.changedTouches[0].clientX, 
+        y: e.changedTouches[0].clientY 
+      };
+      const distance = Math.sqrt(
+        Math.pow(touchEndPos.x - this.touchStartPos.x, 2) + 
+        Math.pow(touchEndPos.y - this.touchStartPos.y, 2)
+      );
+      
+      // 빠른 탭이고 거리가 짧으면 클릭으로 처리
+      if (touchDuration < 300 && distance < 10 && !this.hasDragged) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.goToReport();
+      }
+    },
+    handleReportClick(e) {
+      if (!this.hasDragged) {
+        this.goToReport();
+      }
+    },
+    // 일자리 터치 핸들러
+    handleJobTouchStart(e) {
+      this.touchStartTime = Date.now();
+      this.touchStartPos = { 
+        x: e.touches[0].clientX, 
+        y: e.touches[0].clientY 
+      };
+    },
+    handleJobTouchEnd(e) {
+      const touchEndTime = Date.now();
+      const touchDuration = touchEndTime - this.touchStartTime;
+      const touchEndPos = { 
+        x: e.changedTouches[0].clientX, 
+        y: e.changedTouches[0].clientY 
+      };
+      const distance = Math.sqrt(
+        Math.pow(touchEndPos.x - this.touchStartPos.x, 2) + 
+        Math.pow(touchEndPos.y - this.touchStartPos.y, 2)
+      );
+      
+      // 빠른 탭이고 거리가 짧으면 클릭으로 처리
+      if (touchDuration < 300 && distance < 10 && !this.hasDragged) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.goToJobDetail();
+      }
+    },
+    handleJobClick(e) {
+      if (!this.hasDragged) {
+        this.goToJobDetail();
+      }
     }
   }
 }
