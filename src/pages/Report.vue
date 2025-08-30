@@ -3,9 +3,9 @@
     <BasicHeader type="back" title="추천 리포트" />
     
     <!-- 메인 컨텐츠 -->
-    <div class="flex justify-center mb-16">
+    <div class="flex justify-center pb-20">
       <div class="w-[324px] h-[727px] rounded-[15px] bg-white shadow-[1px_1px_2px_rgba(0,0,0,0.25)] p-4 relative">
-        <span class="absolute top-[22px] left-[55px] text-[#03C473] font-bold text-base">TOP {{ rank }}</span>
+        <span class="absolute top-[22px] left-[55px] text-[#03C473] font-bold text-base">TOP 1</span>
         <span class="absolute top-5 left-[116px] text-lg font-semibold">강원도 원주시</span>
         <img src="../assets/image/wonju_scenery.png" alt="원주 풍경" class="absolute top-16 left-0 w-[324px] h-[166px] object-cover">
         
@@ -89,17 +89,6 @@ import BasicHeader from '../components/BasicHeader.vue';
 export default {
   components: {
     BasicHeader
-  },
-  data() {
-    return {
-      rank: 1
-    }
-  },
-  created() {
-    // URL 쿼리에서 랭크 정보 가져오기
-    if (this.$route.query.rank) {
-      this.rank = parseInt(this.$route.query.rank);
-    }
   }
 }
 </script>

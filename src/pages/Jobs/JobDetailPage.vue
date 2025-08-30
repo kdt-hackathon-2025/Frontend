@@ -38,7 +38,7 @@ const job = computed(() => JOBS.find((j) => j.id === id.value) || JOBS[0])
 
 const onApply = () => {
   // TODO: 지원 로직 연결
-  alert('지원하기 클릭!')
+  alert('지원하기 ')
 }
 </script>
 
