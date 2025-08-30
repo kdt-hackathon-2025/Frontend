@@ -12,6 +12,8 @@ import JobDetailPage from '@/pages/Jobs/JobDetailPage.vue'
 import Home from '@/pages/Home.vue'
 import MyPage from '@/pages/MyPage.vue'
 import Report from '@/pages/Report.vue'
+import InfraPage from '@/pages/Infra/InfraPage.vue'
+import InfraDetail from '@/pages/Infra/InfraDetail.vue'
 import RegionJobsPage from '@/pages/Jobs/RegionJobsPage.vue'
 import CommunityPage from '@/pages/CommunityPage.vue'
 import ReviewList from '@/pages/ReviewList.vue'
@@ -96,6 +98,16 @@ const router = createRouter({
       component: Report,
     },
     {
+      path: '/infra',
+      name: 'InfraPage',
+      component: InfraPage,
+    },
+    {
+      path: '/infraDetail',
+      name: 'InfraDetail',
+      component: InfraDetail,
+    },
+    {
       path: '/region-jobs',
       name: 'RegionJobs',
       component: RegionJobsPage,
@@ -113,22 +125,12 @@ const router = createRouter({
     {
       path: '/stores',
       name: 'StoreList',
-      component: () => import('../pages/StoreList.vue'),
+      component: StoreList,
     },
     {
       path: '/stores/:id',
       name: 'StoreDetail',
-      component: () => import('../pages/StoreDetail.vue'),
-    },
-    {
-      path: '/stores/:id',
-      name: 'StoreDetail',
-      component: () => import('../pages/StoreDetail.vue'),
-    },
-    {
-      path: '/stores/:id',
-      name: 'StoreDetail',
-      component: () => import('../pages/StoreDetail.vue'),
+      component: StoreDetail,
     },
   ],
 })
