@@ -1,27 +1,27 @@
 <template>
   <div class="bg-[#FBFBFB] min-h-screen">
     <BasicHeader type="icon" title="슬기로운 은퇴생활" />
-    
+
     <!-- 메인 컨텐츠 -->
     <div class="flex flex-col items-center pb-4 mb-12">
       <!-- 추천/인기 탭과 지역 정보 카드 -->
       <div class="relative">
         <!-- 추천/인기 탭 -->
         <div class="absolute top-0 left-0 flex z-10">
-          <button 
+          <button
             :class="[
               'h-[30px] flex-shrink-0 border border-black/10 cursor-pointer font-semibold text-sm w-[52px] rounded-tl-[10px] rounded-tr-0 rounded-br-0 rounded-bl-0',
               activeTab === 'recommend' ? 'bg-[#03C473] text-white' : 'bg-[#FBFBFB] text-black'
-            ]" 
+            ]"
             @click="setActiveTab('recommend')"
           >
             추천
           </button>
-          <button 
+          <button
             :class="[
               'h-[30px] flex-shrink-0 border border-black/10 cursor-pointer font-semibold text-sm w-[54px] rounded-tl-0 rounded-tr-[10px] rounded-br-0 rounded-bl-0',
               activeTab === 'popular' ? 'bg-[#03C473] text-white' : 'bg-[#FBFBFB] text-black'
-            ]" 
+            ]"
             @click="setActiveTab('popular')"
           >
             인기
@@ -29,7 +29,7 @@
         </div>
 
         <!-- 지역 정보 카드 -->
-        <div 
+        <div
           class="w-[335px] h-[400px] flex-shrink-0 rounded-[0_15px_15px_15px] border-0 border-[#E2E2E2] bg-white relative shadow-[1px_1px_2px_rgba(0,0,0,0.25)] mt-[30px] overflow-hidden p-4"
           @mousedown="startDrag"
           @mousemove="handleDrag"
@@ -49,7 +49,7 @@
               </div>
               <img :src="currentRegion.image" :alt="currentRegion.regionName" class="absolute top-[57px] left-[16px] w-[34px] h-[26px]">
               <h2 class="absolute top-[59px] left-[58px] text-[#333] text-xl font-bold">{{ currentRegion.regionName }}</h2>
-              
+
               <div v-if="activeTab === 'recommend'" class="flex items-center justify-end space-x-1 text-green-600 text-sm cursor-pointer absolute top-[65px] right-[16px]" @click="goToReport">
                 <span>추천 리포트</span>
                 <span>→</span>
@@ -67,14 +67,14 @@
           </transition>
 
           <!-- 페이지 인디케이터 -->
-          <div 
+          <div
             class="absolute bottom-[16px] left-1/2 transform -translate-x-1/2 flex gap-2 z-10"
             @mousedown.stop
             @touchstart.stop
             style="pointer-events: auto;"
           >
-            <div 
-              v-for="(region, index) in regionData" 
+            <div
+              v-for="(region, index) in regionData"
               :key="region.id"
               :class="['w-2 h-2 rounded-full cursor-pointer', currentSlide === index ? 'bg-gray-800' : 'bg-gray-300']"
               @click="goToSlide(index)"
@@ -103,6 +103,7 @@
 
 <script>
 import BasicHeader from '../components/BasicHeader.vue';
+
 
 export default {
   components: {
@@ -319,10 +320,10 @@ export default {
     },
     endDrag() {
       if (!this.isDragging) return;
-      
+
       const deltaX = this.currentX - this.startX;
       const totalSlides = this.regionData.length;
-      
+
       if (Math.abs(deltaX) > this.dragThreshold) {
         if (deltaX > 0) {
           // 왼쪽에서 오른쪽으로 드래그 - 이전 슬라이드
@@ -334,7 +335,7 @@ export default {
           this.currentSlide = this.currentSlide < totalSlides - 1 ? this.currentSlide + 1 : 0;
         }
       }
-      
+
       this.isDragging = false;
       this.startX = 0;
       this.currentX = 0;
