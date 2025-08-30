@@ -8,7 +8,7 @@
 
     <section class="px-5 space-y-4 py-4 pb-12">
       <!-- 가게 카드 -->
-      <div class="bg-white rounded-[16px] shadow-[1px_1px_2px_rgba(0,0,0,0.25)] p-5 mt-1">
+      <div class="bg-white rounded-[16px] shadow-[1px_1px_2px_rgba(0,0,0,0.25)] p-6 mt-1">
         <div class="flex items-start justify-between gap-2">
           <h2 class="text-[20px] font-bold text-[#333] leading-none">
             {{ shop.name }}
@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <p class="mt-1 text-[15px] text-[#7D7D7D] font-medium">
+        <p class="mt-1 text-[14px] text-[#7D7D7D] font-medium">
           {{ shop.category }}
         </p>
 
@@ -48,24 +48,24 @@
       </div>
 
       <!-- 주요 상품 / 서비스 -->
-      <div class="bg-white rounded-[16px] shadow-[1px_1px_2px_rgba(0,0,0,0.25)] p-5">
-        <div class="flex items-center justify-between pb-1">
+      <div class="bg-white rounded-[16px] shadow-[1px_1px_2px_rgba(0,0,0,0.25)] p-6">
+        <div class="flex items-center justify-between pb-2">
           <h3 class="text-[20px] font-bold text-[#333]">주요 상품/서비스</h3>
           <button
-            class="flex items-center text-[12px] text-[#7D7D7D] cursor-pointer hover:underline"
+            class="flex items-center text-[13px] text-[#7D7D7D] cursor-pointer hover:underline"
           >
             더보기 <img :src="rightLine" class="w-4 h-4" alt="" />
           </button>
         </div>
 
-        <ul>
-          <li v-for="(m, i) in menu.slice(0, 3)" :key="m.id" class="py-2">
+        <ul class="">
+          <li v-for="(m, i) in menu.slice(0, 3)" :key="m.id" class="pt-2">
             <div class="flex items-center justify-between">
               <div>
                 <p class="text-[16px] font-semibold text-[#454545] leading-5">
                   {{ m.name }}
                 </p>
-                <p class="text-[13px] text-[#787774] leading-5">
+                <p class="text-[14px] text-[#787774] leading-5">
                   {{ m.sub }}
                 </p>
               </div>
@@ -73,13 +73,13 @@
                 {{ m.price }}
               </p>
             </div>
-            <div v-if="i < menu.length - 1" class="mt-4 h-[1.5px] bg-[#F2F4F6]"></div>
+            <div v-if="i < menu.length - 1" class="mt-2 h-[1.5px] bg-[#F2F4F6]"></div>
           </li>
         </ul>
       </div>
 
       <!-- 체험단 쿠폰 : 카드 1개 안에 리스트 -->
-      <div class="bg-white rounded-[16px] shadow-[1px_1px_2px_rgba(0,0,0,0.25)] p-5">
+      <div class="bg-white rounded-[16px] shadow-[1px_1px_2px_rgba(0,0,0,0.25)] p-6">
         <h3 class="text-[20px] font-bold text-[#333]">체험단 쿠폰</h3>
 
         <!-- 쿠폰 리스트 -->
@@ -102,11 +102,11 @@
                 <p class="text-[14px] text-[#454545] font-medium">
                   {{ c.desc1 }}<br />{{ c.desc2 }}
                 </p>
-                <p class="text-[12px] text-[#96A0B5] font-medium">사용 가능 기간: {{ c.until }}</p>
+                <p class="text-[14px] text-[#96A0B5] font-medium">사용 기한: {{ c.until }}</p>
 
-                <div class="mt-2 flex justify-end">
+                <div class="mt-1 flex justify-end">
                   <button
-                    class="h-[32px] px-3 rounded-[10px] bg-[#03C473] text-white text-[13px] font-semibold cursor-pointer"
+                    class="h-[32px] px-3 rounded-[10px] bg-[#03C473] text-white text-[14px] font-semibold cursor-pointer"
                   >
                     체험단 신청하기
                   </button>
@@ -119,37 +119,37 @@
       </div>
 
       <!-- 체험단 후기 -->
-      <div class="bg-white rounded-[16px] shadow-[1px_1px_2px_rgba(0,0,0,0.25)]">
-        <div class="flex items-center justify-between px-5 pt-5">
+      <div class="bg-white rounded-[16px] shadow-[1px_1px_2px_rgba(0,0,0,0.25)] p-6">
+        <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <h3 class="text-[20px] text-[#333] font-bold">체험단 후기</h3>
-            <span class="text-[12px] text-[#454545] font-medium">총 {{ reviews.length }}개</span>
+            <span class="text-[13px] text-[#454545] font-medium">총 {{ reviews.length }}개</span>
           </div>
 
           <button
-            class="flex items-center text-[12px] text-[#7D7D7D] cursor-pointer hover:underline"
+            class="flex items-center text-[13px] text-[#7D7D7D] cursor-pointer hover:underline"
           >
             전체보기 <img :src="rightLine" class="w-4 h-4" alt="" />
           </button>
         </div>
 
-        <ul class="space-y-4 p-5">
+        <ul class="space-y-4 mt-4">
           <li v-for="(r, i) in reviews" :key="r.id" class="rounded-2xl">
             <!-- 작성자 -->
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <img :src="r.avatar" class="w-6 h-6 rounded-full object-cover" />
-                <p class="text-[15px] font-semibold text-[#454545]">
+                <p class="text-[18px] font-semibold text-[#454545]">
                   {{ r.name }}
                 </p>
               </div>
             </div>
             <div class="flex items-center gap-2 pt-2">
               <img :src="stars4" class="w-[60px] h-3" alt="" />
-              <span class="text-[11px] text-[#7D7D7D] font-medium">{{ r.date }}</span>
+              <span class="text-[14px] text-[#7D7D7D] font-medium">{{ r.date }}</span>
             </div>
 
-            <p class="mt-1 text-[14px] text-[#454545] font-medium">
+            <p class="mt-1 text-[16px] text-[#454545] font-medium">
               {{ r.content }}
             </p>
 
@@ -169,7 +169,7 @@
             <!-- 태그 pill -->
             <div class="mt-2">
               <span
-                class="inline-flex px-3 py-1 rounded-[33px] border border-[#03C473]/100 bg-[#E5FEF4] text-[12px] text-[#4AA982] font-medium"
+                class="inline-flex px-3 py-1 rounded-[33px] border border-[#03C473]/100 bg-[#E5FEF4] text-[14px] text-[#4AA982] font-medium"
               >
                 {{ r.pill }}
               </span>
@@ -206,7 +206,7 @@ import cimg3 from '@/assets/image/community_image3.png'
 const shop = {
   name: '빵공장 라뜰리에 김가',
   rating: '4.8',
-  category: '카페',
+  category: '카페 · 베이커리',
   desc: '신선한 원주 치악산 복숭아를 활용한 슈페너와 코코넛의 달콤함이 어우러진 시그니처 라떼를 맛볼 수 있습니다.',
   addr: '강원 원주시 행구로 314 라뜰리에김가',
   tel: '033-735-5677',

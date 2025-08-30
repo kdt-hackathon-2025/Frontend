@@ -9,7 +9,7 @@
     <section class="px-5 mt-1 pb-16">
       <!-- 가맹점 헤더 라인 -->
       <div class="flex items-center justify-between mb-3">
-        <h2 class="text-[18px] font-bold text-[#333] leading-normal">지역 혜택 매장</h2>
+        <h2 class="text-[20px] font-bold text-[#333] leading-normal">지역 혜택 매장</h2>
         <button
           type="button"
           class="flex items-center text-[14px] font-medium cursor-pointer hover:underline text-[#7D7D7D] leading-normal"
@@ -31,14 +31,15 @@
           <div class="mt-2 flex items-start justify-between">
             <div class="min-w-0 mx-1">
               <h3
-                class="text-[14px] font-semibold text-[#333] leading-normal truncate cursor-pointer"
+                class="text-[16px] font-semibold text-[#333] leading-normal truncate cursor-pointer"
               >
                 {{ item.title }}
               </h3>
-              <div class="mt-1 flex items-center gap-1">
+              <div class="flex items-center gap-1">
                 <img :src="star" alt="" class="w-3 h-3 shrink-0" />
-                <p class="text-[12px] font-medium text-[#454545] leading-normal truncate">
-                  {{ item.rating }} · {{ item.category }} · {{ item.addr }}
+                <p class="text-[14px] font-medium text-[#454545] leading-normal truncate">
+                  {{ item.rating }} ·
+                  <span class="text-[#7D7D7D]"> {{ item.category }} · {{ item.addr }} </span>
                 </p>
               </div>
             </div>
@@ -97,7 +98,7 @@
 
             <!-- 댓글 영역 (오른쪽 정렬 그대로) -->
             <div
-              class="mt-2 flex items-center gap-1 justify-end text-[13px] text-[#7D7D7D] cursor-pointer"
+              class="mt-2 flex items-center gap-1 justify-end text-[14px] text-[#7D7D7D] cursor-pointer"
             >
               <img :src="iconComment" alt="" class="w-3 h-3 aspect-square shrink-0" />
               <span class="w-[28px] text-left tabular-nums">
@@ -128,7 +129,7 @@ import cafe1 from '@/assets/image/community_image2.png'
 import cafe2 from '@/assets/image/community_image1.png'
 
 import icRight from '@/assets/image/right-line.svg'
-import star from '@/assets/image/star12.svg'
+import star from '@/assets/image/star14.svg'
 import bookmarkIcon from '@/assets/image/bookmark-rounded.svg'
 import iconDown from '@/assets/image/icon.svg'
 import iconComment from '@/assets/image/comment.svg'

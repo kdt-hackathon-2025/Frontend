@@ -4,11 +4,11 @@
     <section class="px-5 mt-1 pb-16">
       <!-- 카테고리 칩 -->
       <div class="py-1 overflow-x-auto no-scrollbar snap-x snap-mandatory">
-        <div class="flex whitespace-nowrap pr-4 gap-1">
+        <div class="flex whitespace-nowrap pr-4 gap-2">
           <button
             v-for="c in categories"
             :key="c.value"
-            class="px-4 py-2 rounded-full border transition select-none text-[14px] font-medium leading-[1] snap-start cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#03C473]/30"
+            class="px-4 py-2 rounded-full border transition select-none text-[16px] font-medium leading-[1] snap-start cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#03C473]/30"
             :class="
               selected === c.value
                 ? 'bg-[#03C473] text-[#FBFBFB] border-transparent'
@@ -64,24 +64,23 @@
                   @click="toggleBookmark(s)"
                 />
               </div>
+              <!-- 세부 카테고리 -->
+              <p class="text-[14px] text-[#7D7D7D] leading-normal">
+                {{ s.addr }}
+              </p>
 
               <RouterLink :to="{ name: 'StoreDetail', params: { id: 1 } }">
-                <!-- 평점 (별 + 4.6 (34)) -->
-                <div class="mt-1 flex items-center gap-1">
+                <!-- 평점  -->
+                <div class="flex items-center gap-1">
                   <img :src="star14" class="w-[14px] h-[14px] aspect-square shrink-0" alt="" />
-                  <span class="text-[12px] font-medium text-[#333]">{{ s.rating }}</span>
-                  <span class="text-[12px] text-[#7D7D7D]">({{ s.reviewCount }})</span>
+                  <span class="text-[14px] font-medium text-[#333]">{{ s.rating }}</span>
+                  <span class="text-[14px] text-[#7D7D7D]">({{ s.reviewCount }})</span>
                 </div>
-
-                <!-- 주소 -->
-                <p class="mt-1 text-[12px] text-[#7D7D7D] leading-normal">
-                  {{ s.addr }}
-                </p>
 
                 <!-- 소개 (한 줄 말줄임, 너비 190px 요구사항) -->
 
                 <p
-                  class="mt-1 text-[12px] text-[#454545] leading-normal w-[190px] line-clamp-1 hover:underline"
+                  class="mt-2 text-[14px] text-[#454545] leading-normal w-[190px] line-clamp-1 hover:underline"
                 >
                   {{ s.desc }}
                 </p>
@@ -130,18 +129,18 @@ const stores = ref([
     name: '빵공장 라뜰리에 김가',
     rating: 4.8,
     reviewCount: 34,
-    addr: '원주시 행구로 314',
+    addr: '카페 · 베이커리',
     desc: '7년째 춘천에서 커피를 내리고 있습니다. 크루아상이 대표 메뉴입니다.',
     bookmarked: true,
   },
   {
     id: 2,
-    category: 'food',
+    category: 'cafe',
     img: img2,
     name: '먼데이 브런치&카페',
     rating: 4.6,
     reviewCount: 12,
-    addr: '원주시 남원로 11',
+    addr: '카페 · 베이커리',
     desc: '브런치와 라떼가 맛있는 7년째 한자리에서 운영 중인 카페입니다.',
     bookmarked: false,
   },
@@ -152,7 +151,7 @@ const stores = ref([
     name: '카페 스트로베리',
     rating: 4.7,
     reviewCount: 23,
-    addr: '원주시 봉산로 123번길 123',
+    addr: '카페 · 베이커리',
     desc: '100% 동물성 생크림으로 느끼하지 않고 부드러운 케이크를 맛보세요.',
     bookmarked: false,
   },
@@ -163,7 +162,7 @@ const stores = ref([
     name: '프렌치 크루아상',
     rating: 4.2,
     reviewCount: 20,
-    addr: '원주시 행구로 123번길 123',
+    addr: '카페 · 베이커리',
     desc: '프랑스산 버터가 가득 들어간 생지로 만든 크루아상 전문점입니다.',
     bookmarked: false,
   },
