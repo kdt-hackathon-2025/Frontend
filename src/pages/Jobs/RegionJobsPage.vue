@@ -114,8 +114,8 @@ const openRegionJobs = () => {
     </header>
 
     <main class="px-4 pb-8">
-      <section class="px-1 mt-3">
-        <GangwonMap v-model:selected="selectedRegion" :height="320" :offset-x="-10" />
+      <section class="px-1 mt-3 map-naked">
+       <GangwonMap v-model:selected="selectedRegion" :height="260" :offset-x="-10" />
       </section>
 
       <section class="mt-5 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
@@ -257,4 +257,23 @@ const openRegionJobs = () => {
 .header-pret.is-regular :deep(p) {
   font-weight: 400 !important;
 }
+
+/* GangwonMap 내부(섀도/보더/배경) 싹 비우기 */
+.map-naked :deep(div),
+.map-naked :deep(svg),
+.map-naked :deep(canvas),
+.map-naked :deep(img) {
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.map-naked :deep(svg rect) {
+  stroke: none !important;
+  fill: transparent !important;
+}
+
+:deep(svg rect) { fill: transparent !important; stroke: none !important; }
 </style>

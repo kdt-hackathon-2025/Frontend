@@ -271,7 +271,7 @@ const cancelFilter = () => (showFilter.value = false)
         >
           <div
             v-if="showFilter"
-            class="absolute top-0 left-0 right-0 mx-auto max-w-[375px] w-full bg-white rounded-b-2xl shadow-[0_6px_20px_rgba(0,0,0,0.12)] p-4 pt-5"
+            class="absolute top-0 left-0 right-0 mx-auto max-w-[375px] w-full bg-white  shadow-[0_6px_20px_rgba(0,0,0,0.12)] p-4 pt-5"
             style="padding-top: calc(env(safe-area-inset-top, 0px) + 16px)"
           >
             <h2 class="text-[20px] font-semibold text-[#111] mb-3">근무 조건 설정</h2>
@@ -438,7 +438,7 @@ const cancelFilter = () => (showFilter.value = false)
               </button>
 
               <button
-                class="w-[90px] h-[35px] rounded-md bg-gray-200 text-gray-700 text-[14px] font-semibold"
+                class="w-[90px] h-[35px] rounded-md bg-gray-50 text-gray-700 text-[14px] font-semibold"
                 @click="cancelFilter"
               >
                 취소

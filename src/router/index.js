@@ -15,6 +15,8 @@ import Report from '@/pages/Report.vue'
 import RegionJobsPage from '@/pages/Jobs/RegionJobsPage.vue'
 import CommunityPage from '@/pages/CommunityPage.vue'
 import ReviewList from '@/pages/ReviewList.vue'
+ import StoreDetail from '@/pages/StoreDetail.vue'
+ import StoreList from '@/pages/StoreList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -102,9 +104,21 @@ const router = createRouter({
       path: '/community',
       name: 'Community',
       component: CommunityPage,
+    },
+    {
       path: '/reviews',
       name: ReviewList,
       component: ReviewList,
+    },
+    {
+      path: '/stores',
+      name: 'StoreList',
+      component: () => import('../pages/StoreList.vue'),
+    },
+    {
+      path: '/stores/:id',
+      name: 'StoreDetail',
+      component: () => import('../pages/StoreDetail.vue'),
     },
   ],
 })

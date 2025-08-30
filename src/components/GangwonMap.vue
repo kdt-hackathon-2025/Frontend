@@ -5,10 +5,10 @@ import mapSvg from '@/assets/10_전국지도_나눔.svg?raw'
 const props = defineProps({
   height: { type: Number, default: 360 },
   selected: { type: String, default: '' },
-  defaultFill: { type: String, default: '#F3F4F6' },
+  defaultFill: { type: String, default: '#DBFFD5' },
   hoverFill: { type: String, default: '#E6FBEF' },
   highlight: { type: String, default: '#10B981' },
-  stroke: { type: String, default: '#CBD5E1' },
+  stroke: { type: String, default: '#A2A2A2' },
 })
 
 const emit = defineEmits<{
@@ -21,7 +21,7 @@ let regions: SVGGraphicsElement[] = []
 
 const SELECTED_STROKE = '#34D399'
 const SELECTED_STROKE_WIDTH = 3
-const SELECTED_GLOW = 'drop-shadow(0 0 12px rgba(16,185,129,.6))'
+const SELECTED_GLOW = 'drop-shadow(0 0 12px rgba(0,0,0,.4))'
 
 const keyOf = (el: Element) =>
   el.id ||
@@ -30,8 +30,21 @@ const keyOf = (el: Element) =>
   el.getAttribute('title') ||
   el.getAttribute('aria-label') ||
   ''
+function highlightRegionText(el: SVGGraphicsElement, color: string) {
+  const svg = el.ownerSVGElement
+  if (!svg) return
+  const rb = el.getBBox()
+  const texts = Array.from(svg.querySelectorAll('text'))
+  for (const t of texts) {
+    const tb = (t as SVGGraphicsElement).getBBox()
+    const cx = tb.x + tb.width / 2
+    const cy = tb.y + tb.height / 2
+    if (cx >= rb.x && cx <= rb.x + rb.width && cy >= rb.y && cy <= rb.y + rb.height) {
+      (t as SVGTextElement).style.fill = color
+    }
+  }
+}
 
-/** 클릭한 도형과 겹치는 텍스트(구군명)를 찾아 이름을 추정 */
 function getReadableName(el: SVGGraphicsElement): string {
   const attrName =
     el.getAttribute('data-name') ||
@@ -66,6 +79,15 @@ onMounted(async () => {
   const svg = wrap.value.querySelector('svg') as SVGSVGElement | null
   if (!svg) return
 
+  // 배경 path만 흰색 고정 & 클릭 불가
+  const bg = svg.querySelector('#path20') as SVGPathElement | null
+  if (bg) {
+    bg.style.fill = '#FFFFFF'
+    bg.style.stroke = 'none'
+    bg.style.pointerEvents = 'none'
+  }
+
+  // 크기 설정
   svg.removeAttribute('width')
   svg.removeAttribute('height')
   svg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
@@ -73,7 +95,11 @@ onMounted(async () => {
   svg.style.height = '100%'
   svg.style.display = 'block'
 
-  regions = Array.from(svg.querySelectorAll('path, polygon')) as SVGGraphicsElement[]
+
+  const all = Array.from(svg.querySelectorAll('path, polygon')) as SVGGraphicsElement[]
+  regions = all.filter((el) => el.id !== 'path20')
+
+
   regions.forEach((el) => {
     el.dataset.key = keyOf(el)
     el.classList.add('gw-region')
@@ -130,10 +156,8 @@ watch(
 </script>
 
 <template>
-  <div
-    class="w-full rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center overflow-hidden"
-    :style="{ height: `${height}px` }"
-  >
+  <div class="w-full flex items-center justify-center overflow-hidden"
+       :style="{ height: `${height}px` }">
     <div ref="wrap" class="w-full h-full"></div>
   </div>
 </template>
@@ -163,4 +187,5 @@ watch(
 .gw-pulse {
   animation: gw-pulse 0.45s ease;
 }
+:deep(svg rect) { fill: transparent !important; stroke: none !important; }
 </style>
