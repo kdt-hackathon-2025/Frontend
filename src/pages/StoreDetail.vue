@@ -107,6 +107,7 @@
                 <div class="mt-1 flex justify-end">
                   <button
                     class="h-[32px] px-3 rounded-[10px] bg-[#03C473] text-white text-[14px] font-semibold cursor-pointer"
+                    @click="openPurchase(c)"
                   >
                     체험단 신청하기
                   </button>
@@ -181,6 +182,161 @@
 
       <!-- 하단 여백 -->
       <div class="h-2"></div>
+
+      <Transition
+        enter-active-class="transition ease-out duration-150"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition ease-in duration-100"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="showPurchase"
+          class="fixed inset-0 z-[100] flex items-center justify-center"
+          aria-modal="true"
+          role="dialog"
+        >
+          <!-- Dim -->
+          <div
+            class="absolute inset-0 bg-[rgba(44,44,44,0.66)] backdrop-blur-[1px]"
+            @click.self="closePurchase"
+          ></div>
+
+          <!-- Card -->
+          <div class="relative w-80 rounded-[10px] border border-[#E2E2E2] bg-white shadow-lg p-7">
+            <Transition
+              mode="out-in"
+              enter-active-class="transition duration-220 ease-out"
+              enter-from-class="opacity-0 scale-95"
+              enter-to-class="opacity-100 scale-100"
+              leave-active-class="transition duration-120 ease-in"
+              leave-from-class="opacity-100 scale-100"
+              leave-to-class="opacity-0 scale-95"
+            >
+              <!-- 구매 전 화면 -->
+              <div v-if="modalMode === 'purchase'" :key="'purchase'">
+                <!-- 타이틀 -->
+                <div class="w-full text-center leading-tight">
+                  <span class="text-[20px] font-bold text-[#03C473] align-middle">포인트</span>
+                  <span class="text-[20px] font-semibold text-[#333333] align-middle">
+                    를 사용하여<br />구매하시겠습니까?
+                  </span>
+                </div>
+
+                <!-- 썸네일 -->
+                <div class="mt-6 flex justify-center">
+                  <img
+                    :src="selectedCoupon?.img"
+                    alt=""
+                    class="w-[100px] h-[100px] rounded-[12px] object-cover"
+                  />
+                </div>
+
+                <!-- 상품명 -->
+                <p class="mt-1 text-center text-[16px] font-medium text-[#333333]">
+                  {{ selectedCoupon?.title }}
+                </p>
+
+                <!-- 포인트 정보 -->
+                <div class="mt-6 space-y-2 flex flex-col items-center">
+                  <div
+                    class="w-[280px] flex items-center justify-between text-[16px] font-medium px-2"
+                  >
+                    <span class="text-[#1E1E1E]">필요 포인트</span>
+                    <span class="flex items-center gap-1">
+                      <span class="text-[#2E8AF1] pr-1">{{
+                        needPointsOf(selectedCoupon)?.toLocaleString()
+                      }}</span>
+                      <img :src="point" class="w-3 h-3" alt="" />
+                    </span>
+                  </div>
+
+                  <div
+                    class="w-[280px] flex items-center justify-between text-[16px] font-medium px-2"
+                  >
+                    <span class="text-[#1E1E1E]">내 포인트</span>
+                    <span class="flex items-center gap-1">
+                      <span class="text-[#1E1E1E] pr-1">{{ myPoints.toLocaleString() }}</span>
+                      <img :src="point" class="w-3 h-3" alt="" />
+                    </span>
+                  </div>
+
+                  <div class="w-[280px] h-[0.5px] bg-[rgba(103,115,142,0.50)]"></div>
+
+                  <div
+                    class="w-[280px] flex items-center justify-between text-[16px] font-medium px-2"
+                  >
+                    <span class="text-[#1E1E1E]">구매 후 내 포인트</span>
+                    <span class="flex items-center gap-1">
+                      <span class="text-[#1E1E1E] pr-1">
+                        {{ Math.max(0, myPoints - needPointsOf(selectedCoupon)).toLocaleString() }}
+                      </span>
+                      <img :src="point" class="w-3 h-3" alt="" />
+                    </span>
+                  </div>
+                </div>
+
+                <!-- 버튼 -->
+                <div class="mt-6 flex justify-center gap-2">
+                  <button
+                    class="w-[100px] h-[38px] rounded-[10px] border border-[#03C473] bg-[#FBFBFB] text-[16px] font-semibold text-[#03C473]"
+                    @click="closePurchase"
+                  >
+                    취소
+                  </button>
+                  <button
+                    class="w-[100px] h-[38px] rounded-[10px] bg-[#03C473] text-[16px] font-semibold text-white disabled:opacity-50"
+                    :disabled="needPointsOf(selectedCoupon) > myPoints"
+                    @click="confirmPurchase"
+                  >
+                    구매하기
+                  </button>
+                </div>
+              </div>
+
+              <!-- 구매 완료 화면 -->
+              <div v-else :key="'success'">
+                <!-- 체크 아이콘 -->
+                <div class="flex justify-center mt-3">
+                  <img :src="completed" alt="" class="w-20 h-20" />
+                </div>
+
+                <!-- 제목 -->
+                <p class="mt-6 text-center text-[24px] font-bold text-[#03C473]">
+                  체험단 신청 완료
+                </p>
+
+                <!-- 보조 문구 -->
+                <p class="text-center text-[18px] font-semibold text-[#3D4352]">
+                  마이페이지에서 확인하세요
+                </p>
+
+                <!-- 안내문 -->
+                <p class="mt-3 mx-auto w-[247px] text-center text-[16px] font-normal text-[#333]">
+                  지정된 기간 내 매장을 방문하신 후,<br />QR코드를 제시해주세요.
+                </p>
+
+                <!-- 버튼들 -->
+                <div class="mt-9 flex flex-col items-center gap-1">
+                  <button
+                    class="w-64 h-[38px] rounded-[10px] bg-[#03C473] text-white text-[16px] font-semibold"
+                    @click="goMyPage"
+                  >
+                    마이페이지 바로가기
+                  </button>
+                  <button
+                    class="h-[38px] text-[#03C473] text-[16px] font-semibold"
+                    @click="closePurchase"
+                  >
+                    닫기
+                  </button>
+                </div>
+              </div>
+            </Transition>
+          </div>
+        </div>
+      </Transition>
     </section>
   </div>
 </template>
@@ -202,6 +358,19 @@ import user1 from '@/assets/image/user1.png'
 import cimg1 from '@/assets/image/community_image1.png'
 import cimg2 from '@/assets/image/community_image2.png'
 import cimg3 from '@/assets/image/community_image3.png'
+import point from '@/assets/image/point.svg'
+
+// script setup 맨 위 import들 아래에
+import completed from '@/assets/image/completed.svg'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+// 기존 상태들 옆에 추가/수정
+const showPurchase = ref(false)
+const modalMode = ref('purchase') // 'purchase' | 'success'
+const selectedCoupon = ref(null)
+const myPoints = ref(50000)
 
 const shop = {
   name: '빵공장 라뜰리에 김가',
@@ -227,6 +396,7 @@ const coupons = [
     desc1: '아메리카노 1잔, 디저트',
     desc2: '(휘낭시에, 타르트 중 택1)',
     until: '2025-08-20',
+    needPoints: 5000,
   },
   {
     id: 2,
@@ -235,6 +405,7 @@ const coupons = [
     desc1: '빵뷔페 1인',
     desc2: '(평일 11:00~13:30)',
     until: '2025-08-20',
+    needPoints: 8000,
   },
 ]
 
@@ -258,6 +429,53 @@ const reviews = [
     photos: [cimg1, cimg3],
   },
 ]
+
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+
+function needPointsOf(coupon) {
+  if (!coupon) return 0
+  return coupon.needPoints || (coupon.id === 1 ? 5000 : 7000)
+}
+
+function openPurchase(coupon) {
+  selectedCoupon.value = coupon
+  modalMode.value = 'purchase'
+  showPurchase.value = true
+  lockScroll()
+}
+
+function closePurchase() {
+  showPurchase.value = false
+  selectedCoupon.value = null
+  modalMode.value = 'purchase'
+  unlockScroll()
+}
+
+function confirmPurchase() {
+  const need = needPointsOf(selectedCoupon.value)
+  myPoints.value = Math.max(0, myPoints.value - need)
+  modalMode.value = 'success'
+}
+
+function goMyPage() {
+  closePurchase()
+  router.push({ name: 'MyPage' }) // 라우트 이름/경로에 맞게 변경
+}
+
+// ESC 닫기
+function onKeydown(e) {
+  if (e.key === 'Escape' && showPurchase.value) closePurchase()
+}
+
+function lockScroll() {
+  document.documentElement.classList.add('overflow-hidden')
+}
+function unlockScroll() {
+  document.documentElement.classList.remove('overflow-hidden')
+}
+
+onMounted(() => window.addEventListener('keydown', onKeydown))
+onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 </script>
 
 <style>
