@@ -1,17 +1,20 @@
-<script setup lang="ts">
+<script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import GangwonMap from '@/components/GangwonMap.vue'
 import BasicHeader from '@/components/BasicHeader.vue'
 import jobThumb1 from '@/assets/image/일자리1.png'
 import jobThumb2 from '@/assets/image/일자리2.png'
+import JeonjuImg1 from '@/assets/image/JeonjuImg1.png'
+import JeonjuImg2 from '@/assets/image/JeonjuImg2.png'
+import FilterModal from '@/components/FilterModal.vue'
 
 const router = useRouter()
 
 // 지도에서 선택된 시/군 이름
-const selectedRegion = ref<string | null>('path48')
+const selectedRegion = ref('path48')
 
-const regionNameMap: Record<string, string> = {
+const regionNameMap = {
   path24: '철원',
   path146: '철원',
   path28: '화천',
@@ -50,28 +53,59 @@ const regionNameMap: Record<string, string> = {
   path116: '태백',
   path20: ' ',
 }
+
+//현재 화면이 전주인지
+const isJeonju = computed(() => selectedRegion.value == 'jeonju')
+
 // 카드 타이틀
-const regionName = computed(() =>
-  selectedRegion.value
-    ? `강원도 ${regionNameMap[selectedRegion.value] ?? selectedRegion.value}`
-    : '강원도',
-)
+const regionName = computed(() => {
+  if (isJeonju.value) {
+    return '전라북도 전주'
+  } else if (selectedRegion.value) {
+    return `강원도 ${regionNameMap[selectedRegion.value] ?? selectedRegion.value}`
+  } else {
+    return '강원도'
+  }
+})
+
+//로고
+const regionLogo = computed(() => {
+  return isJeonju.value ? '/src/assets/image/JeonjuLogo.png' : '/src/assets/image/GangWonLogo.png'
+})
 
 // 썸네일 스타일
-const thumb1Style = computed(() => ({
-  width: '219px',
-  height: '128px',
-  flexShrink: '0',
-  aspectRatio: '142 / 83',
-  background: `url(${jobThumb1}) lightgray 50% / cover no-repeat`,
-}))
-const thumb2Style = computed(() => ({
-  width: '84px',
-  height: '128px',
-  flexShrink: '0',
-  aspectRatio: '21 / 32',
-  background: `url(${jobThumb2}) lightgray 50% / cover no-repeat`,
-}))
+const thumb1Style = computed(() => {
+  const bg = isJeonju.value ? JeonjuImg1 : jobThumb1
+  return {
+    width: '219px',
+    height: '128px',
+    flexShrink: '0',
+    aspectRatio: '142 / 83',
+    background: `url(${bg}) lightgray 50% / cover no-repeat`,
+  }
+})
+const thumb2Style = computed(() => {
+  const bg = isJeonju.value ? JeonjuImg2 : jobThumb2
+  return {
+    width: '84px',
+    height: '128px',
+    flexShrink: '0',
+    aspectRatio: '21 / 32',
+    background: `url(${bg}) lightgray 50% / cover no-repeat`,
+  }
+})
+
+//태그 - 지역별로 내용 분기
+const greenChips = computed(() => {
+  return isJeonju.value
+    ? ['교통 허브 도시', '문화예술 중심지'] //전주
+    : ['종합병원과 응급의료센터 보유', '도내 관광객 방문 1위'] //원주
+})
+const grayChips = computed(() => {
+  return isJeonju.value
+    ? ['역사 유적지 풍부', '한옥마을', '온천'] //전주
+    : ['계곡', '산림', '오크밸리', '치악산'] //원주
+})
 const regionParam = computed(() =>
   selectedRegion.value ? (regionNameMap[selectedRegion.value] ?? selectedRegion.value) : '',
 )
@@ -81,17 +115,28 @@ const openRegionJobs = () => {
     query: regionParam.value ? { region: regionParam.value } : {},
   })
 }
+
+const isFilterOpen = ref(false)
+
+function handleApply() {
+  //필터 선택하면 전주가 렌더링
+  selectedRegion.value = 'jeonju'
+  isFilterOpen.value = false
+}
 </script>
 
 <template>
-  <div class="w-[375px] min-h-[812px] mx-auto bg-white">
+  <div class="w-[375px] h-[812px] mx-auto bg-white">
     <header class="text-[#FBFBFB] flex w-[375px] h-[76px] items-center">
       <div class="flex items-center justify-between sticky top-0 z-50">
         <BasicHeader type="icon" title="지역 · 일자리" />
+
+        <!-- 필터 아이콘 (SVG)코드로 대체함 -->
         <button
-          class="absolute left-[318px] top-[30px] w-[25px] h-[5px] flex-shrink-0 flex items-center justify-center"
+          class="absolute left-[318px] top-[30px] w-[25px] h-[5px] flex-shrink-0 flex items-center justify-center cursor-pointer"
           aria-label="필터 열기"
           type="button"
+          @click="isFilterOpen = true"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -112,6 +157,7 @@ const openRegionJobs = () => {
         </button>
       </div>
     </header>
+    <FilterModal v-model="isFilterOpen" @apply="handleApply" />
 
     <main class="px-4 pb-8">
       <section class="px-1 mt-3 map-naked">
@@ -124,7 +170,7 @@ const openRegionJobs = () => {
         <div class="flex items-center justify-between px-4 pt-4">
           <div class="flex items-center gap-2">
             <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
-              <img src="/src/assets/image/GangWonLogo.png" alt="강원도로고" />
+              <img :src="regionLogo" alt="지역로고" />
             </div>
             <h2 class="text-[16px] font-semibold text-gray-900">{{ regionName }}</h2>
           </div>
@@ -150,33 +196,25 @@ const openRegionJobs = () => {
         </div>
 
         <!-- 키워드 칩 -->
-        <div class="px-4 pb-3 pt-2 space-y-2">
+        <div class="px-3 pb-3 pt-2 space-y-2">
           <div class="flex items-center gap-2 flex-nowrap">
             <div
-              class="h-[34px] w-[191px] rounded-[10px] bg-[#03C473] flex items-center justify-center"
+              v-for="(t, index) in greenChips"
+              :key="'g' + index"
+              class="h-[34px] rounded-[10px] bg-[#03C473] flex items-center justify-center"
             >
               <span
                 class="px-2 whitespace-nowrap text-[#FBFBFB] text-[14px] font-semibold leading-none"
               >
-                종합병원과 응급의료센터 보유
+                {{ t }}
               </span>
             </div>
-            <span class="chip-gray">계곡</span>
-            <span class="chip-gray">산림</span>
           </div>
 
           <div class="flex items-center gap-2 flex-nowrap">
-            <div
-              class="h-[34px] w-[137px] rounded-[10px] bg-[#03C473] flex items-center justify-center"
-            >
-              <span
-                class="px-2 whitespace-nowrap text-[#FBFBFB] text-[14px] font-semibold leading-none"
-              >
-                도내 관광객 방문 1위
-              </span>
-            </div>
-            <span class="chip-gray">오크밸리</span>
-            <span class="chip-gray">치악산</span>
+            <span v-for="(t, index) in grayChips" :key="'x' + index" class="chip-gray">{{
+              t
+            }}</span>
           </div>
         </div>
 
@@ -222,7 +260,7 @@ const openRegionJobs = () => {
   justify-content: center;
   height: 34px;
   padding: 0 12px;
-  border-radius: 9999px;
+  border-radius: 10px;
   background: #f3f4f6;
   border: 1px solid #e5e7eb;
   color: #374151;
