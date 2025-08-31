@@ -12,7 +12,7 @@ import FilterModal from '@/components/FilterModal.vue'
 const router = useRouter()
 
 // 지도에서 선택된 시/군 이름
-const selectedRegion = ref('원주')
+const selectedRegion = ref('path48')
 
 const regionNameMap = {
   path24: '철원',
