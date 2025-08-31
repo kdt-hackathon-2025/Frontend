@@ -8,7 +8,7 @@
       <!-- 타이틀이 슬기로운 은퇴생활일 때만 Aggravo -->
       <p
         :class="[
-          title === '슬기로운 은퇴생활'
+          title === ''
             ? 'font-[Aggravo] font-light'
             : 'font-[Pretendard] font-semibold',
           'text-[#1E1E1E] text-xl ml-[14px]',

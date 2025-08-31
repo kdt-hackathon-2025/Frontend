@@ -38,7 +38,7 @@ const job = computed(() => JOBS.find((j) => j.id === id.value) || JOBS[0])
 
 const onApply = () => {
   // TODO: 지원 로직 연결
-  alert('지원하기 클릭!')
+  alert('지원하기 ')
 }
 </script>
 
@@ -272,7 +272,7 @@ const onApply = () => {
         <h3 class="text-[14px] font-bold text-[#111] mb-2">근무 위치</h3>
 
         <div class="rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
-          <section class="px-5">
+          <section class>
             <div class="relative w-[335px] h-[163px] flex-shrink-0 rounded-[14px]">
               <JobsMap
                 :jobs="[{ title: job.title, company: job.company, location: job.address }]"

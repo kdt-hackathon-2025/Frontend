@@ -370,7 +370,7 @@ const router = useRouter()
 const showPurchase = ref(false)
 const modalMode = ref('purchase') // 'purchase' | 'success'
 const selectedCoupon = ref(null)
-const myPoints = ref(50000)
+const myPoints = ref(10000)
 
 const shop = {
   name: '빵공장 라뜰리에 김가',
