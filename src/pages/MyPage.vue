@@ -166,7 +166,7 @@
     <!-- QR 모달 -->
     <div
       v-if="isQrOpen"
-      class="w-96 h-full fixed flex justify-center items-center bg-[#2C2C2CA8] z-50 inset-0"
+      class="w-96 h-full fixed flex justify-center items-center bg-[#2C2C2CA8] z-50 inset-0 mx-auto"
     >
       <div class="relative w-80 h-96 bg-white rounded-[10px]">
         <!-- 닫기 버튼 -->
