@@ -17,7 +17,7 @@
     <!-- 하단 액션 -->
     <div class="flex justify-center gap-3 mb-[100px] max-w-[460px] w-full px-5 mx-auto">
       <RouterLink
-        to="/login"
+        to="/home"
         class="flex-1 max-w-[220px] h-12 rounded-full grid place-items-center no-underline text-center font-semibold text-[24px] leading-none bg-[#03c473] text-white"
       >
         로그인
