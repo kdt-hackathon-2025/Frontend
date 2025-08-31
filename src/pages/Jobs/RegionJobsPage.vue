@@ -126,14 +126,14 @@ function handleApply() {
 </script>
 
 <template>
-  <div class="w-[375px] min-h-[812px] mx-auto bg-white">
+  <div class="w-[375px] h-[812px] mx-auto bg-white">
     <header class="text-[#FBFBFB] flex w-[375px] h-[76px] items-center">
       <div class="flex items-center justify-between sticky top-0 z-50">
         <BasicHeader type="icon" title="지역 · 일자리" />
 
         <!-- 필터 아이콘 (SVG)코드로 대체함 -->
         <button
-          class="absolute left-[318px] top-[30px] w-[25px] h-[5px] flex-shrink-0 flex items-center justify-center"
+          class="absolute left-[318px] top-[30px] w-[25px] h-[5px] flex-shrink-0 flex items-center justify-center cursor-pointer"
           aria-label="필터 열기"
           type="button"
           @click="isFilterOpen = true"
