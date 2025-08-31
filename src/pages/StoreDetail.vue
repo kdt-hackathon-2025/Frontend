@@ -360,13 +360,10 @@ import cimg2 from '@/assets/image/community_image2.png'
 import cimg3 from '@/assets/image/community_image3.png'
 import point from '@/assets/image/point.svg'
 
-// script setup 맨 위 import들 아래에
 import completed from '@/assets/image/completed.svg'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-
-// 기존 상태들 옆에 추가/수정
 const showPurchase = ref(false)
 const modalMode = ref('purchase') // 'purchase' | 'success'
 const selectedCoupon = ref(null)
@@ -459,7 +456,7 @@ function confirmPurchase() {
 
 function goMyPage() {
   closePurchase()
-  router.push({ name: 'MyPage' }) // 라우트 이름/경로에 맞게 변경
+  router.push({ name: 'MyPage' })
 }
 
 // ESC 닫기

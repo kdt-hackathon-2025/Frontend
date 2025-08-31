@@ -118,21 +118,8 @@ const router = createRouter({
       component: CommunityPage,
     },
     {
-<<<<<<< HEAD
-      path: '/stores',
-      name: 'StoreList',
-      component: () => import('../pages/StoreList.vue'),
-    },
-    {
-      path: '/stores/:id',
-      name: 'StoreDetail',
-      component: () => import('../pages/StoreDetail.vue'),
-    },
-    {
-=======
->>>>>>> dev
       path: '/reviews',
-      name: ReviewList,
+      name: 'ReviewList',
       component: ReviewList,
     },
     {
