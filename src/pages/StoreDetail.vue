@@ -3,7 +3,7 @@
     <!-- 헤더 -->
     <BasicHeader class="sticky top-0 z-50 bg-white border-b" type="back" title="제휴 매장 상세" />
 
-    <!-- 상단 히어로 이미지 374 × 128 -->
+    <!-- 상단 이미지 -->
     <img :src="hero" alt="" class="w-full h-[160px] object-cover" />
 
     <section class="px-5 space-y-4 py-4 pb-12">
@@ -218,9 +218,9 @@
               <div v-if="modalMode === 'purchase'" :key="'purchase'">
                 <!-- 타이틀 -->
                 <div class="w-full text-center leading-tight">
-                  <span class="text-[20px] font-bold text-[#03C473] align-middle">포인트</span>
-                  <span class="text-[20px] font-semibold text-[#333333] align-middle">
-                    를 사용하여<br />구매하시겠습니까?
+                  <span class="text-[20px] font-bold text-[#03C473] align-middle">포인트</span
+                  ><span class="text-[20px] font-semibold text-[#333333] align-middle"
+                    >를 사용하여<br />구매하시겠습니까?
                   </span>
                 </div>
 
@@ -362,6 +362,7 @@ import point from '@/assets/image/point.svg'
 
 import completed from '@/assets/image/completed.svg'
 import { useRouter } from 'vue-router'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const router = useRouter()
 const showPurchase = ref(false)
@@ -427,8 +428,6 @@ const reviews = [
   },
 ]
 
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-
 function needPointsOf(coupon) {
   if (!coupon) return 0
   return coupon.needPoints || (coupon.id === 1 ? 5000 : 7000)
@@ -448,7 +447,7 @@ function closePurchase() {
   unlockScroll()
 }
 
-function confirmPurchase() {
+async function confirmPurchase() {
   const need = needPointsOf(selectedCoupon.value)
   myPoints.value = Math.max(0, myPoints.value - need)
   modalMode.value = 'success'
