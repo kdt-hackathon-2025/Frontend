@@ -115,7 +115,7 @@ const openRegionJobs = () => {
 
     <main class="px-4 pb-8">
       <section class="px-1 mt-3 map-naked">
-        <GangwonMap v-model:selected="selectedRegion" :height="260" :offset-x="-10" />
+        <GangwonMap v-model:selected="selectedRegion" :height="310" :offset-x="-10" />
       </section>
 
       <section
