@@ -1,5 +1,6 @@
 <template>
   <div class="bg-[#FBFBFB] min-h-screen">
+
     <BasicHeader type="icon" title="슬기로운 은퇴생활" />
 
     <!-- 메인 컨텐츠 -->
@@ -50,7 +51,7 @@
               </div>
               <img :src="currentRegion.image" :alt="currentRegion.regionName" class="absolute top-[57px] left-[16px] w-[34px] h-[26px]">
               <h2 class="absolute top-[59px] left-[58px] text-[#333] text-xl font-bold">{{ currentRegion.regionName }}</h2>
-              
+
               <div v-if="activeTab === 'recommend'" class="flex items-center justify-end space-x-1 text-green-600 text-sm cursor-pointer absolute top-[65px] right-[16px] z-20" @click="handleReportClick" @touchstart="handleReportTouchStart" @touchend="handleReportTouchEnd">
                 <span>추천 리포트</span>
                 <span>→</span>
@@ -364,7 +365,7 @@ export default {
     handleDrag(e) {
       if (!this.isDragging) return;
       this.currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-      
+
       // 10px 이상 움직이면 드래그로 간주
       if (Math.abs(this.currentX - this.startX) > 10) {
         this.hasDragged = true;
@@ -393,7 +394,7 @@ export default {
       this.isDragging = false;
       this.startX = 0;
       this.currentX = 0;
-      
+
       // 드래그 플래그를 약간의 지연 후에 리셋하여 클릭 이벤트가 먼저 처리되도록
       setTimeout(() => {
         this.hasDragged = false;
@@ -402,23 +403,23 @@ export default {
     // 추천 리포트 터치 핸들러
     handleReportTouchStart(e) {
       this.touchStartTime = Date.now();
-      this.touchStartPos = { 
-        x: e.touches[0].clientX, 
-        y: e.touches[0].clientY 
+      this.touchStartPos = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY
       };
     },
     handleReportTouchEnd(e) {
       const touchEndTime = Date.now();
       const touchDuration = touchEndTime - this.touchStartTime;
-      const touchEndPos = { 
-        x: e.changedTouches[0].clientX, 
-        y: e.changedTouches[0].clientY 
+      const touchEndPos = {
+        x: e.changedTouches[0].clientX,
+        y: e.changedTouches[0].clientY
       };
       const distance = Math.sqrt(
-        Math.pow(touchEndPos.x - this.touchStartPos.x, 2) + 
+        Math.pow(touchEndPos.x - this.touchStartPos.x, 2) +
         Math.pow(touchEndPos.y - this.touchStartPos.y, 2)
       );
-      
+
       // 빠른 탭이고 거리가 짧으면 클릭으로 처리
       if (touchDuration < 300 && distance < 10 && !this.hasDragged) {
         e.preventDefault();
@@ -434,23 +435,23 @@ export default {
     // 일자리 터치 핸들러
     handleJobTouchStart(e) {
       this.touchStartTime = Date.now();
-      this.touchStartPos = { 
-        x: e.touches[0].clientX, 
-        y: e.touches[0].clientY 
+      this.touchStartPos = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY
       };
     },
     handleJobTouchEnd(e) {
       const touchEndTime = Date.now();
       const touchDuration = touchEndTime - this.touchStartTime;
-      const touchEndPos = { 
-        x: e.changedTouches[0].clientX, 
-        y: e.changedTouches[0].clientY 
+      const touchEndPos = {
+        x: e.changedTouches[0].clientX,
+        y: e.changedTouches[0].clientY
       };
       const distance = Math.sqrt(
-        Math.pow(touchEndPos.x - this.touchStartPos.x, 2) + 
+        Math.pow(touchEndPos.x - this.touchStartPos.x, 2) +
         Math.pow(touchEndPos.y - this.touchStartPos.y, 2)
       );
-      
+
       // 빠른 탭이고 거리가 짧으면 클릭으로 처리
       if (touchDuration < 300 && distance < 10 && !this.hasDragged) {
         e.preventDefault();
@@ -510,4 +511,6 @@ export default {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+
 </style>
