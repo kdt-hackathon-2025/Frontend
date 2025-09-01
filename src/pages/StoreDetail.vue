@@ -124,7 +124,7 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <h3 class="text-[20px] text-[#333] font-bold">체험단 후기</h3>
-            <span class="text-[13px] text-[#454545] font-medium">총 {{ reviews.length }}개</span>
+            <span class="text-[13px] text-[#454545] font-medium">총 34개</span>
           </div>
 
           <button
@@ -146,7 +146,7 @@
               </div>
             </div>
             <div class="flex items-center gap-2 pt-2">
-              <img :src="stars4" class="w-[60px] h-3" alt="" />
+              <img :src="r.rating === 4 ? stars4 : stars5" class="w-[60px] h-3" alt="" />
               <span class="text-[14px] text-[#7D7D7D] font-medium">{{ r.date }}</span>
             </div>
 
@@ -352,13 +352,18 @@ import clock from '@/assets/image/clock.svg'
 
 import rightLine from '@/assets/image/right-line.svg'
 import stars4 from '@/assets/image/star_group4.svg'
+import stars5 from '@/assets/image/star_group5.svg'
 
 import menu1 from '@/assets/image/menu1.png'
-import user1 from '@/assets/image/user1.png'
+import user1 from '@/assets/image/user3.webp'
+import user2 from '@/assets/image/user-icon.png'
 import cimg1 from '@/assets/image/community_image1.png'
 import cimg2 from '@/assets/image/community_image2.png'
 import cimg3 from '@/assets/image/community_image3.png'
+import cimg4 from '@/assets/image/review8.jfif'
+import cimg5 from '@/assets/image/review9.jfif'
 import point from '@/assets/image/point.svg'
+import cimg6 from '@/assets/image/review10.jfif'
 
 import completed from '@/assets/image/completed.svg'
 import { useRouter } from 'vue-router'
@@ -393,16 +398,16 @@ const coupons = [
     img: menu1,
     desc1: '아메리카노 1잔, 디저트',
     desc2: '(휘낭시에, 타르트 중 택1)',
-    until: '2025-08-20',
+    until: '2025-09-20',
     needPoints: 5000,
   },
   {
     id: 2,
-    title: '빵뷔페 1인',
+    title: '빵 뷔페 1인',
     img: cimg1,
-    desc1: '빵뷔페 1인',
+    desc1: '빵 뷔페 1인',
     desc2: '(평일 11:00~13:30)',
-    until: '2025-08-20',
+    until: '2025-09-20',
     needPoints: 8000,
   },
 ]
@@ -410,21 +415,23 @@ const coupons = [
 const reviews = [
   {
     id: 1,
-    name: '화진',
+    name: '강은퇴',
     avatar: user1,
     date: '2025.08.25',
-    content: '커피가 너무 맛있어요~',
+    content: '빵 종류도 다양하고 커피도 맛있어요~ 친절한 서비스에 기분 좋게 다녀왔습니다ㅎㅎ',
     pill: '아메리카노 디저트 세트',
-    photos: [cimg1, cimg2, cimg3],
+    photos: [cimg2, cimg3, cimg4],
+    rating: 5,
   },
   {
     id: 2,
-    name: '미정',
-    avatar: user1,
-    date: '2025.06.12',
-    content: '여기 빵 너무 맛있네요^^',
-    pill: '아메리카노 디저트 세트',
-    photos: [cimg1, cimg3],
+    name: '원주토박이',
+    avatar: user2,
+    date: '2025.08.15',
+    content: '여기 빵 너무 맛있네요^^ 강추드립니다.',
+    pill: '빵 뷔페 1인',
+    photos: [cimg6, cimg5],
+    rating: 4,
   },
 ]
 
