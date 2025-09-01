@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import GangwonMap from '@/components/GangwonMap.vue'
+import JeollaMap from '@/components/JeollaMap.vue'
 import BasicHeader from '@/components/BasicHeader.vue'
 import jobThumb1 from '@/assets/image/일자리1.png'
 import jobThumb2 from '@/assets/image/일자리2.png'
@@ -52,6 +53,47 @@ const regionNameMap = {
   path136: '태백',
   path116: '태백',
   path20: ' ',
+}
+
+const jeollaRegionNameMap = {
+  // 전라북도
+  jeonju: '전주시',
+  gunsan: '군산시',
+  iksan: '익산시',
+  jeongeup: '정읍시',
+  namwon: '남원시',
+  gimje: '김제시',
+  wanju: '완주군',
+  jinan: '진안군',
+  muju: '무주군',
+  jangsu: '장수군',
+  imsil: '임실군',
+  sunchang: '순창군',
+  gochang: '고창군',
+  buan: '부안군',
+  // 전라남도
+  mokpo: '목포시',
+  yeosu: '여수시',
+  suncheon: '순천시',
+  naju: '나주시',
+  gwangyang: '광양시',
+  damyang: '담양군',
+  gokseong: '곡성군',
+  gurye: '구례군',
+  goheung: '고흥군',
+  boseong: '보성군',
+  hwasun: '화순군',
+  jangheung: '장흥군',
+  gangjin: '강진군',
+  haenam: '해남군',
+  yeongam: '영암군',
+  muan: '무안군',
+  hampyeong: '함평군',
+  'yeong광': '영광군',
+  jangseong: '장성군',
+  wando: '완도군',
+  jindo: '진도군',
+  sinan: '신안군',
 }
 
 //현재 화면이 전주인지
@@ -161,7 +203,8 @@ function handleApply() {
 
     <main class="px-4">
       <section class="px-1 mt-3 map-naked">
-        <GangwonMap v-model:selected="selectedRegion" :height="310" :offset-x="-10" />
+        <GangwonMap v-if="!isJeonju" v-model:selected="selectedRegion" :height="310" :offset-x="-10" />
+        <JeollaMap v-else v-model:selected="selectedRegion" :height="310" />
       </section>
 
       <section
