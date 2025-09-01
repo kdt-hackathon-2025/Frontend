@@ -144,7 +144,7 @@ const cancelFilter = () => (showFilter.value = false)
       <h1
         class="absolute top-[23px] left-[58px] w-[92px] h-[24px] text-[20px] font-semibold leading-[1] text-[#1E1E1E] font-[Pretendard]"
       >
-        일자리 조회
+        일자리 목록
       </h1>
 
       <!-- 필터 아이콘 (SVG)코드로 대체함 -->
@@ -185,17 +185,17 @@ const cancelFilter = () => (showFilter.value = false)
       </section>
 
       <!-- 섹션 타이틀 -->
-      <section class="px-6 mt-5 mb-2 flex items-baseline justify-between">
-        <h2 class="text-[15px] font-semibold text-[#1E1E1E] font-[Pretendard]">추천 일자리</h2>
-        <span class="text-[13px] text-gray-500">{{ total }}개</span>
+      <section class="px-5 mt-5 mb-2 flex items-baseline justify-between">
+        <h2 class="text-[18px] font-semibold text-[#1E1E1E] font-[Pretendard] ms-1">추천 일자리</h2>
+        <span class="text-[14px] text-gray-500 me-1">{{ total }}개</span>
       </section>
 
       <!-- 카드 리스트 -->
-      <main class="px-4 space-y-3 pb-24">
+      <main class="px-5 space-y-4 pb-20">
         <article
           v-for="job in jobs"
           :key="job.id"
-          class="rounded-2xl border border-gray-200 bg-white px-4 py-3 shadow-sm cursor-pointer hover:shadow-md transition"
+          class="rounded-2xl border border-gray-200 bg-white px-5 py-4 shadow-sm cursor-pointer hover:shadow-md transition"
           @click="goDetail(job.id)"
         >
           <!-- 제목 -->
@@ -206,7 +206,7 @@ const cancelFilter = () => (showFilter.value = false)
           </h3>
 
           <!-- 회사명 -->
-          <p class="text-[15px] font-normal text-[#3D4352] mb-[12px] leading-normal">
+          <p class="text-[15px] font-normal text-[#3D4352] mt-[4px] mb-[12px] leading-normal">
             {{ job.company }}
           </p>
 
@@ -240,9 +240,6 @@ const cancelFilter = () => (showFilter.value = false)
           </ul>
         </article>
       </main>
-
-      <!-- (필요 시) 페이지네이션 -->
-      <footer class="px-4 pb-5 flex items-center justify-between"></footer>
     </div>
 
     <!--  오버레이/필터 패널 -->
@@ -437,7 +434,7 @@ const cancelFilter = () => (showFilter.value = false)
               </button>
 
               <button
-                class="w-[90px] h-[35px] rounded-md bg-gray-50 text-gray-700 text-[14px] font-semibold"
+                class="w-[90px] h-[35px] rounded-[10px] bg-white border border-[#E2E2E2] text-[#898989] text-[14px] font-semibold"
                 @click="cancelFilter"
               >
                 취소

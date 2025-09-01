@@ -44,7 +44,7 @@
       class="flex mt-4 w-[20.5rem] mx-6 bg-white rounded-full p-1 text-sm font-medium border border-[#E2E2E2]"
     >
       <button class="flex-1 py-2 text-center font-bold text-[#898989] cursor-pointer">
-        적립금
+        포인트
       </button>
       <button
         class="flex-1 py-2 text-center rounded-full bg-[#E9F9F3] text-[#4AA982] font-bold cursor-pointer"
@@ -92,7 +92,7 @@
           <h2 class="font-semibold text-[#333333]">빵공장 라뜰리에 김가</h2>
           <div class="flex gap-[16px]">
             <img
-              class="w-[6.25rem] h-[6.25rem] bg-gray-200 rounded-xl"
+              class="w-[6.25rem] h-[6.25rem] bg-gray-200 rounded-xl object-cover object-center"
               src="../assets/image/coupon1.png"
             />
             <div>
@@ -118,7 +118,7 @@
           <h2 class="font-semibold text-[#333333]">빵공장 라뜰리에 김가</h2>
           <div class="flex gap-[16px]">
             <img
-              class="w-[6.25rem] h-[6.25rem] bg-gray-200 rounded-xl"
+              class="w-[6.25rem] h-[6.25rem] bg-gray-200 rounded-xl object-cover object-center"
               src="../assets/image/coupon2.png"
             />
             <div>
@@ -144,7 +144,7 @@
           <h2 class="font-semibold text-[#333333]">먼데이 브런치&카페</h2>
           <div class="flex gap-[16px]">
             <img
-              class="w-[6.25rem] h-[6.25rem] bg-gray-200 rounded-xl"
+              class="w-[6.25rem] h-[6.25rem] bg-gray-200 rounded-xl object-cover object-center"
               src="../assets/image/coupon3.png"
             />
             <div>
@@ -166,7 +166,7 @@
     <!-- QR 모달 -->
     <div
       v-if="isQrOpen"
-      class="w-96 h-full fixed flex justify-center items-center bg-[#2C2C2CA8] z-50 inset-0"
+      class="w-96 h-full fixed flex justify-center items-center bg-[#2C2C2CA8] z-50 inset-0 mx-auto"
     >
       <div class="relative w-80 h-96 bg-white rounded-[10px]">
         <!-- 닫기 버튼 -->
