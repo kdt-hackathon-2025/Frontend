@@ -34,7 +34,7 @@
         </div>
         <div class="flex gap-[16px] items-center">
           <p class="text-base text-[#333333] mt-1">보유 포인트</p>
-          <p class="font-bold text-[#03C473] mt-1">300p</p>
+          <p class="font-bold text-[#03C473] mt-1">5000p</p>
         </div>
       </div>
     </div>
@@ -99,33 +99,7 @@
               <p class="text-sm text-[#5C667B] leading-snug font-semibold">
                 아메리카노 1잔, 디저트 <br />(휘낭시에, 타르트 중 택1)
               </p>
-              <p class="text-xs text-[#96A0B5] mt-0.5">사용 가능 기간: 2025-08-20</p>
-              <button
-                class="mt-2 ml-16 h-8 px-4 py-1 bg-[#03C473] text-[#FBFBFB] text-sm rounded-xl font-semibold cursor-pointer"
-                @click="isQrOpen = true"
-              >
-                쿠폰 사용하기
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 쿠폰 하나 -->
-      <div
-        class="flex items-center bg-white rounded-2xl shadow-[1px_1px_2px_0px_rgba(0,0,0,0.25)] p-4 w-80 h-40"
-      >
-        <div class="flex flex-col gap-[12px]">
-          <h2 class="font-semibold text-[#333333]">빵공장 라뜰리에 김가</h2>
-          <div class="flex gap-[16px]">
-            <img
-              class="w-[6.25rem] h-[6.25rem] bg-gray-200 rounded-xl object-cover object-center"
-              src="../assets/image/coupon2.png"
-            />
-            <div>
-              <p class="text-sm text-[#5C667B] leading-snug font-semibold">
-                빵 뷔페 1인 <br />(평일 11:00~13:00)
-              </p>
-              <p class="text-xs text-[#96A0B5] mt-0.5">사용 가능 기간: 2025-08-20</p>
+              <p class="text-xs text-[#96A0B5] mt-0.5">사용 가능 기간: 2025-09-20</p>
               <button
                 class="mt-2 ml-16 h-8 px-4 py-1 bg-[#03C473] text-[#FBFBFB] text-sm rounded-xl font-semibold cursor-pointer"
                 @click="isQrOpen = true"
@@ -145,13 +119,13 @@
           <div class="flex gap-[16px]">
             <img
               class="w-[6.25rem] h-[6.25rem] bg-gray-200 rounded-xl object-cover object-center"
-              src="../assets/image/coupon3.png"
+              src="../assets/image/coupon6.jpg"
             />
             <div>
               <p class="text-sm text-[#5C667B] leading-snug font-semibold">
-                아메리카노 1잔, 디저트 <br />(휘낭시에, 타르트 중 택1)
+                1인 브런치 세트 <br />(메뉴 1개 + 아메리카노)
               </p>
-              <p class="text-xs text-[#96A0B5] mt-0.5">사용 가능 기간: 2025-08-20</p>
+              <p class="text-xs text-[#96A0B5] mt-0.5">사용 가능 기간: 2025-09-20</p>
               <button
                 class="mt-2 ml-16 h-8 px-4 py-1 bg-[#03C473] text-[#FBFBFB] text-sm rounded-xl font-semibold"
                 @click="isQrOpen = true"
