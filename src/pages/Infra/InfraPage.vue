@@ -241,7 +241,7 @@ function goDetail() {
   right: 2.25rem;
 
   margin-top: 0.75rem;
-  font-family: Inter;
+  font-family: Pretendard;
   font-size: 14px;
   color: #7D7D7D;
   font-weight: 400;
@@ -301,8 +301,8 @@ function goDetail() {
   width: 14.125rem;
   height: 1.5rem;
   color: #333;
-  font-family: Inter, sans-serif;
-  font-size: 1.25rem;
+  font-family: Pretendard;
+  font-size: 16px;
   font-weight: 600;
   line-height: normal;
   white-space: nowrap;
@@ -326,7 +326,7 @@ function goDetail() {
   width: 16.9375rem;
   height: 1.0625rem;
   color: #3D4352;
-  font-family: Inter, sans-serif;
+  font-family: Pretendard;
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.0625rem;
@@ -365,7 +365,7 @@ function goDetail() {
   align-items: center;
 
   color: #1E1E1E;
-  font: 600 16px/1 Inter;
+  font: 600 16px/1;
   background: transparent;
   border: none;
   border-radius: 50%;
