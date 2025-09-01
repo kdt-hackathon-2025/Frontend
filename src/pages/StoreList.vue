@@ -103,10 +103,16 @@ import iconDown from '@/assets/image/icon.svg'
 import bookmarkOutline from '@/assets/image/bookmark-rounded.svg'
 import bookmarkFill from '@/assets/image/bookmark-rounded-fill.svg'
 import star14 from '@/assets/image/star14.svg'
-import img1 from '@/assets/image/community_image1.png'
-import img2 from '@/assets/image/community_image2.png'
-import img3 from '@/assets/image/community_image3.png'
-import img4 from '@/assets/image/community_image4.png'
+import img1 from '@/assets/image/community_image1.png' // 프렌치 크루아상
+import img2 from '@/assets/image/shop4.jpg' // 먼데이 브런치
+import img3 from '@/assets/image/community_image3.png' // 빵공장 김가
+import img4 from '@/assets/image/community_image4.png' // 스트로베리
+import img5 from '@/assets/image/shop1.webp' // 카츠예미
+import img6 from '@/assets/image/shop2.webp' // 흑돼지 삼백식당
+import img7 from '@/assets/image/shop3.jpg' // 담짜장
+import img8 from '@/assets/image/shop5.jfif' // 고트
+import img9 from '@/assets/image/shop6.jfif' // 앤트빌라
+import img10 from '@/assets/image/shop7.jfif' // 오봉집
 
 // 예시 카테고리
 const categories = [
@@ -130,7 +136,7 @@ const stores = ref([
     rating: 4.8,
     reviewCount: 34,
     addr: '카페 · 베이커리',
-    desc: '7년째 춘천에서 커피를 내리고 있습니다. 크루아상이 대표 메뉴입니다.',
+    desc: '강원도 속 작은 유럽. 매일 갓 구운, 이름에 걸맞은 40여가지 이상의 베이커리와 케이크를 선보이고 있습니다. 탁 트인 치악산 풍경 속에서 시원하게 흘러내리는 폭포와 음악이..',
     bookmarked: true,
   },
   {
@@ -138,8 +144,8 @@ const stores = ref([
     category: 'cafe',
     img: img2,
     name: '먼데이 브런치&카페',
-    rating: 4.6,
-    reviewCount: 12,
+    rating: 4.9,
+    reviewCount: 58,
     addr: '카페 · 베이커리',
     desc: '브런치와 라떼가 맛있는 7년째 한자리에서 운영 중인 카페입니다.',
     bookmarked: false,
@@ -157,13 +163,79 @@ const stores = ref([
   },
   {
     id: 4,
+    category: 'food',
+    img: img5,
+    name: '카츠예미',
+    rating: 4.8,
+    reviewCount: 48,
+    addr: '일식',
+    desc: '백종원의 골목식당 출연했던 원주 돈카츠 대표 맛집 카츠예미입니다. 국내 유일한 프리미엄 돈카츠 덮밥을 즐겨보세요.',
+    bookmarked: false,
+  },
+  {
+    id: 5,
     category: 'cafe',
     img: img1,
     name: '프렌치 크루아상',
-    rating: 4.2,
-    reviewCount: 20,
+    rating: 4.3,
+    reviewCount: 17,
     addr: '카페 · 베이커리',
     desc: '프랑스산 버터가 가득 들어간 생지로 만든 크루아상 전문점입니다.',
+    bookmarked: false,
+  },
+  {
+    id: 6,
+    category: 'food',
+    img: img6,
+    name: '흑돼지 삼백식당',
+    rating: 4.6,
+    reviewCount: 21,
+    addr: '한식 · 육류',
+    desc: '깔끔한 이베리코 전문점입니다. 이베리코 흑돼지의 풍미를 느껴보세요.',
+    bookmarked: false,
+  },
+  {
+    id: 7,
+    category: 'food',
+    img: img7,
+    name: '담짜장',
+    rating: 4.1,
+    reviewCount: 12,
+    addr: '중식',
+    desc: '담백함을 담다 - 부담스러운 기름기는 줄이고 재료 본연의 맛을 살려 속 편하게 담백함을 담았습니다. 생생함을 담다 - 매일 아침 매장에서 만드는 짜장..',
+    bookmarked: false,
+  },
+  {
+    id: 8,
+    category: 'living',
+    img: img8,
+    name: '고트',
+    rating: 4.5,
+    reviewCount: 6,
+    addr: '주방용품',
+    desc: '국내 공예 작가의 개성있는 도자기 그릇과 오브제를 제안합니다. 색다른 가치를 담은 그릇들은 우리의 삶을 풍요하게 만듭니다..',
+    bookmarked: false,
+  },
+  {
+    id: 9,
+    category: 'cafe',
+    img: img9,
+    name: '앤트빌라 혁신본점',
+    rating: 4.2,
+    reviewCount: 18,
+    addr: '카페 · 베이커리',
+    desc: '민생지원금 사용 가능! 국내 특급 호텔 파트너사인 제주테마농원의 애플망고는 특등급 최상품에 품질로 맛과 향이 뛰어납니다. 시즌한정 빙수 메뉴로 만나보세요.',
+    bookmarked: false,
+  },
+  {
+    id: 10,
+    category: 'food',
+    img: img10,
+    name: '오봉집 원주혁신도시점',
+    rating: 4.6,
+    reviewCount: 16,
+    addr: '한식 · 육류',
+    desc: '어머니께서 쏟으셨던 그 정성 그대로 마음을 담았습니다. 찾아주시는 모든 고객님들께 정성을 다해 한 상을 준비했습니다.',
     bookmarked: false,
   },
 ])
