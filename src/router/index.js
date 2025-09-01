@@ -119,7 +119,7 @@ const router = createRouter({
     },
     {
       path: '/reviews',
-      name: ReviewList,
+      name: 'ReviewList',
       component: ReviewList,
     },
     {
