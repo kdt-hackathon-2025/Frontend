@@ -19,6 +19,7 @@ import CommunityPage from '@/pages/CommunityPage.vue'
 import ReviewList from '@/pages/ReviewList.vue'
 import StoreDetail from '@/pages/StoreDetail.vue'
 import StoreList from '@/pages/StoreList.vue'
+import TestQ41 from '@/pages/test/TestQ41.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,12 @@ const router = createRouter({
       path: '/q4',
       name: 'TestQ4',
       component: TestQ4,
+      meta: { hideBottomNav: true },
+    },
+    {
+      path: '/q41',
+      name: 'TestQ41',
+      component: TestQ41,
       meta: { hideBottomNav: true },
     },
     {
