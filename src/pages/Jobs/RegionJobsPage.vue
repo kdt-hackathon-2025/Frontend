@@ -126,7 +126,7 @@ function handleApply() {
 </script>
 
 <template>
-  <div class="w-[375px] h-[812px] mx-auto bg-white">
+  <div class="w-[375px] h-[812px] mx-auto bg-white pb-20">
     <header class="text-[#FBFBFB] flex w-[375px] h-[76px] items-center">
       <div class="flex items-center justify-between sticky top-0 z-50">
         <BasicHeader type="icon" title="지역 · 일자리" />
@@ -159,7 +159,7 @@ function handleApply() {
     </header>
     <FilterModal v-model="isFilterOpen" @apply="handleApply" />
 
-    <main class="px-4 pb-8">
+    <main class="px-4">
       <section class="px-1 mt-3 map-naked">
         <GangwonMap v-model:selected="selectedRegion" :height="310" :offset-x="-10" />
       </section>

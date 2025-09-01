@@ -5,10 +5,10 @@ import mapSvg from '@/assets/10_전국지도_나눔.svg?raw'
 const props = defineProps({
   height: { type: Number, default: 360 },
   selected: { type: String, default: '' },
-  defaultFill: { type: String, default: '#E0FFD9' },
-  hoverFill: { type: String, default: '#CEFFC7' },
-  highlight: { type: String, default: '#10B981' },
-  stroke: { type: String, default: '#A2A2A2' },
+  defaultFill: { type: String, default: '#E5FEF4' },
+  hoverFill: { type: String, default: '#00C473' },
+  highlight: { type: String, default: '#00C473' },
+  stroke: { type: String, default: '#696969' },
 })
 
 const emit = defineEmits<{
