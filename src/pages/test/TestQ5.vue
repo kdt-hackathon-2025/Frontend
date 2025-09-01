@@ -1,5 +1,5 @@
 <template>
-  <div class="relative h-full">
+  <div class="bg-[#FBFBFB] relative h-full">
     <!-- 헤더: 로고 + 진행바 -->
     <header class="absolute inset-x-0 top-0 px-6 pt-[40px] flex flex-col items-center gap-3">
       <div class="w-[55px] h-[54px] shrink-0 [aspect-ratio:55/54]">
