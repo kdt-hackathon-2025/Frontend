@@ -437,7 +437,7 @@ const cancelFilter = () => (showFilter.value = false)
               </button>
 
               <button
-                class="w-[90px] h-[35px] rounded-md bg-gray-50 text-gray-700 text-[14px] font-semibold"
+                class="w-[90px] h-[35px] rounded-[10px] bg-white border border-[#E2E2E2] text-[#898989] text-[14px] font-semibold"
                 @click="cancelFilter"
               >
                 취소
