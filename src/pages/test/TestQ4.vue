@@ -1,7 +1,8 @@
+<!-- src/pages/TestQ4.vue -->
 <template>
-  <div class="bg-[#FBFBFB] relative h-full">
-    <!-- 헤더: 로고 + 진행바 -->
-    <header class="absolute inset-x-0 top-0 px-6 pt-[40px] flex flex-col items-center gap-3">
+  <div class="bg-[#FBFBFB] relative min-h-full">
+    <!-- 헤더 -->
+    <header class="absolute inset-x-0 top-0 px-6 pt-[40px] flex flex-col items-center gap-3 z-0">
       <div class="w-[55px] h-[54px] shrink-0 [aspect-ratio:55/54]">
         <img :src="logo" alt="logo" class="w-full h-full object-contain" />
       </div>
@@ -38,7 +39,7 @@
     </header>
 
     <!-- 본문 -->
-    <main class="px-6">
+    <main class="px-6 z-10">
       <div class="pt-[198px] text-center">
         <h2 class="text-[20px] font-semibold leading-[40px] text-[#1E1E1E]">
           Q10. 희망 직무를 선택하세요.
@@ -46,55 +47,53 @@
       </div>
 
       <section class="mt-6">
-        <!-- 초기: 추가 버튼만 표시 -->
+        <!-- 초기 -->
         <button
           v-if="view === 'idle'"
           type="button"
           class="w-full h-[56px] rounded-[12px] border border-[#E7E9EE] bg-white flex items-center justify-center gap-2 px-4 text-[#8A92A6]"
           @click="view = 'category'"
         >
-          <span class="grid place-items-center w-6 h-6 rounded-full border border-[#C8CDD7]">
-            ＋
-          </span>
+          <span class="grid place-items-center w-6 h-6 rounded-full border border-[#C8CDD7]"
+            >＋</span
+          >
           <span class="text-[16px] font-medium">희망 직무 추가하기</span>
         </button>
 
-        <!-- 대분류 리스트 -->
+        <!-- 대분류 -->
         <div
           v-else-if="view === 'category'"
-          class="mx-auto w-[321px] rounded-[10px] border border-[#E2E2E2] bg-white p-1"
+          class="mx-auto w-[321px] rounded-[10px] border border-[#E2E2E2] bg-white p-1 relative z-20"
         >
           <ul class="divide-y divide-[#E2E2E2]">
             <li v-for="name in categories" :key="name">
               <button
                 type="button"
-                class="w-full flex items-center justify-between py-1 px-2"
+                class="w-full flex items-center justify-between py-1 px-2 cursor-pointer"
                 @click="name === '전문·특수직' ? (view = 'special') : null"
               >
-                <span
-                  class="font-[Pretendard] text-[15px] font-normal leading-[30px] text-[#333] text-left"
-                >
-                  {{ name }}
-                </span>
+                <span class="font-[Pretendard] text-[15px] leading-[30px] text-[#333] text-left">{{
+                  name
+                }}</span>
                 <img :src="arrowDown" alt="" class="w-4 h-4 shrink-0 opacity-80" />
               </button>
             </li>
           </ul>
         </div>
 
-        <!-- 세부리스트 (전문·특수직) -->
+        <!-- 전문·특수직 세부 -->
         <div
           v-else-if="view === 'special'"
-          class="mx-auto w-[321px] rounded-[10px] border border-[#E2E2E2] bg-white p-1"
+          class="mx-auto w-[321px] rounded-[10px] border border-[#E2E2E2] bg-white p-1 relative z-20"
         >
           <ul class="divide-y divide-[#E2E2E2]">
-            <li v-for="name in specialities" :key="name">
+            <li v-for="item in specialities" :key="item.key">
               <button
                 type="button"
-                class="w-full text-left py-1 px-2 font-[Pretendard] text-[15px] font-normal leading-[30px] text-[#333]"
-                @click="onSelectSpecial(name)"
+                class="w-full text-left py-1 px-2 font-[Pretendard] text-[15px] leading-[30px] text-[#333] cursor-pointer"
+                @click="onSelectSpecial(item)"
               >
-                {{ name }}
+                {{ item.label }}
               </button>
             </li>
           </ul>
@@ -126,10 +125,11 @@
 <script setup>
 import logo from '@/assets/image/logo.png'
 import arrowDown from '@/assets/image/arrow_down.png'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
 const view = ref('idle')
 
@@ -148,28 +148,38 @@ const categories = [
   '전문·특수직',
 ]
 
+// 전문·특수직 항목을 객체로 정의
 const specialities = [
-  '리서치·시장조사',
-  '외국어·번역·통역',
-  '법률·특허·상표',
-  '회계·세무·CPA·CFA',
-  '보안·경비·경호',
-  '보건·의료',
-  '초·중·고 교사',
-  '교육개발·기획',
-  '외국어·자격증·기술강사',
-  '사회복지·요양보호·자원봉사',
-  '승무원·숙박 여행 서비스',
-  '음식 서비스',
+  { label: '리서치·시장조사', key: 'research' },
+  { label: '외국어·번역·통역', key: 'lang' },
+  { label: '법률·특허·상표', key: 'law' },
+  { label: '회계·세무·CPA·CFA', key: 'account' },
+  { label: '보안·경비·경호', key: 'security' },
+  { label: '보건·의료', key: 'medical' },
+  { label: '초·중·고 교사', key: 'teacher' },
+  { label: '교육개발·기획', key: 'edu-plan' },
+  { label: '외국어·자격증·기술강사', key: 'lecturer' },
+  { label: '사회복지·요양보호·자원봉사', key: 'welfare' },
+  { label: '승무원·숙박 여행 서비스', key: 'travel' },
+  { label: '음식 서비스', key: 'food' },
 ]
+
+// Q41에서 돌아왔을 때 바로 펼친 상태로
+onMounted(() => {
+  if (route.query.open === 'category') view.value = 'category'
+  if (route.query.focus === 'special') view.value = 'special'
+})
 
 const goNext = () => {
   router.push('/q5')
 }
 
-const onSelectSpecial = (name) => {
-  if (name === '초·중·고 교사') {
-    router.push('/q5') // TestQ5.vue
+// key 기반 라우팅
+const onSelectSpecial = (item) => {
+  if (item.key === 'teacher') {
+    router.push('/q41')
+  } else if (item.key === 'welfare') {
+    router.push('/q5')
   }
 }
 </script>
